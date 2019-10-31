@@ -17,6 +17,7 @@ export class App extends React.Component {
     I18n.init();
   }
   render(){
+
     let appHeader = "";
     let appContent = "";
 
@@ -37,6 +38,7 @@ export class App extends React.Component {
 
     return (
       <div id="container">
+        <h1>Puzzle</h1>
         <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
         {appHeader}
         {appContent}
