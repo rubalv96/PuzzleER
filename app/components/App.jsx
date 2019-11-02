@@ -9,7 +9,8 @@ import * as SAMPLES from '../config/samples.js';
 import SCORM from './SCORM.jsx';
 import Header from './Header.jsx';
 import FinishScreen from './FinishScreen.jsx';
-import Quiz from './Quiz.jsx';
+//import Quiz from './Quiz.jsx';
+import Puzzle from './Puzzle';
 
 export class App extends React.Component {
   constructor(props){
@@ -27,8 +28,17 @@ export class App extends React.Component {
       );
       if(this.props.wait_for_user_profile !== true){
         appContent = (
-          <Quiz dispatch={this.props.dispatch} user_profile={this.props.user_profile} tracking={this.props.tracking} quiz={SAMPLES.quiz_example} config={GLOBAL_CONFIG} I18n={I18n}/>
+
+
+
+            <Puzzle conf={GLOBAL_CONFIG}></Puzzle>
+
+
+
+
+         // <Quiz dispatch={this.props.dispatch} user_profile={this.props.user_profile} tracking={this.props.tracking} quiz={SAMPLES.quiz_example} config={GLOBAL_CONFIG} I18n={I18n}/>
         );
+
       }
     } else {
       appContent = (
@@ -39,9 +49,11 @@ export class App extends React.Component {
     return (
       <div id="container">
         <h1>Puzzle</h1>
+
         <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
         {appHeader}
         {appContent}
+
       </div>
     );
   }

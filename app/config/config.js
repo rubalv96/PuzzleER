@@ -1,5 +1,8 @@
 export let GLOBAL_CONFIG = {
   dev:{
+    imagen:"./assets/images/mono.jpg",
+    M:6,
+    N:6,
     debug:true,
     debug_scorm_api:false,
     debug_scorm_api_window:false,
@@ -12,8 +15,12 @@ export let GLOBAL_CONFIG = {
       score_threshold:0.6,
     },
     n:3,
+
   },
   production:{
+    imagen:"http://lorempixel.com/400/200",
+    M:1,
+    N:1,
     debug:false,
     debug_scorm_api:false,
     debug_scorm_api_window:false,
