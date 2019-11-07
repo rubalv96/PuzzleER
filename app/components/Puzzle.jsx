@@ -20,24 +20,30 @@ export default class Puzzle extends React.Component {
         }
 
         return (
-            <table>
-                {rows.map((row,ind)=>{
-                    return(
-                        <tr key={ind}>
-                            {columns.map((col,ind)=>{
-                            return(
-                            <Fragment key={ind}>
-                                <td >
-                                    <Piece row={row} column={col} conf={this.props.conf}></Piece>
-                                </td>
-                                </Fragment>
-                            )
-                        })}
-                        </tr>
-                    )
-                })}
+            <Fragment>
+                <table>
+                    {rows.map((row,ind)=>{
+                        return(
+                            <tr key={ind}>
+                                {columns.map((col,ind)=>{
+                                    return(
+                                        <Fragment key={ind}>
+                                            <td >
+                                                <Piece row={row} column={col} conf={this.props.conf}/>
+                                            </td>
+                                        </Fragment>
+                                    )
+                                })}
+                            </tr>
+                        )
+                    })}
 
-            </table>
+                </table>
+
+                <img src={this.props.conf.imagen} className="imagenCompleta"/>
+            </Fragment>
+
+
         )
     }
 }

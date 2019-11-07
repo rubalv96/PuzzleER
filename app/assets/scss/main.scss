@@ -10,15 +10,17 @@ body {
   position: relative;
 }
 
-.imagen2{
-  position:absolute;
-  left: -100%;
-  right: -100%;
-  top: -100%;
-  bottom: -100%;
+.imagen11{
+  position: absolute;
+  left: 0px;
+  right: 0px;
+  top: 100%;
+  bottom: 0px;
   margin: auto;
   min-height: 100%;
   min-width: 100%;
+  width: 700px;
+  height: 400px;
 }
 .imagenCompleta{
   width: 700px;
