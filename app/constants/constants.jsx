@@ -12,5 +12,6 @@ export const INITIAL_STATE = {
     learner_preference:{},
   },
   wait_for_user_profile:false,
-
+  piezas:{},
+  piezasSeleccionadas:[[-1, -1],[-1,-1]],
 };

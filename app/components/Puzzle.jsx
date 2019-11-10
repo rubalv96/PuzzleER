@@ -1,10 +1,11 @@
 import React from 'react';
 import {Fragment} from 'react';
 import Piece from "./Piece";
+
 export default class Puzzle extends React.Component {
     constructor(props){
         super(props);
-        this.aleatoriza=this.aleatoriza.bind(this);
+         this.aleatoriza=this.aleatoriza.bind(this);
     }
 
     aleatoriza(rowArray,colArray, arrayFinal){
@@ -30,8 +31,7 @@ export default class Puzzle extends React.Component {
             }
         }
     }
-    render(){
-        console.log("El puzzle es: " + this.props.puzzle)
+     render(){
         var rows= []; //rows=[1,2,3,4,5,...,N]
 
         for(var i=1; i<=this.props.conf.N; i++){
@@ -46,7 +46,26 @@ export default class Puzzle extends React.Component {
 
         var arrayFinal=[];
         this.aleatoriza(rows,columns,arrayFinal);
+        //Genero JSON
+        console.log("El length de arrayFinal es: " + arrayFinal.length);
+        puzzlePiezas=[];
+        var ri=0;
+        var ci=0;
+        for (var k=0; k<arrayFinal.length-1; k++) {
+             var puzzlePiezas = puzzlePiezas +" {\"posRow\": " + arrayFinal[k][0] + ", \"posCol\": " + arrayFinal[k][1] + ", \"row\": " + rows[ri] + ", \"column\": " + columns[ci] + "},";
+             ci ++;
+             if(ci === columns.length){
+                 ci=0;
+                 ri++;
+             }
+         }
+        var puzzleJSON = "[" + puzzlePiezas +" {\"posRow\": " + arrayFinal[arrayFinal.length-1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length-1][1] + ", \"row\": " + rows[rows.length-1] + ", \"column\": " + columns[columns.length-1] + "}" + "]";
+
+        console.log(puzzleJSON);
+        console.log("holaaaa" +puzzleJSON[0].row);
+
         console.log(arrayFinal);
+        console.log("cielo " + this.props.piezas[0].row);
         var l=-1;
         return (
             <Fragment>
@@ -60,11 +79,14 @@ export default class Puzzle extends React.Component {
                                         <Fragment key = {indC}>
                                             <td >
 
-                                                <Piece posRow={arrayFinal[l][0]}
-                                                       posCol= {arrayFinal[l][1]}
-                                                       row= {row}
-                                                       column= {col}
-                                                       conf= {this.props.conf}/>
+                                                <Piece posRow={this.props.piezas[l].posRow}
+                                                       posCol= {this.props.piezas[l].posCol}
+                                                       row= {this.props.piezas[l].row}
+                                                       column= {this.props.piezas[l].column}
+                                                       conf= {this.props.conf}
+                                                       seleccionarPieza={this.props.seleccionarPieza}
+                                                       piezasSeleccionadas={this.props.piezasSeleccionadas}
+                                                />
                                             </td>
                                         </Fragment>
                                     )
@@ -80,6 +102,7 @@ export default class Puzzle extends React.Component {
             </Fragment>
 
 
-        )
+       )
+         return;
     }
 }

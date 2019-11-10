@@ -11,18 +11,21 @@ import Header from './Header.jsx';
 import FinishScreen from './FinishScreen.jsx';
 //import Quiz from './Quiz.jsx';
 import Puzzle from './Puzzle';
+import {iniciarPuzzle, seleccionarPieza} from '../reducers/actions';
 
 export class App extends React.Component {
   constructor(props){
     super(props);
     I18n.init();
+    this.aleatoriza=this.aleatoriza.bind(this);
+    this.seleccionarPieza=this.seleccionarPieza.bind(this);
   }
   render(){
 
     let appHeader = "";
     let appContent = "";
 
-
+    console.log( this.props.piezasSeleccionadas);
 
     if((this.props.tracking.finished !== true) || (GLOBAL_CONFIG.finish_screen === false)){
       appHeader = (
@@ -32,7 +35,7 @@ export class App extends React.Component {
         appContent = (
 
 
-            <Puzzle puzzle={this.props.puzzle} conf={GLOBAL_CONFIG}></Puzzle>
+            <Puzzle piezasSeleccionadas= {this.props.piezasSeleccionadas} piezas={this.props.piezas} conf={GLOBAL_CONFIG} seleccionarPieza={this.seleccionarPieza}></Puzzle>
 
 
 
@@ -59,7 +62,81 @@ export class App extends React.Component {
       </div>
     );
   }
+
+  aleatoriza(rowArray,colArray, arrayFinal){
+
+
+    while(arrayFinal.length<(GLOBAL_CONFIG.N * GLOBAL_CONFIG.M)) {
+      var row= rowArray[Math.floor(Math.random()*GLOBAL_CONFIG.N)];
+      var col= colArray[Math.floor(Math.random()*GLOBAL_CONFIG.M)];
+      var array= [row,col];
+      var prueba=0;
+      if (arrayFinal.length === 0) {
+        arrayFinal.push(array);
+      } else {
+        for (var i = 0; i < arrayFinal.length; i++) {
+          if (JSON.stringify(arrayFinal[i])!=JSON.stringify(array)) {
+            prueba++;
+          }
+        }
+        if(prueba===arrayFinal.length){
+          arrayFinal.push(array);
+        }
+      }
+    }
+
+  }
+
+
+ componentDidMount(){
+    var rows= []; //rows=[1,2,3,4,5,...,N]
+
+    for(var i=1; i<=GLOBAL_CONFIG.N; i++){
+      rows.push(i);
+    }
+
+    var columns= []; //rows=[1,2,3,4,5,...,N]
+
+    for(var i=1; i<=GLOBAL_CONFIG.M; i++){
+      columns.push(i);
+    }
+
+    var arrayFinal=[];
+
+    this.aleatoriza(rows,columns,arrayFinal);
+    //Genero JSON
+    console.log("El length de arrayFinal es: " + arrayFinal.length);
+    puzzlePiezas=[];
+    var ri=0;
+    var ci=0;
+    for (var k=0; k<arrayFinal.length-1; k++) {
+      var puzzlePiezas = puzzlePiezas +" {\"posRow\": " + arrayFinal[k][0] + ", \"posCol\": " + arrayFinal[k][1] + ", \"row\": " + rows[ri] + ", \"column\": " + columns[ci] + "},";
+      ci ++;
+      if(ci === columns.length){
+        ci=0;
+        ri++;
+      }
+    }
+    var puzzleJSON = "[" + puzzlePiezas +" {\"posRow\": " + arrayFinal[arrayFinal.length-1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length-1][1] + ", \"row\": " + rows[rows.length-1] + ", \"column\": " + columns[columns.length-1] + "}" + "]";
+    //acción de inicialización y le paso como parámetro puzzleJSON
+
+    var puzzle=JSON.parse(puzzleJSON);
+
+   console.log(puzzleJSON);
+
+   this.props.dispatch(iniciarPuzzle(puzzle));
+
+  }
+
+  seleccionarPieza(row, column){
+      console.log("Ejecuto seleccionar pieza!")
+      this.props.dispatch(seleccionarPieza(row,column));
+      console.log(this.props.piezasSeleccionadas);
+  }
+
+
 }
+
 
 function mapStateToProps(state){
   return state;

@@ -61,4 +61,22 @@ export function finishApp(finished = true){
     type:'FINISH_APP',
     finished:finished,
   };
+
+}
+
+export function iniciarPuzzle(piezasJSON) {
+  return{
+    type:'INICIAR_PUZZLE',
+    piezas: piezasJSON
+  }
+}
+
+export function seleccionarPieza(row,col) {
+  return{
+    type: 'SELECCIONAR_PIEZA',
+    payload: {
+      row: row,
+      col: col
+    }
+  }
 }

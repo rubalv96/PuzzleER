@@ -19,7 +19,7 @@ export default class Piece extends React.Component{
 
         return (
             <Fragment>
-               {/*<p>Pieza {this.props.row}.{this.props.column}</p>*/}
+             {/*<p>Pieza {this.props.row}.{this.props.column}</p>*/}
                 <div
                     // className="piezaCont"
                     src={this.props.conf.imagen}
@@ -44,8 +44,12 @@ export default class Piece extends React.Component{
                              height: "400px"
                          }}
                          src={this.props.conf.imagen}
-                        onClick={()=>{console.log("Has clickado en la pieza " + this.props.row+this.props.column+
-                        " que corresponde a las pos: " + this.props.posRow + this.props.posCol)}}
+                        onClick={()=>{
+                            console.log("Has clickado en la pieza " + this.props.row+this.props.column+
+                        " que corresponde a las pos: " + this.props.posRow + this.props.posCol);
+                            this.props.seleccionarPieza(this.props.row,this.props.column);
+
+                        }}
                     />
                 </div>
             </Fragment>
