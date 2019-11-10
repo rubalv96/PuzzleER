@@ -22,6 +22,8 @@ export class App extends React.Component {
     let appHeader = "";
     let appContent = "";
 
+
+
     if((this.props.tracking.finished !== true) || (GLOBAL_CONFIG.finish_screen === false)){
       appHeader = (
         <Header user_profile={this.props.user_profile} tracking={this.props.tracking} config={GLOBAL_CONFIG} I18n={I18n}/>
@@ -30,14 +32,13 @@ export class App extends React.Component {
         appContent = (
 
 
-
-            <Puzzle conf={GLOBAL_CONFIG}></Puzzle>
+            <Puzzle puzzle={this.props.puzzle} conf={GLOBAL_CONFIG}></Puzzle>
 
 
 
 
          // <Quiz dispatch={this.props.dispatch} user_profile={this.props.user_profile} tracking={this.props.tracking} quiz={SAMPLES.quiz_example} config={GLOBAL_CONFIG} I18n={I18n}/>
-        );
+        )
 
       }
     } else {
@@ -46,8 +47,9 @@ export class App extends React.Component {
       );
     }
 
-    return (
-      <div id="container">
+    return(
+
+    <div id="container">
         <h1>Puzzle</h1>
 
         <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>

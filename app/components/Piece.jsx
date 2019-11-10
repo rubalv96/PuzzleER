@@ -12,8 +12,8 @@ export default class Piece extends React.Component{
 
 
         //Calculo de las posiciones de las fotos
-        var top= -((this.props.row -1)* altoImg/this.props.conf.N)+"px" ;
-        var left = -((this.props.column-1)*anchoImg/this.props.conf.M)+"px";
+        var top= -((this.props.posRow -1)* altoImg/this.props.conf.N)+"px" ;
+        var left = -((this.props.posCol-1)*anchoImg/this.props.conf.M)+"px";
 
 
 
@@ -43,7 +43,10 @@ export default class Piece extends React.Component{
                              width: "700px",
                              height: "400px"
                          }}
-                         src={this.props.conf.imagen} />
+                         src={this.props.conf.imagen}
+                        onClick={()=>{console.log("Has clickado en la pieza " + this.props.row+this.props.column+
+                        " que corresponde a las pos: " + this.props.posRow + this.props.posCol)}}
+                    />
                 </div>
             </Fragment>
 

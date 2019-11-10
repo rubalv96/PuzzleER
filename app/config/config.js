@@ -2,7 +2,7 @@ export let GLOBAL_CONFIG = {
   dev:{
     imagen:"./assets/images/mono.jpg",
     M:5,
-    N:15,
+    N:7,
     debug:true,
     debug_scorm_api:false,
     debug_scorm_api_window:false,
