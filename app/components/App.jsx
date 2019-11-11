@@ -11,7 +11,7 @@ import Header from './Header.jsx';
 import FinishScreen from './FinishScreen.jsx';
 //import Quiz from './Quiz.jsx';
 import Puzzle from './Puzzle';
-import {iniciarPuzzle, seleccionarPieza} from '../reducers/actions';
+import {iniciarPuzzle, seleccionarPieza, intercambiarPiezas} from '../reducers/actions';
 
 export class App extends React.Component {
   constructor(props){
@@ -19,9 +19,11 @@ export class App extends React.Component {
     I18n.init();
     this.aleatoriza=this.aleatoriza.bind(this);
     this.seleccionarPieza=this.seleccionarPieza.bind(this);
+    this.iniciarPuzzle=this.iniciarPuzzle.bind(this);
+    this.iniciarPuzzle();
+
   }
   render(){
-
     let appHeader = "";
     let appContent = "";
 
@@ -88,7 +90,7 @@ export class App extends React.Component {
   }
 
 
- componentDidMount(){
+ iniciarPuzzle(){
     var rows= []; //rows=[1,2,3,4,5,...,N]
 
     for(var i=1; i<=GLOBAL_CONFIG.N; i++){
@@ -105,7 +107,6 @@ export class App extends React.Component {
 
     this.aleatoriza(rows,columns,arrayFinal);
     //Genero JSON
-    console.log("El length de arrayFinal es: " + arrayFinal.length);
     puzzlePiezas=[];
     var ri=0;
     var ci=0;
@@ -122,9 +123,9 @@ export class App extends React.Component {
 
     var puzzle=JSON.parse(puzzleJSON);
 
-   console.log(puzzleJSON);
 
    this.props.dispatch(iniciarPuzzle(puzzle));
+
 
   }
 
@@ -132,6 +133,11 @@ export class App extends React.Component {
       console.log("Ejecuto seleccionar pieza!")
       this.props.dispatch(seleccionarPieza(row,column));
       console.log(this.props.piezasSeleccionadas);
+      //Si hay dos piezas seleccionadas hago el dispatch de intercambiar
+      if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
+          this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
+          console.log("FINAL2: "+ this.props.piezas[0].posRow);
+      }
   }
 
 

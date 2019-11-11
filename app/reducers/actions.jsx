@@ -80,3 +80,15 @@ export function seleccionarPieza(row,col) {
     }
   }
 }
+
+export function intercambiarPiezas(piezasSeleccionadas) {
+  return{
+    type: 'INTERCAMBIAR_PIEZAS',
+    payload:{
+      row1: piezasSeleccionadas[0][0],
+      col1: piezasSeleccionadas[0][1],
+      row2: piezasSeleccionadas[1][0],
+      col2: piezasSeleccionadas[1][1]
+    }
+  }
+}

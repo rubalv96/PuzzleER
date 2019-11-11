@@ -1,8 +1,7 @@
 function seleccionarPiezasReducer(state = [], action){
     switch (action.type){
         case 'SELECCIONAR_PIEZA':
-            var estado =state;
-            console.log("PEPEEPEPEPPE" + estado[0][0])
+            var estado = Object.assign([], state);
             if(estado[0][0]===-1){
                 estado[0][0] = action.payload.row;
                 estado[0][1] = action.payload.col;

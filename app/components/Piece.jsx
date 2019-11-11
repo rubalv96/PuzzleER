@@ -19,7 +19,7 @@ export default class Piece extends React.Component{
 
         return (
             <Fragment>
-             {/*<p>Pieza {this.props.row}.{this.props.column}</p>*/}
+             {/*<p>Pieza {this.props.posRow}.{this.props.posCol}</p>*/}
                 <div
                     // className="piezaCont"
                     src={this.props.conf.imagen}
