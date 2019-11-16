@@ -8,7 +8,7 @@ function seleccionarPiezasReducer(state = [], action){
                 return estado;
             }
 
-            if(estado[0][0] !== -1 && estado[1][0]!==-1){
+            if(estado[0][0] !== -1 && estado[1][0] !==-1){
                 estado[0][0]=action.payload.row;
                 estado[0][1]=action.payload.col;
                 estado[1][0]=-1;

@@ -1,8 +1,10 @@
 export let GLOBAL_CONFIG = {
   dev:{
-    imagen:"./assets/images/egipto.jpg",
-    M:2,
-    N:4,
+    image:"./assets/images/egipto.jpg",
+    M:1,
+    N:6,
+    initialMessage: "",
+    endMessage:"",
     debug:true,
     debug_scorm_api:false,
     debug_scorm_api_window:false,
@@ -18,7 +20,7 @@ export let GLOBAL_CONFIG = {
 
   },
   production:{
-    imagen:"http://lorempixel.com/400/200",
+    image:"http://lorempixel.com/400/200",
     M:1,
     N:1,
     debug:false,

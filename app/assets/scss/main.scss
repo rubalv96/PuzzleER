@@ -2,12 +2,8 @@ body {
   background-color: white;
 }
 
-.piezaCont{
-  width: 200px;
-  height: 200px;
-  overflow: hidden;
-  margin: 10px;
-  position: relative;
+.imgPieza:hover{
+  border-style: groove;
 }
 
 .imagen11{
