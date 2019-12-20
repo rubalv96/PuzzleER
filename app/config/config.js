@@ -1,8 +1,8 @@
 export let GLOBAL_CONFIG = {
   dev:{
     image:"./assets/images/egipto.jpg",
-    M:1,
-    N:6,
+    M:2,
+    N:2,
     initialMessage: "",
     endMessage:"",
     debug:true,

@@ -8,7 +8,7 @@ import * as SAMPLES from '../config/samples.js';
 
 import SCORM from './SCORM.jsx';
 import Header from './Header.jsx';
-import FinishScreen from './FinishScreen.jsx';
+//import FinishScreen from './FinishScreen.jsx';
 import Puzzle from './Puzzle';
 import {iniciarPuzzle, seleccionarPieza, intercambiarPiezas} from '../reducers/actions';
 
@@ -45,11 +45,11 @@ export class App extends React.Component {
       }
     }
     else {
-      appContent = (
-        <FinishScreen dispatch={this.props.dispatch} user_profile={this.props.user_profile}
-          tracking={this.props.tracking} quiz={SAMPLES.quiz_example} config={GLOBAL_CONFIG}
-          I18n={I18n}/>
-      );
+      // appContent = (
+      //   <FinishScreen dispatch={this.props.dispatch} user_profile={this.props.user_profile}
+      //     tracking={this.props.tracking} quiz={SAMPLES.quiz_example} config={GLOBAL_CONFIG}
+      //     I18n={I18n}/>
+      // );
     }
 
     return (
