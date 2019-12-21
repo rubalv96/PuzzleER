@@ -1,5 +1,6 @@
 import React, {Fragment} from 'react';
 import '../assets/scss/main.scss';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Piece extends React.Component {
     render(){
