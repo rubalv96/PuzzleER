@@ -1,9 +1,10 @@
 export let GLOBAL_CONFIG = {
   dev:{
     image:"./assets/images/egipto.jpg",
-    M:1,
-    N:3,
-    initialMessage: "",
+    M:8,
+    N:12,
+    initialMessage: "Mi mensaje",
+    initialImage:"",
     endMessage:"",
     debug:true,
     debug_scorm_api:false,

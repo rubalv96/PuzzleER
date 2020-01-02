@@ -11,6 +11,7 @@ import SCORM from './SCORM.jsx';
 //import FinishScreen from './FinishScreen.jsx';
 import Puzzle from './Puzzle';
 import {iniciarPuzzle, seleccionarPieza, intercambiarPiezas} from '../reducers/actions';
+import MensajeInicial from './MensajeInicial';
 
 export class App extends React.Component {
   constructor(props) {
@@ -93,13 +94,13 @@ export class App extends React.Component {
     let rows = []; // rows=[1,2,3,4,5,...,N]
 
     for (let i = 1; i <= GLOBAL_CONFIG.N; i++) {
-      rows.push(i);
+      rows.push(i); // rows=[1,2,3,4,5,...,N]
     }
 
-    let columns = []; // columns=[1,2,3,4,5,...,N]
+    let columns = []; // columns=[1,2,3,4,5,...,M]
 
     for (let i = 1; i <= GLOBAL_CONFIG.M; i++) {
-      columns.push(i);
+      columns.push(i); // columns=[1,2,3,4,5,...,M]
     }
 
     let arrayFinal = [];
@@ -122,8 +123,7 @@ export class App extends React.Component {
 
   };
 
-  seleccionarPieza(row, column) {
-
+  seleccionarPieza(row, column){
 
     this.props.dispatch(seleccionarPieza(row, column));
 
@@ -133,36 +133,25 @@ export class App extends React.Component {
 
     }
 
-  };
+    // Comprueba si he completado el puzzle
+    var puzzle = this.props.piezas;
+    var estado ="si";
 
+    for(let i = 0; i < GLOBAL_CONFIG.M * GLOBAL_CONFIG.N; i++){
+      if(!(puzzle[i].posRow === puzzle[i].row && puzzle[i].posCol === puzzle[i].column)){
+        estado = "no";
+      }
+    }
+
+    if(estado === "si"){
+      console.log("Puzzle completo");
+    }
+
+  }
 }
 
 function mapStateToProps(state){
   return state;
 };
-
-function MensajeInicial() {
-  const [show, setShow] = useState(true);
-
-  const handleClose = () => setShow(false);
-
-  return (
-      <>
-
-        <Modal show={show} onHide={handleClose} animation={false}>
-          <Modal.Header closeButton>
-            <Modal.Title>Resuelve el puzzle</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>Selecciona cada pieza para ordenarla y completar el puzzle.</Modal.Body>
-          <Modal.Footer>
-
-            <Button variant="primary" onClick={handleClose}>
-              ¡Jugar!
-            </Button>
-          </Modal.Footer>
-        </Modal>
-      </>
-  );
-  }
 
 export default connect(mapStateToProps)(App);

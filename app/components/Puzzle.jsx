@@ -24,7 +24,7 @@ export default class Puzzle extends React.Component {
     return (
 
       <Fragment>
-        <table style={{border: "3px purple solid", borderRadius:"3px", borderCollapse: "collapse"}}>
+        <table cellSpacing={0} cellPadding={0} style={{border:"3px purple solid", borderRadius:"3px", borderCollapse:"collapse", margin:"auto"}}>
           {rows.map((row, ind) => {
             return (
               <tr key={ind}>
@@ -41,6 +41,7 @@ export default class Puzzle extends React.Component {
                           conf={this.props.conf}
                           seleccionarPieza={this.props.seleccionarPieza}
                           piezasSeleccionadas={this.props.piezasSeleccionadas}
+
                         />
                       </td>
                     </Fragment>);

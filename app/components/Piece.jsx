@@ -3,8 +3,9 @@ import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class Piece extends React.Component {
-    render(){
 
+    render(){
+        //Dimensiones del puzzle
         let altoImg = 400;
         let anchoImg = 700;
 
@@ -36,9 +37,10 @@ export default class Piece extends React.Component {
         }
         console.log("PiezaSeleccionada: (" + rowSelec1 + "," + colSelec1 + "), (" + rowSelec2 + ", " + colSelec2 + ")");
 
+
         return (
             <Fragment>
-                {/* <p>Pieza {this.props.posRow}.{this.props.posCol}</p>*/}
+                {/*Contenedor de la pieza*/}
                 <div
                     style={{
                         width:anchoContenedor + "px",
@@ -46,19 +48,19 @@ export default class Piece extends React.Component {
                         overflow:"hidden",
                         position:"relative",
                         border:borde,
-                        borderRadius:"5px",
+                        borderRadius:"0px",
 
                     }}
                 >
+                    {/*Imagen de la pieza*/}
                     <img
-                        // className="imgPieza"
                         style={{
                             position:"absolute",
                             left:left,
                             top:top,
                             margin:"auto",
-                            minHeight:"100%",
-                            minWidth:"100%",
+                            //minHeight:"100%",
+                            //minWidth:"100%",
                             width:anchoImg,
                             height:altoImg,
                         }}
