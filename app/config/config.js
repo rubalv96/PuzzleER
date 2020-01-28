@@ -1,11 +1,13 @@
 export let GLOBAL_CONFIG = {
   dev:{
-    image:"./assets/images/egipto.jpg",
-    M:8,
-    N:12,
-    initialMessage: "Mi mensaje",
+    image1:"./assets/images/egipto.jpg",
+    image2:"./assets/images/mono.jpg",
+    M:3,
+    N:3,
+    initialMessage: "Ánimo, completa el puzzle lo antes posible.",
     initialImage:"",
-    endMessage:"",
+    endMessage:"Enhorabuena has finalizado el puzzle.",
+    endImage:"",
     debug:true,
     debug_scorm_api:false,
     debug_scorm_api_window:false,

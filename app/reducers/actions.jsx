@@ -92,3 +92,9 @@ export function intercambiarPiezas(piezasSeleccionadas) {
     }
   }
 }
+
+export function puzzleCompleto() {
+  return{
+    type: 'PUZZLE_COMPLETO',
+  }
+}

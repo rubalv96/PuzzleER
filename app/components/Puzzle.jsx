@@ -9,7 +9,7 @@ export default class Puzzle extends React.Component {
   }
 
   render(){
-
+  console.log("Num puzzle" +this.props.numPuzzle);
     let rows = []; // rows=[1,2,3,4,5,...,N]
     for(let i = 1; i <= this.props.conf.N; i++){
       rows.push(i);
@@ -24,7 +24,7 @@ export default class Puzzle extends React.Component {
     return (
 
       <Fragment>
-        <table cellSpacing={0} cellPadding={0} style={{border:"3px purple solid", borderRadius:"3px", borderCollapse:"collapse", margin:"auto"}}>
+        <table cellSpacing={0} cellPadding={0} style={{clear:"both", border:"3px purple solid", borderRadius:"3px", borderCollapse:"collapse", margin:"auto"}}>
           {rows.map((row, ind) => {
             return (
               <tr key={ind}>
@@ -41,6 +41,7 @@ export default class Puzzle extends React.Component {
                           conf={this.props.conf}
                           seleccionarPieza={this.props.seleccionarPieza}
                           piezasSeleccionadas={this.props.piezasSeleccionadas}
+                          numPuzzle={this.props.numPuzzle}
 
                         />
                       </td>
@@ -50,7 +51,7 @@ export default class Puzzle extends React.Component {
               </tr>);
           })}
         </table>
-        <img src={this.props.conf.image} className="imagenCompleta" alt="Imagen del puzzle completada"/>
+        {/*<img src={this.props.conf.image} className="imagenCompleta" alt="Imagen del puzzle completada"/>*/}
       </Fragment>
     );
   }

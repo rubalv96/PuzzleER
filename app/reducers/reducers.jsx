@@ -5,6 +5,7 @@ import userProfileReducer from './userProfileReducer';
 import waitForUserProfileReducer from './waitForUserProfileReducer';
 import piezasReducer from "./piezasReducer";
 import seleccionarPiezasReducer from "./seleccionarPiezasReducer";
+import puzzleCompletoReducer from "./puzzleCompletoReducer";
 const GlobalState = combineReducers({
   tracking:trackingReducer,
   scorm:scormReducer,
@@ -12,6 +13,7 @@ const GlobalState = combineReducers({
   wait_for_user_profile:waitForUserProfileReducer,
   piezas: piezasReducer,
   piezasSeleccionadas: seleccionarPiezasReducer,
+  puzzleCompleto: puzzleCompletoReducer,
 });
 
 export default GlobalState;

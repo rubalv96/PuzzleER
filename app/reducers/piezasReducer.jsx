@@ -16,23 +16,18 @@ function piezasReducer(state = [], action){
                 }
                 console.log(piezas[l].row);
             }
-            console.log("ind1 es: "+ ind1);
-            console.log("ind2 es: "+ ind2);
+
             var posRow1 = piezas[ind1].posRow;
             var posRow2 = piezas[ind2].posRow;
 
             var posCol1 = piezas[ind1].posCol;
             var posCol2 = piezas[ind2].posCol;
-            console.log("ANTES posrow : " +piezas[ind1].posRow )
 
             piezas[ind1].posRow = posRow2;
             piezas[ind2].posRow = posRow1;
             piezas[ind1].posCol = posCol2;
             piezas[ind2].posCol = posCol1;
-            console.log("DESPUÉS posrow : " +piezas[ind1].posRow )
 
-            console.log("FINAL!");
-            console.log(piezas);
             return piezas;
 
 
