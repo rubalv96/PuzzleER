@@ -64,37 +64,54 @@ export function finishApp(finished = true){
 
 }
 
-export function iniciarPuzzle(piezasJSON) {
-  return{
+export function iniciarPuzzle(piezasJSON){
+  return {
     type:'INICIAR_PUZZLE',
-    piezas: piezasJSON
-  }
+    piezas:piezasJSON,
+  };
 }
 
-export function seleccionarPieza(row,col) {
-  return{
-    type: 'SELECCIONAR_PIEZA',
-    payload: {
-      row: row,
-      col: col
-    }
-  }
-}
-
-export function intercambiarPiezas(piezasSeleccionadas) {
-  return{
-    type: 'INTERCAMBIAR_PIEZAS',
+export function seleccionarPieza(row, col){
+  return {
+    type:'SELECCIONAR_PIEZA',
     payload:{
-      row1: piezasSeleccionadas[0][0],
-      col1: piezasSeleccionadas[0][1],
-      row2: piezasSeleccionadas[1][0],
-      col2: piezasSeleccionadas[1][1]
-    }
-  }
+      row:row,
+      col:col,
+    },
+  };
 }
 
-export function puzzleCompleto() {
-  return{
-    type: 'PUZZLE_COMPLETO',
-  }
+export function intercambiarPiezas(piezasSeleccionadas){
+  return {
+    type:'INTERCAMBIAR_PIEZAS',
+    payload:{
+      row1:piezasSeleccionadas[0][0],
+      col1:piezasSeleccionadas[0][1],
+      row2:piezasSeleccionadas[1][0],
+      col2:piezasSeleccionadas[1][1],
+    },
+  };
+}
+
+export function puzzleCompleto(){
+  return {
+    type:'PUZZLE_COMPLETO',
+  };
+}
+
+export function darVuelta(row, col){
+  return {
+    type:'DAR_VUELTA',
+    payload:{
+      row:row,
+      col:col,
+    },
+  };
+}
+
+export function darVueltaTodas(){
+  return {
+    type:'DAR_VUELTA_TODAS',
+
+  };
 }

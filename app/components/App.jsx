@@ -9,7 +9,7 @@ import SCORM from './SCORM.jsx';
 // import Header from './Header.jsx';
 // import FinishScreen from './FinishScreen.jsx';
 import Puzzle from './Puzzle';
-import {iniciarPuzzle, seleccionarPieza, intercambiarPiezas, puzzleCompleto} from '../reducers/actions';
+import {iniciarPuzzle, seleccionarPieza, intercambiarPiezas, puzzleCompleto, darVuelta, darVueltaTodas} from '../reducers/actions';
 import MensajeInicial from './MensajeInicial';
 import MensajeFinal from "./MensajeFinal";
 
@@ -19,9 +19,9 @@ export class App extends React.Component {
     I18n.init();
     this.aleatoriza = this.aleatoriza.bind(this);
     this.seleccionarPieza = this.seleccionarPieza.bind(this);
+    this.darVuelta = this.darVuelta.bind(this);
     this.iniciarPuzzle = this.iniciarPuzzle.bind(this);
     this.toggle = this.toggle.bind(this);
-    this.state = {numPuzzle : 1};
     this.iniciarPuzzle();
   }
 
@@ -30,8 +30,6 @@ export class App extends React.Component {
     let appContent = "";
     // Variable para mostrar mensaje final si se ha completado
     let appEndMsg = "";
-
-    let numPuzzle = "";
 
     // if((this.props.tracking.finished !== true) || (GLOBAL_CONFIG.finish_screen === false)){
     //   appHeader = (
@@ -44,18 +42,17 @@ export class App extends React.Component {
       appContent = (
         <>
 
-
           <Puzzle
             piezasSeleccionadas={this.props.piezasSeleccionadas}
             piezas={this.props.piezas}
             conf={GLOBAL_CONFIG}
             seleccionarPieza={this.seleccionarPieza}
-            numPuzzle = {this.state.numPuzzle}
+            darVuelta = {this.darVuelta}
           />
           <div className="cont">
             <label className="switch" >
               <input type="checkbox" onClick={this.toggle}/>
-              <span className="slider round"></span>
+              <span className="slider round" />
             </label>
           </div>
         </>
@@ -136,19 +133,23 @@ export class App extends React.Component {
       // los parámetros row y column indican la posición donde se encuentran las piezas
       // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
 
-      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[k][0] + ", \"posCol\": " + arrayFinal[k][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + "},";
+      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[k][0] + ", \"posCol\": " + arrayFinal[k][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + "},";
       columnIndex++;
       if(columnIndex === columns.length){
         columnIndex = 0;
         rowIndex++;
       }
     }
-    let puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + "}" + "]";
+    let puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + "}" + "]";
     let puzzle = JSON.parse(puzzleJSON);
     this.props.dispatch(iniciarPuzzle(puzzle));
 
   }
 
+  darVuelta(row, col){
+    console.log("DAR VUELTA! CON ROW" + row);
+    this.props.dispatch(darVuelta(row, col));
+  }
   seleccionarPieza(row, column){
 
     this.props.dispatch(seleccionarPieza(row, column));
@@ -176,18 +177,12 @@ export class App extends React.Component {
   }
 
   toggle(){
-    if(this.state.numPuzzle == 1){
-      this.setState({
-        numPuzzle : 2
-      })
-    }
-    else{
-      this.setState({
-        numPuzzle : 1
-      })
-    }
+    this.props.dispatch(darVueltaTodas());
 
   }
+
+
+
 }
 
 function mapStateToProps(state){

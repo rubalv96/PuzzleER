@@ -31,6 +31,7 @@ function seleccionarPiezasReducer(state = [], action){
             }
 
 
+
         default:
             return state;
     }

@@ -57,6 +57,11 @@ export default class Piece extends React.Component {
                     " que corresponde a las pos: " + this.props.posRow + this.props.posCol);
 
             }}
+
+            onDoubleClick={()=>{
+                //Acción que cambia la imagen de la pieza
+                this.props.darVuelta(this.props.row, this.props.column);
+            }}
         />
     );
     return (

@@ -41,7 +41,8 @@ export default class Puzzle extends React.Component {
                           conf={this.props.conf}
                           seleccionarPieza={this.props.seleccionarPieza}
                           piezasSeleccionadas={this.props.piezasSeleccionadas}
-                          numPuzzle={this.props.numPuzzle}
+                          numPuzzle={this.props.piezas[l].numPuzzle}
+                          darVuelta = {this.props.darVuelta}
 
                         />
                       </td>
