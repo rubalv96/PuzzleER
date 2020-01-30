@@ -9,7 +9,14 @@ import SCORM from './SCORM.jsx';
 // import Header from './Header.jsx';
 // import FinishScreen from './FinishScreen.jsx';
 import Puzzle from './Puzzle';
-import {iniciarPuzzle, seleccionarPieza, intercambiarPiezas, puzzleCompleto, darVuelta, darVueltaTodas} from '../reducers/actions';
+import {
+  iniciarPuzzle,
+  seleccionarPieza,
+  intercambiarPiezas,
+  darVuelta,
+  darVueltaTodas,
+  comprobarCompletado,
+} from '../reducers/actions';
 import MensajeInicial from './MensajeInicial';
 import MensajeFinal from "./MensajeFinal";
 
@@ -85,6 +92,7 @@ export class App extends React.Component {
     );
   }
 
+  //Función para aleatorizar las posiciones y las imágenes para que no se repitan y sean acordes a las dimensiones
   aleatoriza(rowArray, colArray, arrayFinal){
 
     while(arrayFinal.length < (GLOBAL_CONFIG.N * GLOBAL_CONFIG.M)){
@@ -109,6 +117,7 @@ export class App extends React.Component {
 
   }
 
+  //Carga el inicio del puzzle
   iniciarPuzzle(){
     let rows = []; // rows=[1,2,3,4,5,...,N]
 
@@ -140,16 +149,20 @@ export class App extends React.Component {
         rowIndex++;
       }
     }
-    let puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + "}" + "]";
+    let puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + "}]";
     let puzzle = JSON.parse(puzzleJSON);
     this.props.dispatch(iniciarPuzzle(puzzle));
 
   }
 
+  //Darle la vuelta a una pieza
   darVuelta(row, col){
-    console.log("DAR VUELTA! CON ROW" + row);
     this.props.dispatch(darVuelta(row, col));
+    this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
+
   }
+
+  //Selección de una de las piezas
   seleccionarPieza(row, column){
 
     this.props.dispatch(seleccionarPieza(row, column));
@@ -157,31 +170,17 @@ export class App extends React.Component {
     // Si hay dos piezas seleccionadas se lanza el dispatch de intercambiar
     if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
       this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
-
-    }
-
-    // Comprueba si se ha completado el puzzle
-    let puzzle = this.props.piezas;
-    let completado = "si";
-
-    for(let i = 0; i < GLOBAL_CONFIG.M * GLOBAL_CONFIG.N; i++){
-      if(!(puzzle[i].posRow === puzzle[i].row && puzzle[i].posCol === puzzle[i].column)){
-        completado = "no";
-      }
-    }
-
-    if(completado === "si"){
-      this.props.dispatch(puzzleCompleto());
+      this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
     }
 
   }
 
+  //Dar vuelta a todas las piezas
   toggle(){
     this.props.dispatch(darVueltaTodas());
+    this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
 
   }
-
-
 
 }
 

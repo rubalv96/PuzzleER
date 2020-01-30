@@ -93,11 +93,6 @@ export function intercambiarPiezas(piezasSeleccionadas){
   };
 }
 
-export function puzzleCompleto(){
-  return {
-    type:'PUZZLE_COMPLETO',
-  };
-}
 
 export function darVuelta(row, col){
   return {
@@ -109,9 +104,20 @@ export function darVuelta(row, col){
   };
 }
 
-export function darVueltaTodas(){
+export function darVueltaTodas() {
   return {
-    type:'DAR_VUELTA_TODAS',
+    type: 'DAR_VUELTA_TODAS',
 
+  };
+}
+
+export function comprobarCompletado(piezas, N, M){
+  return {
+    type:'COMPROBAR_COMPLETADO',
+    payload:{
+      piezas:piezas,
+      N:N,
+      M:M
+    },
   };
 }

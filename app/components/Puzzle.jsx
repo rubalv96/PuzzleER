@@ -9,7 +9,7 @@ export default class Puzzle extends React.Component {
   }
 
   render(){
-  console.log("Num puzzle" +this.props.numPuzzle);
+  console.log("Num puzzle" +this.props.piezas[0].numPuzzle);
     let rows = []; // rows=[1,2,3,4,5,...,N]
     for(let i = 1; i <= this.props.conf.N; i++){
       rows.push(i);
