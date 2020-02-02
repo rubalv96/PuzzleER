@@ -25,6 +25,8 @@ export class App extends React.Component {
     super(props);
     I18n.init();
     this.aleatoriza = this.aleatoriza.bind(this);
+    this.aleatoriza2 = this.aleatoriza2.bind(this);
+    this.aleatorizaTrueFalse = this.aleatorizaTrueFalse.bind(this);
     this.seleccionarPieza = this.seleccionarPieza.bind(this);
     this.darVuelta = this.darVuelta.bind(this);
     this.iniciarPuzzle = this.iniciarPuzzle.bind(this);
@@ -47,22 +49,18 @@ export class App extends React.Component {
     //       I18n={I18n}/>);
     if(this.props.wait_for_user_profile !== true){
       appContent = (
-        <>
+          <>
 
-          <Puzzle
-            piezasSeleccionadas={this.props.piezasSeleccionadas}
-            piezas={this.props.piezas}
-            conf={GLOBAL_CONFIG}
-            seleccionarPieza={this.seleccionarPieza}
-            darVuelta = {this.darVuelta}
-          />
-          <div className="cont">
-            <label className="switch" >
-              <input type="checkbox" onClick={this.toggle}/>
-              <span className="slider round" />
-            </label>
-          </div>
-        </>
+            <Puzzle
+                piezasSeleccionadas={this.props.piezasSeleccionadas}
+                piezas={this.props.piezas}
+                conf={GLOBAL_CONFIG}
+                seleccionarPieza={this.seleccionarPieza}
+                darVuelta = {this.darVuelta}
+                toggle = {this.toggle}
+            />
+
+          </>
       );
 
     }
@@ -75,24 +73,29 @@ export class App extends React.Component {
     //   // );
     // }
 
-    if(this.props.puzzleCompleto){
+    if(this.props.puzzleCompleto && GLOBAL_CONFIG.endMessage !== ""){
       appEndMsg = (<MensajeFinal/>);
     }
+    let appInitialMsg;
+    if(GLOBAL_CONFIG.initialMessage !== ""){
+      appInitialMsg = (<MensajeInicial/>);
+    }
+
 
     return (
-      <div id="container">
-        <h1 className="title">Generador de Puzzles</h1>
-        <MensajeInicial/>
-        {appEndMsg}
-        <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
-        {/* {appHeader}*/}
-        {appContent}
+        <div id="container">
+          <h1 className="title">Generador de Puzzles</h1>
+          {appInitialMsg}
+          {appEndMsg}
+          <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
+          {/* {appHeader}*/}
+          {appContent}
 
-      </div>
+        </div>
     );
   }
 
-  //Función para aleatorizar las posiciones y las imágenes para que no se repitan y sean acordes a las dimensiones
+//Función para aleatorizar las posiciones y las imágenes para que no se repitan y sean acordes a las dimensiones
   aleatoriza(rowArray, colArray, arrayFinal){
 
     while(arrayFinal.length < (GLOBAL_CONFIG.N * GLOBAL_CONFIG.M)){
@@ -116,43 +119,34 @@ export class App extends React.Component {
     }
 
   }
+  //Función aleatoria entre 0 y numPiezas
+  aleatoriza2(numPiezas, arrayOrdenado){
+    let i=0;
+    while (i<numPiezas) {
+      let num = Math.floor(Math.random() * GLOBAL_CONFIG.N * GLOBAL_CONFIG.M);
+      if (arrayOrdenado.length === 0) {
+        arrayOrdenado.push(num);
+        i++;
+      } else {
+        if (!arrayOrdenado.includes(num)) {
+          arrayOrdenado.push(num);
+          i++;
+        }
 
-  //Carga el inicio del puzzle
-  iniciarPuzzle(){
-    let rows = []; // rows=[1,2,3,4,5,...,N]
-
-    for(let i = 1; i <= GLOBAL_CONFIG.N; i++){
-      rows.push(i); // rows=[1,2,3,4,5,...,N]
-    }
-
-    let columns = []; // columns=[1,2,3,4,5,...,M]
-
-    for(let i = 1; i <= GLOBAL_CONFIG.M; i++){
-      columns.push(i); // columns=[1,2,3,4,5,...,M]
-    }
-
-    let arrayFinal = [];
-
-    this.aleatoriza(rows, columns, arrayFinal);
-    let puzzlePiezas = [];
-    let rowIndex = 0;
-    let columnIndex = 0;
-    for(let k = 0; k < arrayFinal.length - 1; k++){
-      // Se crea el objeto JSON con las piezas y sus posiciones
-      // los parámetros row y column indican la posición donde se encuentran las piezas
-      // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
-
-      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[k][0] + ", \"posCol\": " + arrayFinal[k][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + "},";
-      columnIndex++;
-      if(columnIndex === columns.length){
-        columnIndex = 0;
-        rowIndex++;
       }
     }
-    let puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + "}]";
-    let puzzle = JSON.parse(puzzleJSON);
-    this.props.dispatch(iniciarPuzzle(puzzle));
+    console.log("Aleagtoriza2:" +arrayOrdenado);
+  }
 
+  aleatorizaTrueFalse(){
+      let bool = true;
+      let num = Math.round(Math.random());
+      num == 1 ? bool = true : bool = false;
+      return bool;
+  }
+  //Carga el inicio del puzzle
+  iniciarPuzzle(){
+    this.props.dispatch(iniciarPuzzle(GLOBAL_CONFIG.N, GLOBAL_CONFIG.M, this.aleatoriza, GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra, this.aleatoriza2, this.aleatorizaTrueFalse));
   }
 
   //Darle la vuelta a una pieza

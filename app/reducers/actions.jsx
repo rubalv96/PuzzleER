@@ -64,10 +64,17 @@ export function finishApp(finished = true){
 
 }
 
-export function iniciarPuzzle(piezasJSON){
+export function iniciarPuzzle(N, M, aleatoriza, numPiezas, aleatoriza2, aleatorizaTrueFalse){
   return {
     type:'INICIAR_PUZZLE',
-    piezas:piezasJSON,
+    payload:{
+      N: N,
+      M: M,
+      aleatoriza: aleatoriza,
+      numPiezas: numPiezas,
+      aleatoriza2: aleatoriza2,
+      aleatorizaTrueFalse: aleatorizaTrueFalse,
+    },
   };
 }
 

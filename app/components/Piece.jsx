@@ -6,8 +6,11 @@ export default class Piece extends React.Component {
 
   render(){
     // Dimensiones del puzzle
-    let altoImg = 500;
-    let anchoImg = 800;
+      let altoImg;
+      let anchoImg;
+      this.props.conf.heightImg == "" ? altoImg=400 : altoImg=Number.parseInt(this.props.conf.heightImg);
+      this.props.conf.widthImg == "" ? anchoImg=600 : anchoImg=Number.parseInt(this.props.conf.widthImg);
+
 
     // Fabrico el tamaño del contenedor
     let anchoContenedor = anchoImg / this.props.conf.M;
@@ -39,6 +42,11 @@ export default class Piece extends React.Component {
 
     let img ="";
     this.props.numPuzzle == 1 ? img = this.props.conf.image1 : img = this.props.conf.image2;
+
+      if(this.props.piezaExtra && this.props.numPuzzle ===1)
+          img =this.props.conf.imageExtra1;
+      if (this.props.piezaExtra && this.props.numPuzzle ===2)
+          img =this.props.conf.imageExtra2;
 
     let imgPieza = (
         <img
