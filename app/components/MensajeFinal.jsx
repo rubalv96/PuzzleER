@@ -1,9 +1,16 @@
 import React from "react";
 import {Modal} from 'react-bootstrap';
 import {GLOBAL_CONFIG} from "../config/config";
+import {objectiveAccomplished} from "../reducers/actions";
+import * as I18n from "../vendors/I18n";
 
 export default class MensajeFinal extends React.Component
 {
+    constructor(props){
+        super(props);
+        this.props.dispatch(objectiveAccomplished(1,1/1));
+    }
+
     render()
     {
 

@@ -13,11 +13,27 @@ export default class Header extends React.Component {
     } else {
       trackingTexts.push(this.props.I18n.getTrans("i.progress_measure") + ": null");
     }
+
     if(typeof this.props.tracking.score === "number"){
       trackingTexts.push(this.props.I18n.getTrans("i.score") + ": " + (this.props.tracking.score * 100).toFixed(1) + "%");
     } else {
       trackingTexts.push(this.props.I18n.getTrans("i.score") + ": null");
     }
+
+    if(typeof this.props.tracking.success === "boolean"){
+      trackingTexts.push("success" + ": " + (this.props.tracking.success).toString());
+    } else {
+      trackingTexts.push("success" + ": null");
+
+    }
+
+    if(typeof this.props.tracking.completion === "boolean"){
+      trackingTexts.push(this.props.I18n.getTrans("i.completion") + ": " + (this.props.tracking.completion).toString());
+    } else {
+      trackingTexts.push(this.props.I18n.getTrans("i.completion") + ": null");
+    }
+
+
     if(this.props.user_profile){
       if((typeof this.props.user_profile.name === "string")){
         loggedText = (this.props.I18n.getTrans("i.logged_as") + " " + this.props.user_profile.name);

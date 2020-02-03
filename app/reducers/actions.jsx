@@ -124,7 +124,7 @@ export function comprobarCompletado(piezas, N, M){
     payload:{
       piezas:piezas,
       N:N,
-      M:M
+      M:M,
     },
   };
 }

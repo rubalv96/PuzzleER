@@ -13,6 +13,7 @@ function puzzleCompletoReducer(state = [], action){
       }
     }
 
+
     return completado;
 
   default:

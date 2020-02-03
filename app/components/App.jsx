@@ -4,10 +4,9 @@ import './../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import {GLOBAL_CONFIG} from '../config/config.js';
 import * as I18n from '../vendors/I18n.js';
-// import * as SAMPLES from '../config/samples.js';
 import SCORM from './SCORM.jsx';
-// import Header from './Header.jsx';
-// import FinishScreen from './FinishScreen.jsx';
+import Header from './Header.jsx';
+//import FinishScreen from './FinishScreen.jsx';
 import Puzzle from './Puzzle';
 import {
   iniciarPuzzle,
@@ -16,9 +15,11 @@ import {
   darVuelta,
   darVueltaTodas,
   comprobarCompletado,
+    objectiveAccomplished
 } from '../reducers/actions';
 import MensajeInicial from './MensajeInicial';
 import MensajeFinal from "./MensajeFinal";
+import * as Utils from "../vendors/Utils";
 
 export class App extends React.Component {
   constructor(props){
@@ -35,18 +36,18 @@ export class App extends React.Component {
   }
 
   render(){
-    // let appHeader = "";
+    let appHeader = "";
     let appContent = "";
     // Variable para mostrar mensaje final si se ha completado
     let appEndMsg = "";
 
-    // if((this.props.tracking.finished !== true) || (GLOBAL_CONFIG.finish_screen === false)){
-    //   appHeader = (
-    //     <Header
-    //       user_profile={this.props.user_profile}
-    //       tracking={this.props.tracking}
-    //       config={GLOBAL_CONFIG}
-    //       I18n={I18n}/>);
+    if((this.props.tracking.finished !== true) || (GLOBAL_CONFIG.finish_screen === false)){
+      appHeader = (
+        <Header
+          user_profile={this.props.user_profile}
+          tracking={this.props.tracking}
+          config={GLOBAL_CONFIG}
+          I18n={I18n}/>);
     if(this.props.wait_for_user_profile !== true){
       appContent = (
           <>
@@ -58,23 +59,27 @@ export class App extends React.Component {
                 seleccionarPieza={this.seleccionarPieza}
                 darVuelta = {this.darVuelta}
                 toggle = {this.toggle}
+                dispatch={this.props.dispatch}
             />
 
           </>
       );
 
     }
-    // }
-    // else {
-    //   // appContent = (
-    //   //   <FinishScreen dispatch={this.props.dispatch} user_profile={this.props.user_profile}
-    //   //     tracking={this.props.tracking} quiz={SAMPLES.quiz_example} config={GLOBAL_CONFIG}
-    //   //     I18n={I18n}/>
-    //   // );
-    // }
+    }
+    else {
+      // appContent = (
+      //   // <FinishScreen dispatch={this.props.dispatch} user_profile={this.props.user_profile}
+      //   //   tracking={this.props.tracking} quiz={SAMPLES.quiz_example} config={GLOBAL_CONFIG}
+      //   //   I18n={I18n}/>
+      // );
+    }
 
-    if(this.props.puzzleCompleto && GLOBAL_CONFIG.endMessage !== ""){
-      appEndMsg = (<MensajeFinal/>);
+    if(this.props.puzzleCompleto ){
+
+      if (GLOBAL_CONFIG.endMessage !== "") {
+        appEndMsg = (<MensajeFinal dispatch={this.props.dispatch}/>);
+      }
     }
     let appInitialMsg;
     if(GLOBAL_CONFIG.initialMessage !== ""){
@@ -88,7 +93,7 @@ export class App extends React.Component {
           {appInitialMsg}
           {appEndMsg}
           <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
-          {/* {appHeader}*/}
+           {appHeader}
           {appContent}
 
         </div>
@@ -135,7 +140,6 @@ export class App extends React.Component {
 
       }
     }
-    console.log("Aleagtoriza2:" +arrayOrdenado);
   }
 
   aleatorizaTrueFalse(){
@@ -164,7 +168,8 @@ export class App extends React.Component {
     // Si hay dos piezas seleccionadas se lanza el dispatch de intercambiar
     if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
       this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
-      this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
+      this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M,));
+
     }
 
   }
@@ -173,6 +178,8 @@ export class App extends React.Component {
   toggle(){
     this.props.dispatch(darVueltaTodas());
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
+
+
 
   }
 

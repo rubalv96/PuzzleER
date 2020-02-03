@@ -1,7 +1,9 @@
 import React from 'react';
 import {Fragment} from 'react';
 import Piece from "./Piece";
-import '../assets/scss/main.scss'
+import '../assets/scss/main.scss';
+import * as Utils from '../vendors/Utils';
+import {addObjectives} from "../reducers/actions";
 
 export default class Puzzle extends React.Component {
   constructor(props){
@@ -26,7 +28,6 @@ export default class Puzzle extends React.Component {
     for(let i = 1; i <= this.props.conf.Mextra; i++){
       columnsE.push(i);
     }
-
 
     let l = -1;
     let k = -1;
@@ -63,9 +64,7 @@ export default class Puzzle extends React.Component {
               </tr>);
           })}
 
-
         </table>
-
 
         <div className="cont">
           <label className="switch" >
@@ -74,41 +73,44 @@ export default class Puzzle extends React.Component {
           </label>
         </div>
 
-
-
-        {/*<img src={this.props.conf.image} className="imagenCompleta" alt="Imagen del puzzle completada"/>*/}
+        {/* <img src={this.props.conf.image} className="imagenCompleta" alt="Imagen del puzzle completada"/>*/}
         <table cellSpacing={0} cellPadding={0} style={{clear:"both", border:"3px purple solid", borderRadius:"3px", borderCollapse:"collapse", margin:"auto"}}>
           {rowsE.map((row, ind) => {
             return (
-                <tr key={ind}>
-                  {columnsE.map((col, indC) => {
-                    k++;
-                    console.log("k: " + k);
-                    return (
-                        <Fragment key={indC}>
-                          <td>
+              <tr key={ind}>
+                {columnsE.map((col, indC) => {
+                  k++;
+                  console.log("k: " + k);
+                  return (
+                    <Fragment key={indC}>
+                      <td>
 
-                            <Piece posRow={this.props.piezas[k+this.props.conf.N * this.props.conf.M].posRow}
-                                   posCol={this.props.piezas[k+this.props.conf.N * this.props.conf.M].posCol}
-                                   row={this.props.piezas[k+this.props.conf.N * this.props.conf.M].row}
-                                   column={this.props.piezas[k+this.props.conf.N * this.props.conf.M].column}
-                                   conf={this.props.conf}
-                                   seleccionarPieza={this.props.seleccionarPieza}
-                                   piezasSeleccionadas={this.props.piezasSeleccionadas}
-                                   numPuzzle={this.props.piezas[k+this.props.conf.N * this.props.conf.M].numPuzzle}
-                                   darVuelta = {this.props.darVuelta}
-                                   piezaExtra = {this.props.piezas[k+this.props.conf.N * this.props.conf.M].piezaExtra}
+                        <Piece posRow={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posRow}
+                          posCol={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posCol}
+                          row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
+                          column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
+                          conf={this.props.conf}
+                          seleccionarPieza={this.props.seleccionarPieza}
+                          piezasSeleccionadas={this.props.piezasSeleccionadas}
+                          numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
+                          darVuelta = {this.props.darVuelta}
+                          piezaExtra = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].piezaExtra}
 
-                            />
-                          </td>
-                        </Fragment>);
-                  })}
+                        />
+                      </td>
+                    </Fragment>);
+                })}
 
-                </tr>);
+              </tr>);
           })}
         </table>
 
       </Fragment>
     );
+  }
+  componentDidMount(){
+    let objectives = [];
+    objectives.push(new Utils.Objective({id:(1), progress_measure:(1/1), score:(1/1), completion: (true), success:(true)}));
+    this.props.dispatch(addObjectives(objectives));
   }
 }
