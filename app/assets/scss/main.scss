@@ -124,3 +124,49 @@ div.header_wrapper img {
   color: gray;
   margin: 8px;
 }
+
+.tablePuzzle{
+  border-spacing: 0;
+  border-collapse: separate;
+  clear:both;
+  border:3px purple solid;
+  border-radius: 3px;
+  margin :auto;
+}
+
+.tablePuzzle td{
+  padding: 0px;
+}
+
+.msgPrint{
+  visibility: hidden;
+}
+@media print {
+  .header_wrapper{
+    visibility: hidden;
+  }
+
+  .tablePuzzle{
+    border-spacing: 10px;
+    border:3px purple dashed;
+    border-radius: 3px;
+    margin :auto;
+  }
+  .tablePuzzle td{
+    padding: 10px;
+
+  }
+  .imgPiece{
+    border: 3px purple dashed !important;
+  }
+
+  .msgPrint{
+    visibility: visible;
+    letter-spacing: 4px;
+    text-align: center;
+    color: #9052CC;
+    font-family: "Lucida Console";
+    padding: 10px;
+    font-size: 2.5em;
+  }
+}

@@ -35,7 +35,8 @@ export default class Puzzle extends React.Component {
     return (
 
       <Fragment>
-        <table cellSpacing={0} cellPadding={0} style={{clear:"both", border:"3px purple solid", borderRadius:"3px", borderCollapse:"collapse", margin:"auto"}}>
+        <h2 className="msgPrint">Área de puzzle</h2>
+        <table className={"tablePuzzle"}>
           {rows.map((row, ind) => {
             return (
               <tr key={ind}>
@@ -73,8 +74,9 @@ export default class Puzzle extends React.Component {
           </label>
         </div>
 
+        <h2 className="msgPrint">Área de piezas extra</h2>
         {/* <img src={this.props.conf.image} className="imagenCompleta" alt="Imagen del puzzle completada"/>*/}
-        <table cellSpacing={0} cellPadding={0} style={{clear:"both", border:"3px purple solid", borderRadius:"3px", borderCollapse:"collapse", margin:"auto"}}>
+        <table className={"tablePuzzle"}>
           {rowsE.map((row, ind) => {
             return (
               <tr key={ind}>

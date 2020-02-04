@@ -61,8 +61,6 @@ export default class Piece extends React.Component {
             src={img}
             onClick={()=>{
                 this.props.seleccionarPieza(this.props.row, this.props.column);
-                console.log("Has clickado en la pieza " + this.props.row + this.props.column +
-                    " que corresponde a las pos: " + this.props.posRow + this.props.posCol);
 
             }}
 
@@ -76,6 +74,7 @@ export default class Piece extends React.Component {
       <Fragment>
         {/* Contenedor de la pieza*/}
         <div
+            className={"imgPiece"}
           style={{
             width:anchoContenedor + "px",
             height:altoContenedor + "px",
