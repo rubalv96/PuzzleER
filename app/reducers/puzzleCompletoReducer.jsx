@@ -9,7 +9,9 @@ function puzzleCompletoReducer(state = [], action){
     numPuzzle = action.payload.piezas[0].numPuzzle;
 
     for(let i = 0; i < action.payload.N * action.payload.M; i++){
-      if(!(puzzle[i].posRow === puzzle[i].row && puzzle[i].posCol === puzzle[i].column && puzzle[i].numPuzzle === numPuzzle)){
+      if(!(puzzle[i].posRow === puzzle[i].row && puzzle[i].posCol === puzzle[i].column && puzzle[i].numPuzzle === numPuzzle
+          && !puzzle[i].piezaExtra
+      )){
         completado = false;
       }
     }

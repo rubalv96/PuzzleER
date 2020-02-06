@@ -1,5 +1,29 @@
 body{
-  background-color: white;
+  /* Ubicación de la imagen */
+
+  background-image: url(../images/diente_leon_t.png);
+
+
+  /* Para dejar la imagen de fondo centrada, vertical y
+
+  horizontalmente */
+
+  background-position: center center;
+
+  /* Para que la imagen de fondo no se repita */
+
+  background-repeat: no-repeat;
+
+  /* La imagen se fija en la ventana de visualización para que la altura de la imagen no supere a la del contenido */
+
+  background-attachment: fixed;
+
+  /* La imagen de fondo se reescala automáticamente con el cambio del ancho de ventana del navegador */
+
+  background-size: cover;
+
+
+
 
 }
 
@@ -45,11 +69,11 @@ body{
 }
 
 input:checked + .slider {
-  background-color: #9052CC;
+  background-color: #F2EB8D;
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px #9052CC;
+  box-shadow: 0 0 1px #F2EB8D;
 }
 
 input:checked + .slider:before {
@@ -75,7 +99,7 @@ input:checked + .slider:before {
 .title{
   letter-spacing: 4px;
   text-align: center;
-  color: #9052CC;
+  color: #93A603;
   font-family: "Lucida Console";
   padding: 30px;
   font-size: 2.5em;
@@ -129,7 +153,7 @@ div.header_wrapper img {
   border-spacing: 0;
   border-collapse: separate;
   clear:both;
-  border:3px purple solid;
+  border:3px #93A603 solid;
   border-radius: 3px;
   margin :auto;
 }
@@ -141,6 +165,9 @@ div.header_wrapper img {
 .msgPrint{
   visibility: hidden;
 }
+
+
+
 @media print {
   .header_wrapper{
     visibility: hidden;
@@ -148,7 +175,7 @@ div.header_wrapper img {
 
   .tablePuzzle{
     border-spacing: 10px;
-    border:3px purple dashed;
+    border:3px #93A603 dashed;
     border-radius: 3px;
     margin :auto;
   }
@@ -157,16 +184,19 @@ div.header_wrapper img {
 
   }
   .imgPiece{
-    border: 3px purple dashed !important;
+    border: 3px #93A603 dashed !important;
   }
 
   .msgPrint{
     visibility: visible;
     letter-spacing: 4px;
     text-align: center;
-    color: #9052CC;
+    color: #F2EB8D;
     font-family: "Lucida Console";
     padding: 10px;
     font-size: 2.5em;
   }
+
+
+
 }

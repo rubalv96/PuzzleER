@@ -85,7 +85,7 @@ export class App extends React.Component {
     }
 
     return (
-      <div id="container">
+      <div id="container" >
         <h1 className="title">Generador de Puzzles</h1>
         {appInitialMsg}
         {appEndMsg}
@@ -144,6 +144,13 @@ export class App extends React.Component {
   }
   // Carga el inicio del puzzle
   iniciarPuzzle(){
+    let numPiezasExtra = GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra;
+    let numPiezasNoExtra = GLOBAL_CONFIG.N * GLOBAL_CONFIG.M;
+    if(numPiezasExtra >= numPiezasNoExtra){
+      alert("Por favor, seleccione un numero de piezas falsas inferior al número de piezas del puzzle. En su defecto el puzzle tomará el máximo de piezas falsas.");
+      GLOBAL_CONFIG.Nextra = GLOBAL_CONFIG.N - 1;
+      GLOBAL_CONFIG.Mextra = GLOBAL_CONFIG.M;
+    }
     this.props.dispatch(iniciarPuzzle(GLOBAL_CONFIG.N, GLOBAL_CONFIG.M, this.aleatoriza, GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra, this.aleatoriza2, this.aleatorizaTrueFalse));
   }
 
