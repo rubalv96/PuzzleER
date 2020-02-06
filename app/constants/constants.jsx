@@ -15,6 +15,6 @@ export const INITIAL_STATE = {
   },
   wait_for_user_profile:false,
   piezas:{},
-  piezasSeleccionadas:[[-1, -1],[-1,-1]],
-  puzzleCompleto: false,
+  piezasSeleccionadas:[[-1, -1], [-1, -1]],
+  puzzleCompleto:false,
 };

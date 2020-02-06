@@ -6,7 +6,7 @@ import {GLOBAL_CONFIG} from '../config/config.js';
 import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
 import Header from './Header.jsx';
-//import FinishScreen from './FinishScreen.jsx';
+// import FinishScreen from './FinishScreen.jsx';
 import Puzzle from './Puzzle';
 import {
   iniciarPuzzle,
@@ -15,11 +15,9 @@ import {
   darVuelta,
   darVueltaTodas,
   comprobarCompletado,
-    objectiveAccomplished
 } from '../reducers/actions';
 import MensajeInicial from './MensajeInicial';
 import MensajeFinal from "./MensajeFinal";
-import * as Utils from "../vendors/Utils";
 
 export class App extends React.Component {
   constructor(props){
@@ -48,24 +46,24 @@ export class App extends React.Component {
           tracking={this.props.tracking}
           config={GLOBAL_CONFIG}
           I18n={I18n}/>);
-    if(this.props.wait_for_user_profile !== true){
-      appContent = (
+      if(this.props.wait_for_user_profile !== true){
+        appContent = (
           <>
 
             <Puzzle
-                piezasSeleccionadas={this.props.piezasSeleccionadas}
-                piezas={this.props.piezas}
-                conf={GLOBAL_CONFIG}
-                seleccionarPieza={this.seleccionarPieza}
-                darVuelta = {this.darVuelta}
-                toggle = {this.toggle}
-                dispatch={this.props.dispatch}
+              piezasSeleccionadas={this.props.piezasSeleccionadas}
+              piezas={this.props.piezas}
+              conf={GLOBAL_CONFIG}
+              seleccionarPieza={this.seleccionarPieza}
+              darVuelta = {this.darVuelta}
+              toggle = {this.toggle}
+              dispatch={this.props.dispatch}
             />
 
           </>
-      );
+        );
 
-    }
+      }
     }
     else {
       // appContent = (
@@ -75,9 +73,9 @@ export class App extends React.Component {
       // );
     }
 
-    if(this.props.puzzleCompleto ){
+    if(this.props.puzzleCompleto){
 
-      if (GLOBAL_CONFIG.endMessage !== "") {
+      if(GLOBAL_CONFIG.endMessage !== ""){
         appEndMsg = (<MensajeFinal dispatch={this.props.dispatch}/>);
       }
     }
@@ -86,21 +84,20 @@ export class App extends React.Component {
       appInitialMsg = (<MensajeInicial/>);
     }
 
-
     return (
-        <div id="container">
-          <h1 className="title">Generador de Puzzles</h1>
-          {appInitialMsg}
-          {appEndMsg}
-          <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
-           {appHeader}
-          {appContent}
+      <div id="container">
+        <h1 className="title">Generador de Puzzles</h1>
+        {appInitialMsg}
+        {appEndMsg}
+        <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
+        {appHeader}
+        {appContent}
 
-        </div>
+      </div>
     );
   }
 
-//Función para aleatorizar las posiciones y las imágenes para que no se repitan y sean acordes a las dimensiones
+  // Función para aleatorizar las posiciones y las imágenes para que no se repitan y sean acordes a las dimensiones
   aleatoriza(rowArray, colArray, arrayFinal){
 
     while(arrayFinal.length < (GLOBAL_CONFIG.N * GLOBAL_CONFIG.M)){
@@ -124,43 +121,40 @@ export class App extends React.Component {
     }
 
   }
-  //Función aleatoria entre 0 y numPiezas
+  // Función aleatoria entre 0 y numPiezas
   aleatoriza2(numPiezas, arrayOrdenado){
-    let i=0;
-    while (i<numPiezas) {
+    let i = 0;
+    while(i < numPiezas){
       let num = Math.floor(Math.random() * GLOBAL_CONFIG.N * GLOBAL_CONFIG.M);
-      if (arrayOrdenado.length === 0) {
+      if(arrayOrdenado.length === 0){
         arrayOrdenado.push(num);
         i++;
-      } else {
-        if (!arrayOrdenado.includes(num)) {
-          arrayOrdenado.push(num);
-          i++;
-        }
-
+      } else if(!arrayOrdenado.includes(num)){
+        arrayOrdenado.push(num);
+        i++;
       }
     }
   }
 
   aleatorizaTrueFalse(){
-      let bool = true;
-      let num = Math.round(Math.random());
-      num == 1 ? bool = true : bool = false;
-      return bool;
+    let bool;
+    let num = Math.round(Math.random());
+    num === 1 ? bool = true : bool = false;
+    return bool;
   }
-  //Carga el inicio del puzzle
+  // Carga el inicio del puzzle
   iniciarPuzzle(){
     this.props.dispatch(iniciarPuzzle(GLOBAL_CONFIG.N, GLOBAL_CONFIG.M, this.aleatoriza, GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra, this.aleatoriza2, this.aleatorizaTrueFalse));
   }
 
-  //Darle la vuelta a una pieza
+  // Darle la vuelta a una pieza
   darVuelta(row, col){
     this.props.dispatch(darVuelta(row, col));
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
 
   }
 
-  //Selección de una de las piezas
+  // Selección de una de las piezas
   seleccionarPieza(row, column){
 
     this.props.dispatch(seleccionarPieza(row, column));
@@ -168,18 +162,16 @@ export class App extends React.Component {
     // Si hay dos piezas seleccionadas se lanza el dispatch de intercambiar
     if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
       this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
-      this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M,));
+      this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
 
     }
 
   }
 
-  //Dar vuelta a todas las piezas
+  // Dar vuelta a todas las piezas
   toggle(){
     this.props.dispatch(darVueltaTodas());
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
-
-
 
   }
 

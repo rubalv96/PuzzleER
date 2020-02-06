@@ -21,9 +21,9 @@ export default class Header extends React.Component {
     }
 
     if(typeof this.props.tracking.success === "boolean"){
-      trackingTexts.push("success" + ": " + (this.props.tracking.success).toString());
+      trackingTexts.push(this.props.I18n.getTrans("i.success") + ": " + (this.props.tracking.success).toString());
     } else {
-      trackingTexts.push("success" + ": null");
+      trackingTexts.push(this.props.I18n.getTrans("i.success") + ": null");
 
     }
 
@@ -33,16 +33,11 @@ export default class Header extends React.Component {
       trackingTexts.push(this.props.I18n.getTrans("i.completion") + ": null");
     }
 
-
     if(this.props.user_profile){
       if((typeof this.props.user_profile.name === "string")){
         loggedText = (this.props.I18n.getTrans("i.logged_as") + " " + this.props.user_profile.name);
       }
-      if(typeof this.props.user_profile.learner_preference === "object"){
-        if(typeof this.props.user_profile.learner_preference.difficulty === "number"){
-          trackingTexts.push(this.props.I18n.getTrans("i.difficulty") + ": " + this.props.user_profile.learner_preference.difficulty);
-        }
-      }
+
     }
 
     let loggedEl = null;

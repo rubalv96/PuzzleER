@@ -23,6 +23,7 @@ function trackingReducer(state = {}, action){
     let updateProgress = (typeof objective.progress_measure === "number");
     if(updateProgress){
       objective.progress_measure = Math.max(0, Math.min(1, objective.progress_measure));
+
     }
 
     let updateScore = ((typeof objective.score === "number") && (typeof action.accomplished_score === "number"));
@@ -48,6 +49,8 @@ function trackingReducer(state = {}, action){
         if(typeof newState.objectives[objectivesIds[i]].accomplished_score === "number"){
           newState.score += newState.objectives[objectivesIds[i]].accomplished_score;
         }
+        newState.completion = true;
+        newState.success = true;
       }
     }
 

@@ -6,11 +6,10 @@ export default class Piece extends React.Component {
 
   render(){
     // Dimensiones del puzzle
-      let altoImg;
-      let anchoImg;
-      this.props.conf.heightImg == "" ? altoImg=400 : altoImg=Number.parseInt(this.props.conf.heightImg);
-      this.props.conf.widthImg == "" ? anchoImg=600 : anchoImg=Number.parseInt(this.props.conf.widthImg);
-
+    let altoImg;
+    let anchoImg;
+    this.props.conf.heightImg === "" ? altoImg = 400 : altoImg = parseInt(this.props.conf.heightImg, 10);
+    this.props.conf.widthImg === "" ? anchoImg = 600 : anchoImg = parseInt(this.props.conf.widthImg, 10);
 
     // Fabrico el tamaño del contenedor
     let anchoContenedor = anchoImg / this.props.conf.M;
@@ -29,7 +28,7 @@ export default class Piece extends React.Component {
     let rowSelec2 = this.props.piezasSeleccionadas[1][0];
     let colSelec2 = this.props.piezasSeleccionadas[1][1];
 
-    let borde = "";
+    let borde;
 
     (rowPieza === rowSelec1 && colPieza === colSelec1)
         || (rowPieza === rowSelec2 && colPieza === colSelec2)
@@ -40,41 +39,41 @@ export default class Piece extends React.Component {
     }
     console.log("PiezaSeleccionada: (" + rowSelec1 + "," + colSelec1 + "), (" + rowSelec2 + ", " + colSelec2 + ")");
 
-    let img ="";
-    this.props.numPuzzle == 1 ? img = this.props.conf.image1 : img = this.props.conf.image2;
+    let img;
+    this.props.numPuzzle === 1 ? img = this.props.conf.image1 : img = this.props.conf.image2;
 
-      if(this.props.piezaExtra && this.props.numPuzzle ===1)
-          img =this.props.conf.imageExtra1;
-      if (this.props.piezaExtra && this.props.numPuzzle ===2)
-          img =this.props.conf.imageExtra2;
+    if(this.props.piezaExtra && this.props.numPuzzle === 1)
+    {img = this.props.conf.imageExtra1;}
+    if(this.props.piezaExtra && this.props.numPuzzle === 2)
+    {img = this.props.conf.imageExtra2;}
 
     let imgPieza = (
-        <img
-            style={{
-                position:"absolute",
-                left:left,
-                top:top,
-                margin:"auto",
-                width:anchoImg,
-                height:altoImg,
-            }}
-            src={img}
-            onClick={()=>{
-                this.props.seleccionarPieza(this.props.row, this.props.column);
+      <img
+        style={{
+          position:"absolute",
+          left:left,
+          top:top,
+          margin:"auto",
+          width:anchoImg,
+          height:altoImg,
+        }}
+        src={img}
+        onClick={()=>{
+          this.props.seleccionarPieza(this.props.row, this.props.column);
 
-            }}
+        }}
 
-            onDoubleClick={()=>{
-                //Acción que cambia la imagen de la pieza
-                this.props.darVuelta(this.props.row, this.props.column);
-            }}
-        />
+        onDoubleClick={()=>{
+          // Acción que cambia la imagen de la pieza
+          this.props.darVuelta(this.props.row, this.props.column);
+        }}
+        alt={"Imagen de pieza"}/>
     );
     return (
       <Fragment>
         {/* Contenedor de la pieza*/}
         <div
-            className={"imgPiece"}
+          className={"imgPiece"}
           style={{
             width:anchoContenedor + "px",
             height:altoContenedor + "px",
@@ -85,7 +84,7 @@ export default class Piece extends React.Component {
 
           }}
         >
-            {imgPieza}
+          {imgPieza}
 
         </div>
       </Fragment>

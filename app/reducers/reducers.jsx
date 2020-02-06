@@ -11,9 +11,9 @@ const GlobalState = combineReducers({
   scorm:scormReducer,
   user_profile:userProfileReducer,
   wait_for_user_profile:waitForUserProfileReducer,
-  piezas: piezasReducer,
-  piezasSeleccionadas: seleccionarPiezasReducer,
-  puzzleCompleto: puzzleCompletoReducer,
+  piezas:piezasReducer,
+  piezasSeleccionadas:seleccionarPiezasReducer,
+  puzzleCompleto:puzzleCompletoReducer,
 });
 
 export default GlobalState;
