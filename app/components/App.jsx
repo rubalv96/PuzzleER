@@ -30,7 +30,13 @@ export class App extends React.Component {
     this.darVuelta = this.darVuelta.bind(this);
     this.iniciarPuzzle = this.iniciarPuzzle.bind(this);
     this.toggle = this.toggle.bind(this);
+    this.mostrarMsgFinal = this.mostrarMsgFinal.bind(this);
+    this.ocultarMsgFinal = this.ocultarMsgFinal.bind(this);
+    this.comprobarCompletado = this.comprobarCompletado.bind(this);
     this.iniciarPuzzle();
+    this.state = {
+      mostrarMsgFinal:false,
+    };
   }
 
   render(){
@@ -57,6 +63,7 @@ export class App extends React.Component {
               seleccionarPieza={this.seleccionarPieza}
               darVuelta = {this.darVuelta}
               toggle = {this.toggle}
+              comprobarCompletado={this.comprobarCompletado}
               dispatch={this.props.dispatch}
             />
 
@@ -73,11 +80,12 @@ export class App extends React.Component {
       // );
     }
 
-    if(this.props.puzzleCompleto){
+    if(this.state.mostrarMsgFinal){
 
       if(GLOBAL_CONFIG.endMessage !== ""){
-        appEndMsg = (<MensajeFinal dispatch={this.props.dispatch}/>);
+        appEndMsg = (<MensajeFinal ocultar ={this.ocultarMsgFinal} puzzleCompleto={this.props.puzzleCompleto} dispatch={this.props.dispatch}/>);
       }
+      // this.setState({mostrarMsgFinal: false});
     }
     let appInitialMsg;
     if(GLOBAL_CONFIG.initialMessage !== ""){
@@ -157,7 +165,6 @@ export class App extends React.Component {
   // Darle la vuelta a una pieza
   darVuelta(row, col){
     this.props.dispatch(darVuelta(row, col));
-    this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
 
   }
 
@@ -169,7 +176,6 @@ export class App extends React.Component {
     // Si hay dos piezas seleccionadas se lanza el dispatch de intercambiar
     if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
       this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
-      this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
 
     }
 
@@ -178,8 +184,21 @@ export class App extends React.Component {
   // Dar vuelta a todas las piezas
   toggle(){
     this.props.dispatch(darVueltaTodas());
-    this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
 
+  }
+  mostrarMsgFinal(){
+    this.setState({mostrarMsgFinal:true});
+  }
+  ocultarMsgFinal(){
+    this.setState({mostrarMsgFinal:false});
+
+  }
+  comprobarCompletado(){
+    this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
+    this.mostrarMsgFinal();
+    // let msgFinal = document.getElementById("msgFinal");
+    // msgFinal.innerHTML=<MensajeFinal puzzleCompleto={this.props.puzzleCompleto}/>;
+    // return (<MensajeFinal puzzleCompleto={this.props.puzzleCompleto}/>);
   }
 
 }

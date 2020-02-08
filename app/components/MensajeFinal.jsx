@@ -1,5 +1,5 @@
 import React from "react";
-import {Modal} from 'react-bootstrap';
+import {Modal, Button} from 'react-bootstrap';
 import {GLOBAL_CONFIG} from "../config/config";
 import {objectiveAccomplished} from "../reducers/actions";
 
@@ -8,28 +8,54 @@ export default class MensajeFinal extends React.Component
   constructor(props){
     super(props);
     this.props.dispatch(objectiveAccomplished(1, 1));
+    this.state = {
+      showModal:true,
+    };
+    this.close = this.close.bind(this);
+    this.ocultar = this.ocultar.bind(this);
   }
-  reiniciar(){
-    location.reload();
+
+  close(){
+    this.setState({showModal:false});
+  }
+
+  ocultar(){
+    this.close();
+    this.props.ocultar();
   }
   render()
   {
 
     let endImage;
-    GLOBAL_CONFIG.endImage === "" ? endImage = "./assets/images/egipto.jpg" : endImage = GLOBAL_CONFIG.endImage;
+    if(this.props.puzzleCompleto){
+      GLOBAL_CONFIG.endImageSuccess === "" ? endImage = "./assets/images/egipto.jpg" : endImage = GLOBAL_CONFIG.endImageSuccess;
+    }
+    else {
+      GLOBAL_CONFIG.endImageFail === "" ? endImage = "./assets/images/noruega.jpg" : endImage = GLOBAL_CONFIG.endImageFail;
+    }
+
+    let titulo;
+    this.props.puzzleCompleto ? titulo = "Puzzle completado" : titulo = "Puzzle incorrecto.";
+
+    let msg;
+    this.props.puzzleCompleto ? msg = GLOBAL_CONFIG.endMessageSuccess : msg = GLOBAL_CONFIG.endMessageFail;
+
+    let btnSeguir;
+    !this.props.puzzleCompleto ? btnSeguir = <Button onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
     return (
       <>
-        <Modal show animation={false} size="lg">
+        <Modal show={this.state.showModal} animation={false} size="lg">
           <Modal.Header>
-            <Modal.Title>Puzzle completado</Modal.Title>
+            <Modal.Title>{titulo}</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
-            <p>{GLOBAL_CONFIG.endMessage}</p>
+            <p>{msg}</p>
             <img src={endImage} style={{width:300, height:200, display:"block", margin:"auto"}} alt={"Imagen de mensaje final."}/>
           </Modal.Body>
 
           <Modal.Footer>
+            {btnSeguir}
 
           </Modal.Footer>
         </Modal>

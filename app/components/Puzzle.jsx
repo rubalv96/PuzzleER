@@ -4,6 +4,7 @@ import Piece from "./Piece";
 import '../assets/scss/main.scss';
 import * as Utils from '../vendors/Utils';
 import {addObjectives} from "../reducers/actions";
+import {Button} from "react-bootstrap";
 
 export default class Puzzle extends React.Component {
   constructor(props){
@@ -74,6 +75,10 @@ export default class Puzzle extends React.Component {
           </label>
         </div>
 
+        <div className="btnComprobar">
+          <Button onClick={this.props.comprobarCompletado}> Comprobar </Button>
+        </div>
+
         <h2 className="msgPrint">Área de piezas extra</h2>
         {/* <img src={this.props.conf.image} className="imagenCompleta" alt="Imagen del puzzle completada"/>*/}
         <table className={"tablePuzzle"}>
@@ -82,7 +87,6 @@ export default class Puzzle extends React.Component {
               <tr key={ind}>
                 {columnsE.map((col, indC) => {
                   k++;
-                  console.log("k: " + k);
                   return (
                     <Fragment key={indC}>
                       <td>
