@@ -49,8 +49,6 @@ function trackingReducer(state = {}, action){
         if(typeof newState.objectives[objectivesIds[i]].accomplished_score === "number"){
           newState.score += newState.objectives[objectivesIds[i]].accomplished_score;
         }
-        newState.completion = true;
-        newState.success = true;
       }
     }
 

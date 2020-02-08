@@ -112,7 +112,7 @@ export default class Puzzle extends React.Component {
   }
   componentDidMount(){
     let objectives = [];
-    objectives.push(new Utils.Objective({id:(1), progress_measure:(1), score:(1), completion:true, success:true}));
+    objectives.push(new Utils.Objective({id:(1), progress_measure:(1), score:(1)}));
     this.props.dispatch(addObjectives(objectives));
   }
 }

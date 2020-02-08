@@ -1,5 +1,5 @@
 import React from "react";
-import {Modal, Button} from 'react-bootstrap';
+import {Modal} from 'react-bootstrap';
 import {GLOBAL_CONFIG} from "../config/config";
 import {objectiveAccomplished} from "../reducers/actions";
 
@@ -30,9 +30,7 @@ export default class MensajeFinal extends React.Component
           </Modal.Body>
 
           <Modal.Footer>
-            <Button variant="primary" onClick={this.reiniciar}>
-              ¡Volver a jugar!
-            </Button>
+
           </Modal.Footer>
         </Modal>
       </>);
