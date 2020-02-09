@@ -92,8 +92,15 @@ export class App extends React.Component {
       appInitialMsg = (<MensajeInicial/>);
     }
 
+    let styleBackground = {
+      "background":"linear-gradient(rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground+ "), rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground+ ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
+      "backgroundPosition":"center center",
+      "backgroundRepeat":"no-repeat",
+      "backgroundSize":"cover",
+    };
+
     return (
-      <div id="container" >
+      <div id="container" style={styleBackground}>
         <h1 className="title">Generador de Puzzles</h1>
         {appInitialMsg}
         {appEndMsg}

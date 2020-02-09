@@ -1,5 +1,7 @@
 export let GLOBAL_CONFIG = {
   dev:{
+    imageBackground: "./assets/images/diente_leon_t.png",
+    opacityBackground: ".2",
     image1:"./assets/images/egipto.jpg",
     image2:"./assets/images/noruega.jpg",
     imageExtra1:"./assets/images/cactus.jpg",
