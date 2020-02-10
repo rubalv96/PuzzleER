@@ -93,13 +93,14 @@ export class App extends React.Component {
     }
 
     let styleBackground = {
-      "background":"linear-gradient(rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground+ "), rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground+ ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
+      "background":"linear-gradient(rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + "), rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground+ ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
       "backgroundPosition":"center center",
       "backgroundRepeat":"no-repeat",
       "backgroundSize":"cover",
     };
 
     return (
+
       <div id="container" style={styleBackground}>
         <h1 className="title">Generador de Puzzles</h1>
         {appInitialMsg}
@@ -107,7 +108,6 @@ export class App extends React.Component {
         <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
         {appHeader}
         {appContent}
-
       </div>
     );
   }
@@ -161,9 +161,9 @@ export class App extends React.Component {
   iniciarPuzzle(){
     let numPiezasExtra = GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra;
     let numPiezasNoExtra = GLOBAL_CONFIG.N * GLOBAL_CONFIG.M;
-    if(numPiezasExtra >= numPiezasNoExtra){
-      alert("Por favor, seleccione un numero de piezas falsas inferior al número de piezas del puzzle. En su defecto el puzzle tomará el máximo de piezas falsas.");
-      GLOBAL_CONFIG.Nextra = GLOBAL_CONFIG.N - 1;
+    if(numPiezasExtra > numPiezasNoExtra){
+      alert("Por favor, seleccione un numero de piezas falsas inferior o igual al número de piezas del puzzle. En su defecto el puzzle tomará el máximo de piezas falsas.");
+      GLOBAL_CONFIG.Nextra = GLOBAL_CONFIG.N;
       GLOBAL_CONFIG.Mextra = GLOBAL_CONFIG.M;
     }
     this.props.dispatch(iniciarPuzzle(GLOBAL_CONFIG.N, GLOBAL_CONFIG.M, this.aleatoriza, GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra, this.aleatoriza2, this.aleatorizaTrueFalse));

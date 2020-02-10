@@ -1,7 +1,7 @@
 export let GLOBAL_CONFIG = {
   dev:{
-    imageBackground: "./assets/images/diente_leon_t.png",
-    opacityBackground: ".2",
+    imageBackground:"./assets/images/diente_leon_t.png",
+    opacityBackground:".2",
     image1:"./assets/images/egipto.jpg",
     image2:"./assets/images/noruega.jpg",
     imageExtra1:"./assets/images/cactus.jpg",
@@ -11,7 +11,7 @@ export let GLOBAL_CONFIG = {
     M:3,
     N:2,
     Mextra:3,
-    Nextra:1,
+    Nextra:2,
     initialMessage:"Bienvenido al Generador de Puzzles. ",
     initialImage:"./assets/images/cascada.jpg",
     endMessageSuccess:"Enhorabuena has finalizado el puzzle.",
