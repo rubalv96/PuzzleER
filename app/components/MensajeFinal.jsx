@@ -41,7 +41,12 @@ export default class MensajeFinal extends React.Component
     this.props.puzzleCompleto ? msg = GLOBAL_CONFIG.endMessageSuccess : msg = GLOBAL_CONFIG.endMessageFail;
 
     let btnSeguir;
-    !this.props.puzzleCompleto ? btnSeguir = <Button onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
+    (!this.props.puzzleCompleto) ? btnSeguir = <Button onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
+
+    if(this.props.numIntentos===0 && !this.props.puzzleCompleto) {
+      msg = GLOBAL_CONFIG.endMessageFail;
+      btnSeguir ="";
+    }
     return (
       <>
         <Modal show={this.state.showModal} animation={false} size="lg">

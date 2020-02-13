@@ -8,6 +8,7 @@ export let GLOBAL_CONFIG = {
     imageExtra2:"./assets/images/taj_mahal.jpg",
     heightImg:"",
     widthImg:"",
+    numberAttempts: "3",
     M:3,
     N:2,
     Mextra:3,

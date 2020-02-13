@@ -34,8 +34,11 @@ export class App extends React.Component {
     this.ocultarMsgFinal = this.ocultarMsgFinal.bind(this);
     this.comprobarCompletado = this.comprobarCompletado.bind(this);
     this.iniciarPuzzle();
+    let numIntentos;
+    GLOBAL_CONFIG.numberAttempts === "" ? numIntentos=-1 : numIntentos= GLOBAL_CONFIG.numberAttempts;
     this.state = {
       mostrarMsgFinal:false,
+      numIntentos: numIntentos,
     };
   }
 
@@ -83,7 +86,7 @@ export class App extends React.Component {
     if(this.state.mostrarMsgFinal){
 
       if(GLOBAL_CONFIG.endMessage !== ""){
-        appEndMsg = (<MensajeFinal ocultar ={this.ocultarMsgFinal} puzzleCompleto={this.props.puzzleCompleto} dispatch={this.props.dispatch}/>);
+        appEndMsg = (<MensajeFinal numIntentos={this.state.numIntentos} ocultar ={this.ocultarMsgFinal} puzzleCompleto={this.props.puzzleCompleto} dispatch={this.props.dispatch}/>);
       }
       // this.setState({mostrarMsgFinal: false});
     }
@@ -98,7 +101,13 @@ export class App extends React.Component {
       "backgroundRepeat":"no-repeat",
       "backgroundSize":"cover",
     };
-
+    let msgIntentos;
+    if(this.state.numIntentos === -1){
+      msgIntentos = "Infinitos";
+    }
+    else{
+      msgIntentos = this.state.numIntentos;
+    }
     return (
 
       <div id="container" style={styleBackground}>
@@ -108,6 +117,8 @@ export class App extends React.Component {
         <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
         {appHeader}
         {appContent}
+        {}
+        <h1>INTENTOS: {msgIntentos}</h1>
       </div>
     );
   }
@@ -202,6 +213,9 @@ export class App extends React.Component {
   }
   comprobarCompletado(){
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
+    if(this.state.numIntentos !== -1){
+      this.setState({numIntentos: this.state.numIntentos -1});
+    }
     this.mostrarMsgFinal();
     // let msgFinal = document.getElementById("msgFinal");
     // msgFinal.innerHTML=<MensajeFinal puzzleCompleto={this.props.puzzleCompleto}/>;
