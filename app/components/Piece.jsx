@@ -1,8 +1,34 @@
 import React, {Fragment} from 'react';
 import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import ReactCardFlip from 'react-card-flip';
 
 export default class Piece extends React.Component {
+  constructor(){
+    super();
+    this.state = {
+      isFlipped:false,
+      backToFront:"1.5",
+      frontToBack:"1.5",
+    };
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick(e){
+    e.preventDefault();
+    this.setState({
+      backToFront:"1.5",
+      frontToBack:"1.5",
+    });
+    this.setState(prevState => ({isFlipped:!prevState.isFlipped}));
+    setTimeout(()=>{this.props.darVuelta(this.props.row, this.props.column);
+      this.setState({
+        backToFront:"0",
+      });
+      this.setState(prevState => ({isFlipped:!prevState.isFlipped}));},
+    1000);
+
+  }
 
   render(){
     // Dimensiones del puzzle
@@ -37,15 +63,22 @@ export default class Piece extends React.Component {
     if(rowSelec1 !== -1 && rowSelec2 !== -1){
       borde = "1px #93A603 solid";
     }
-    console.log("PiezaSeleccionada: (" + rowSelec1 + "," + colSelec1 + "), (" + rowSelec2 + ", " + colSelec2 + ")");
 
-    let img;
+    let img, imgRev;
     this.props.numPuzzle === 1 ? img = this.props.conf.image1 : img = this.props.conf.image2;
+    this.props.numPuzzle === 1 ? imgRev = this.props.conf.image2 : imgRev = this.props.conf.image1;
 
     if(this.props.piezaExtra && this.props.numPuzzle === 1)
-    {img = this.props.conf.imageExtra1;}
+    {
+      img = this.props.conf.imageExtra1;
+      imgRev = this.props.conf.imageExtra2;
+    }
     if(this.props.piezaExtra && this.props.numPuzzle === 2)
-    {img = this.props.conf.imageExtra2;}
+    {
+      img = this.props.conf.imageExtra2;
+      imgRev = this.props.conf.imageExtra1;
+
+    }
 
     let imgPieza = (
       <img
@@ -63,30 +96,68 @@ export default class Piece extends React.Component {
 
         }}
 
-        onDoubleClick={()=>{
-          // Acción que cambia la imagen de la pieza
-          this.props.darVuelta(this.props.row, this.props.column);
-        }}
         alt={"Imagen de pieza"}/>
+    );
+
+    let imgPiezaRev = (
+      <img
+        style={{
+          position:"absolute",
+          left:left,
+          top:top,
+          margin:"auto",
+          width:anchoImg,
+          height:altoImg,
+        }}
+        src={imgRev}
+        onClick={()=>{
+          this.props.seleccionarPieza(this.props.row, this.props.column);
+        }}
+
+        alt={"Imagen de pieza"}
+      />
     );
     return (
       <Fragment>
-        {/* Contenedor de la pieza*/}
-        <div
-          className={"imgPiece"}
-          style={{
-            width:anchoContenedor + "px",
-            height:altoContenedor + "px",
-            overflow:"hidden",
-            position:"relative",
-            border:borde,
-            borderRadius:"0px",
 
-          }}
-        >
-          {imgPieza}
 
-        </div>
+        <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal" flipSpeedBackToFront={this.state.backToFront} flipSpeedFrontToBack={this.state.frontToBack}>
+          {/* Contenedor de la pieza frontal*/}
+          <div
+            className={"imgPiece"}
+            onDoubleClick={this.handleClick}
+
+            style={{
+              width:anchoContenedor + "px",
+              height:altoContenedor + "px",
+              overflow:"hidden",
+              position:"relative",
+              border:borde,
+              borderRadius:"0px",
+
+            }}
+          >
+            {imgPieza}
+          </div>
+
+          {/* Contenedor de la pieza trasera*/}
+          <div
+            className={"imgPiece"}
+            onDoubleClick={this.handleClick}
+            style={{
+              width:anchoContenedor + "px",
+              height:altoContenedor + "px",
+              overflow:"hidden",
+              position:"relative",
+              border:borde,
+              borderRadius:"0px",
+
+            }}
+          >
+            {imgPiezaRev}
+          </div>
+
+        </ReactCardFlip>
       </Fragment>
 
     );

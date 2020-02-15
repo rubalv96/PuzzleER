@@ -7,6 +7,7 @@ import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
 import Header from './Header.jsx';
 // import FinishScreen from './FinishScreen.jsx';
+
 import Puzzle from './Puzzle';
 import {
   iniciarPuzzle,
@@ -119,7 +120,9 @@ export class App extends React.Component {
         {appContent}
         {}
         <h1>INTENTOS: {msgIntentos}</h1>
+
       </div>
+
     );
   }
 
