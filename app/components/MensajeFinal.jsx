@@ -64,6 +64,7 @@ export default class MensajeFinal extends React.Component
 
           </Modal.Footer>
         </Modal>
+
       </>);
 
   }

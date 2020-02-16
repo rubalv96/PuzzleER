@@ -32,6 +32,8 @@ export default class Puzzle extends React.Component {
 
     let l = -1;
     let k = -1;
+    let m = -1;
+    let n = -1;
 
     return (
 
@@ -80,7 +82,6 @@ export default class Puzzle extends React.Component {
         </div>
 
         <h2 className="msgPrint">Área de piezas extra</h2>
-        {/* <img src={this.props.conf.image} className="imagenCompleta" alt="Imagen del puzzle completada"/>*/}
         <table className={"tablePuzzle"}>
           {rowsE.map((row, ind) => {
             return (
@@ -110,7 +111,85 @@ export default class Puzzle extends React.Component {
               </tr>);
           })}
         </table>
+          <div className="pagebreak"></div>
+          <h1 className="title titlePrint">Generador de Puzzles</h1>
+          <h2 className="msgPrint">Área de puzzle</h2>
+          <table className="tablePuzzle tablePrint">
+              {rows.map((row, ind) => {
+                  return (
+                      <tr key={ind}>
+                          {columns.map((col, indC) => {
+                              m++;
+                              let numP1;
+                              this.props.piezas[m].numPuzzle === "1" ? numP1="2" : numP1="1";
+                              return (
+                                  <Fragment key={indC}>
+                                      <td>
 
+                                          <Piece posRow={this.props.piezas[m].posRow}
+                                                 posCol={this.props.piezas[m].posCol}
+                                                 row={this.props.piezas[m].row}
+                                                 column={this.props.piezas[m].column}
+                                                 conf={this.props.conf}
+                                                 seleccionarPieza={this.props.seleccionarPieza}
+                                                 piezasSeleccionadas={this.props.piezasSeleccionadas}
+                                                 numPuzzle={numP1}
+                                                 darVuelta = {this.props.darVuelta}
+                                                 piezaExtra = {this.props.piezas[m].piezaExtra}
+
+                                          />
+                                      </td>
+                                  </Fragment>);
+                          })}
+
+                      </tr>);
+              })}
+
+          </table>
+
+          <div className="cont print">
+              <label className="switch" >
+                  <input type="checkbox" onClick={this.props.toggle}/>
+                  <span className="slider round" />
+              </label>
+          </div>
+
+          <div className="btnComprobar print">
+              <Button onClick={this.props.comprobarCompletado}> Comprobar </Button>
+          </div>
+
+          <h2 className="msgPrint">Área de piezas extra</h2>
+          <table className={"tablePuzzle tablePrint"}>
+              {rowsE.map((row, ind) => {
+                  return (
+                      <tr key={ind}>
+                          {columnsE.map((col, indC) => {
+                              n++;
+                              let numP2;
+                              this.props.piezas[n + this.props.conf.N * this.props.conf.M].numPuzzle === "1" ? numP2="2" : numP2="1";
+                              return (
+                                  <Fragment key={indC}>
+                                      <td>
+
+                                          <Piece posRow={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posRow}
+                                                 posCol={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posCol}
+                                                 row={this.props.piezas[n + this.props.conf.N * this.props.conf.M].row}
+                                                 column={this.props.piezas[n + this.props.conf.N * this.props.conf.M].column}
+                                                 conf={this.props.conf}
+                                                 seleccionarPieza={this.props.seleccionarPieza}
+                                                 piezasSeleccionadas={this.props.piezasSeleccionadas}
+                                                 numPuzzle={numP2}
+                                                 darVuelta = {this.props.darVuelta}
+                                                 piezaExtra = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].piezaExtra}
+
+                                          />
+                                      </td>
+                                  </Fragment>);
+                          })}
+
+                      </tr>);
+              })}
+          </table>
       </Fragment>
     );
   }

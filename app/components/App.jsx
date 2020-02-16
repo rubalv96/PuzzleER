@@ -19,6 +19,7 @@ import {
 } from '../reducers/actions';
 import MensajeInicial from './MensajeInicial';
 import MensajeFinal from "./MensajeFinal";
+import Instructions from "./Instructions";
 
 export class App extends React.Component {
   constructor(props){
@@ -36,10 +37,10 @@ export class App extends React.Component {
     this.comprobarCompletado = this.comprobarCompletado.bind(this);
     this.iniciarPuzzle();
     let numIntentos;
-    GLOBAL_CONFIG.numberAttempts === "" ? numIntentos=-1 : numIntentos= GLOBAL_CONFIG.numberAttempts;
+    GLOBAL_CONFIG.numberAttempts === "" ? numIntentos = -1 : numIntentos = GLOBAL_CONFIG.numberAttempts;
     this.state = {
       mostrarMsgFinal:false,
-      numIntentos: numIntentos,
+      numIntentos:numIntentos,
     };
   }
 
@@ -97,7 +98,7 @@ export class App extends React.Component {
     }
 
     let styleBackground = {
-      "background":"linear-gradient(rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + "), rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground+ ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
+      "background":"linear-gradient(rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + "), rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
       "backgroundPosition":"center center",
       "backgroundRepeat":"no-repeat",
       "backgroundSize":"cover",
@@ -106,12 +107,14 @@ export class App extends React.Component {
     if(this.state.numIntentos === -1){
       msgIntentos = "Infinitos";
     }
-    else{
+    else {
       msgIntentos = this.state.numIntentos;
     }
     return (
+        <>
 
       <div id="container" style={styleBackground}>
+        <Instructions/>
         <h1 className="title">Generador de Puzzles</h1>
         {appInitialMsg}
         {appEndMsg}
@@ -119,10 +122,9 @@ export class App extends React.Component {
         {appHeader}
         {appContent}
         {}
-        <h1>INTENTOS: {msgIntentos}</h1>
-
+        <h1 className="intentos">INTENTOS: {msgIntentos}</h1>
       </div>
-
+</>
     );
   }
 
@@ -217,12 +219,10 @@ export class App extends React.Component {
   comprobarCompletado(){
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
     if(this.state.numIntentos !== -1){
-      this.setState({numIntentos: this.state.numIntentos -1});
+      this.setState({numIntentos:this.state.numIntentos - 1});
     }
     this.mostrarMsgFinal();
-    // let msgFinal = document.getElementById("msgFinal");
-    // msgFinal.innerHTML=<MensajeFinal puzzleCompleto={this.props.puzzleCompleto}/>;
-    // return (<MensajeFinal puzzleCompleto={this.props.puzzleCompleto}/>);
+
   }
 
 }

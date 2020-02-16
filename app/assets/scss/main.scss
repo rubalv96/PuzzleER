@@ -105,6 +105,10 @@ input:checked + .slider:before {
   padding: 30px;
   font-size: 2.5em;
 }
+
+.titlePrint{
+  display:none;
+}
 .imagen11{
   position: absolute;
   left: 0px;
@@ -165,17 +169,29 @@ div.header_wrapper img {
 }
 
 .msgPrint{
-  visibility: hidden;
+  display: none;
 }
 
 .btnComprobar{
   text-align: center;
 }
 
+.tablePrint{
+  display: none;
+}
+
+.print{
+  visibility:hidden;
+}
+
+.printInstructions{
+  display:none;
+}
+
 
 @media print {
   .header_wrapper{
-    visibility: hidden;
+    display: none;
   }
 
   .tablePuzzle{
@@ -188,12 +204,18 @@ div.header_wrapper img {
     padding: 10px;
 
   }
+
+  .printInstructions{
+    display:inline-block;
+  }
+
+
   .imgPiece{
     border: 3px #93A603 dashed !important;
   }
 
   .msgPrint{
-    visibility: visible;
+    display: block;
     letter-spacing: 4px;
     text-align: center;
     color: #F2EB8D;
@@ -201,6 +223,23 @@ div.header_wrapper img {
     padding: 10px;
     font-size: 2.5em;
   }
+  .btnComprobar{
+    display: none;
+  }
+
+  .intentos{
+    display: none;
+  }
+
+  .tablePrint{
+    display: table;
+  }
 
 
+  .pagebreak{
+     page-break-before: always; /* page-break-after works, as well */
+  }
+.titlePrint{
+  display: block;
+}
 }
