@@ -10,15 +10,11 @@ export default function Instructions(){
         <div className="printInstructions" >
       <p><b>Instrucciones</b></p>
       <ul>
-        <li>El objetivo del recurso es ordenar las piezas para completar una imagen.</li>
-        <li>Para intercambiar las piezas se deberá hacer click sobre una de ellas y volver a hacer click sobre la nueva posición.</li>
-        <li>Hay más piezas que las correspondientes a la solución del puzzle.</li>
-        <li>Aquellas piezas que no correspondan a la solución se deberán colocar en el espacio reservado para ello situado en la parte inferior del área de puzzle.</li>
-        <li>Las piezas contienen doble cara. Para dar la vuelta a la pieza se debe hacer doble click sobre la misma.</li>
-        <li>Además, se puede hacer uso del botón de toggle en la parte inferior del puzzle para darle la vuelta a todas las piezas simultáneamente.</li>
-        <li>Cuando se haya completado el puzzle se deberá comprobar que la solución es correcta haciendo click en el botón <i>Comprobar</i>.</li>
+        <li>El objetivo del puzle es ordenar las piezas para completar una imagen.</li>
+        <li>Se debe recortar por la línea de puntos cada pieza.</li>
+        <li>En caso de que las piezas fuesen de doble cara se recomienda imprimir a doble cara las hojas 2 y 3 del recurso para que coincidan las piezas con su reverso</li>
       </ul>
-      <p>{GLOBAL_CONFIG.initialMessage}</p>
+      <p>{GLOBAL_CONFIG.initialMessagePrint}</p>
 
       <img src={initialImage} style={{width:300, height:200, display:"block", margin:"auto"}} alt={"Imagen de mensaje inicial."}/>
 

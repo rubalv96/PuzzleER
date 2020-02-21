@@ -35,162 +35,191 @@ export default class Puzzle extends React.Component {
     let m = -1;
     let n = -1;
 
-    return (
+    let toggleButton = "";
+    if(this.props.conf.image2 !== ""){
+      toggleButton =
+            (<div className="cont">
+              <label className="switch" >
+                <input type="checkbox" onClick={this.props.toggle}/>
+                <span className="slider round" />
+              </label>
+            </div>);
+    }
 
-      <Fragment>
-        <h2 className="msgPrint">Área de puzzle</h2>
-        <table className={"tablePuzzle"}>
-          {rows.map((row, ind) => {
-            return (
-              <tr key={ind}>
-                {columns.map((col, indC) => {
-                  l++;
-                  return (
-                    <Fragment key={indC}>
-                      <td>
+    let btnComprobar = "";
+    btnComprobar = (<div className="btnComprobar">
+      <Button onClick={this.props.comprobarCompletado}> Comprobar </Button>
+    </div>);
 
-                        <Piece posRow={this.props.piezas[l].posRow}
-                          posCol={this.props.piezas[l].posCol}
-                          row={this.props.piezas[l].row}
-                          column={this.props.piezas[l].column}
-                          conf={this.props.conf}
-                          seleccionarPieza={this.props.seleccionarPieza}
-                          piezasSeleccionadas={this.props.piezasSeleccionadas}
-                          numPuzzle={this.props.piezas[l].numPuzzle}
-                          darVuelta = {this.props.darVuelta}
-                          piezaExtra = {this.props.piezas[l].piezaExtra}
+    let areaPuzzle = "";
+    areaPuzzle =
+        (<>
+          <h2 className="msgPrint">Área de puzzle</h2>
+          <table className={"tablePuzzle"}>
+            {rows.map((row, ind) => {
+              return (
+                <tr key={ind}>
+                  {columns.map((col, indC) => {
+                    l++;
+                    return (
+                      <Fragment key={indC}>
+                        <td>
 
-                        />
-                      </td>
-                    </Fragment>);
-                })}
+                          <Piece posRow={this.props.piezas[l].posRow}
+                            posCol={this.props.piezas[l].posCol}
+                            row={this.props.piezas[l].row}
+                            column={this.props.piezas[l].column}
+                            conf={this.props.conf}
+                            seleccionarPieza={this.props.seleccionarPieza}
+                            piezasSeleccionadas={this.props.piezasSeleccionadas}
+                            numPuzzle={this.props.piezas[l].numPuzzle}
+                            darVuelta = {this.props.darVuelta}
+                            piezaExtra = {this.props.piezas[l].piezaExtra}
 
-              </tr>);
-          })}
+                          />
+                        </td>
+                      </Fragment>);
+                  })}
 
-        </table>
+                </tr>);
+            })}
 
-        <div className="cont">
-          <label className="switch" >
-            <input type="checkbox" onClick={this.props.toggle}/>
-            <span className="slider round" />
-          </label>
-        </div>
+          </table>
+        </>);
+    let areaPiezasExtra = "";
+    if(this.props.conf.imageExtra1 !== ""){
+      areaPiezasExtra = (
+        <>
+          <h2 className="msgPrint">Área de piezas extra</h2>
 
-        <div className="btnComprobar">
-          <Button onClick={this.props.comprobarCompletado}> Comprobar </Button>
-        </div>
+          <table className={"tablePuzzle"}>
+            {rowsE.map((row, ind) => {
+              return (
+                <tr key={ind}>
+                  {columnsE.map((col, indC) => {
+                    k++;
+                    return (
+                      <Fragment key={indC}>
+                        <td>
 
-        <h2 className="msgPrint">Área de piezas extra</h2>
-        <table className={"tablePuzzle"}>
-          {rowsE.map((row, ind) => {
-            return (
-              <tr key={ind}>
-                {columnsE.map((col, indC) => {
-                  k++;
-                  return (
-                    <Fragment key={indC}>
-                      <td>
+                          <Piece posRow={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posRow}
+                            posCol={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posCol}
+                            row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
+                            column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
+                            conf={this.props.conf}
+                            seleccionarPieza={this.props.seleccionarPieza}
+                            piezasSeleccionadas={this.props.piezasSeleccionadas}
+                            numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
+                            darVuelta = {this.props.darVuelta}
+                            piezaExtra = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].piezaExtra}
 
-                        <Piece posRow={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posRow}
-                          posCol={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posCol}
-                          row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
-                          column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
-                          conf={this.props.conf}
-                          seleccionarPieza={this.props.seleccionarPieza}
-                          piezasSeleccionadas={this.props.piezasSeleccionadas}
-                          numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
-                          darVuelta = {this.props.darVuelta}
-                          piezaExtra = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].piezaExtra}
+                          />
+                        </td>
+                      </Fragment>);
+                  })}
 
-                        />
-                      </td>
-                    </Fragment>);
-                })}
+                </tr>);
+            })}
+          </table>
+        </>
+      );
+    }
 
-              </tr>);
-          })}
-        </table>
-          <div className="pagebreak"></div>
+    let areaPuzzlePrint = "";
+    if(this.props.conf.image2 !== ""){
+      areaPuzzlePrint = (
+        <>
+          <div className="pagebreak" />
           <h1 className="title titlePrint">Generador de Puzzles</h1>
           <h2 className="msgPrint">Área de puzzle</h2>
           <table className="tablePuzzle tablePrint">
-              {rows.map((row, ind) => {
-                  return (
-                      <tr key={ind}>
-                          {columns.map((col, indC) => {
-                              m++;
-                              let numP1;
-                              this.props.piezas[m].numPuzzle === "1" ? numP1="2" : numP1="1";
-                              return (
-                                  <Fragment key={indC}>
-                                      <td>
+            {rows.map((row, ind) => {
+              return (
+                <tr key={ind}>
+                  {columns.map((col, indC) => {
+                    m++;
+                    let numP1;
+                    this.props.piezas[m].numPuzzle === 1 ? numP1 = 2 : numP1 = 1;
+                    return (
+                      <Fragment key={indC}>
+                        <td>
 
-                                          <Piece posRow={this.props.piezas[m].posRow}
-                                                 posCol={this.props.piezas[m].posCol}
-                                                 row={this.props.piezas[m].row}
-                                                 column={this.props.piezas[m].column}
-                                                 conf={this.props.conf}
-                                                 seleccionarPieza={this.props.seleccionarPieza}
-                                                 piezasSeleccionadas={this.props.piezasSeleccionadas}
-                                                 numPuzzle={numP1}
-                                                 darVuelta = {this.props.darVuelta}
-                                                 piezaExtra = {this.props.piezas[m].piezaExtra}
+                          <Piece posRow={this.props.piezas[m].posRow}
+                            posCol={this.props.piezas[m].posCol}
+                            row={this.props.piezas[m].row}
+                            column={this.props.piezas[m].column}
+                            conf={this.props.conf}
+                            seleccionarPieza={this.props.seleccionarPieza}
+                            piezasSeleccionadas={this.props.piezasSeleccionadas}
+                            numPuzzle={numP1}
+                            darVuelta = {this.props.darVuelta}
+                            piezaExtra = {this.props.piezas[m].piezaExtra}
 
-                                          />
-                                      </td>
-                                  </Fragment>);
-                          })}
+                          />
+                        </td>
+                      </Fragment>);
+                  })}
 
-                      </tr>);
-              })}
+                </tr>);
+            })}
 
           </table>
+        </>
+      );
 
-          <div className="cont print">
-              <label className="switch" >
-                  <input type="checkbox" onClick={this.props.toggle}/>
-                  <span className="slider round" />
-              </label>
-          </div>
+    }
 
-          <div className="btnComprobar print">
-              <Button onClick={this.props.comprobarCompletado}> Comprobar </Button>
-          </div>
-
+    let areaPuzzleExtraPrint = "";
+    if(this.props.conf.imageExtra1 !== "" && this.props.conf.image2 !== ""){
+      areaPuzzleExtraPrint = (
+        <>
           <h2 className="msgPrint">Área de piezas extra</h2>
           <table className={"tablePuzzle tablePrint"}>
-              {rowsE.map((row, ind) => {
-                  return (
-                      <tr key={ind}>
-                          {columnsE.map((col, indC) => {
-                              n++;
-                              let numP2;
-                              this.props.piezas[n + this.props.conf.N * this.props.conf.M].numPuzzle === "1" ? numP2="2" : numP2="1";
-                              return (
-                                  <Fragment key={indC}>
-                                      <td>
+            {rowsE.map((row, ind) => {
+              return (
+                <tr key={ind}>
+                  {columnsE.map((col, indC) => {
+                    n++;
+                    console.log("n: " + n);
+                    let numP2;
+                    this.props.piezas[n + this.props.conf.N * this.props.conf.M].numPuzzle === 1 ? numP2 = 2 : numP2 = 1;
+                    return (
+                      <Fragment key={indC}>
+                        <td>
 
-                                          <Piece posRow={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posRow}
-                                                 posCol={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posCol}
-                                                 row={this.props.piezas[n + this.props.conf.N * this.props.conf.M].row}
-                                                 column={this.props.piezas[n + this.props.conf.N * this.props.conf.M].column}
-                                                 conf={this.props.conf}
-                                                 seleccionarPieza={this.props.seleccionarPieza}
-                                                 piezasSeleccionadas={this.props.piezasSeleccionadas}
-                                                 numPuzzle={numP2}
-                                                 darVuelta = {this.props.darVuelta}
-                                                 piezaExtra = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].piezaExtra}
+                          <Piece posRow={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posRow}
+                            posCol={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posCol}
+                            row={this.props.piezas[n + this.props.conf.N * this.props.conf.M].row}
+                            column={this.props.piezas[n + this.props.conf.N * this.props.conf.M].column}
+                            conf={this.props.conf}
+                            seleccionarPieza={this.props.seleccionarPieza}
+                            piezasSeleccionadas={this.props.piezasSeleccionadas}
+                            numPuzzle={numP2}
+                            darVuelta = {this.props.darVuelta}
+                            piezaExtra = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].piezaExtra}
 
-                                          />
-                                      </td>
-                                  </Fragment>);
-                          })}
+                          />
+                        </td>
+                      </Fragment>);
+                  })}
 
-                      </tr>);
-              })}
+                </tr>);
+            })}
           </table>
-      </Fragment>
+        </>
+      );
+    }
+    return (
+      <>
+
+        {areaPuzzle}
+        {toggleButton}
+        {btnComprobar}
+        {areaPiezasExtra}
+        {areaPuzzlePrint}
+        {areaPuzzleExtraPrint}
+      </>
+
     );
   }
   componentDidMount(){

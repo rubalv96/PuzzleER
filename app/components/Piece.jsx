@@ -16,21 +16,27 @@ export default class Piece extends React.Component {
 
   handleClick(e){
     e.preventDefault();
-    this.setState({
-      backToFront:"1.5",
-      frontToBack:"1.5",
-    });
-    this.setState(prevState => ({isFlipped:!prevState.isFlipped}));
-    setTimeout(()=>{this.props.darVuelta(this.props.row, this.props.column);
-      this.setState({
-        backToFront:"0",
-      });
-      this.setState(prevState => ({isFlipped:!prevState.isFlipped}));},
-    1000);
+    if(this.props.conf.image2 !== ""){
+        this.setState({
+            backToFront:"1.5",
+            frontToBack:"1.5",
+        });
+        this.setState(prevState => ({isFlipped:!prevState.isFlipped}));
+        setTimeout(()=>{this.props.darVuelta(this.props.row, this.props.column);
+                this.setState({
+                    backToFront:"0",
+                });
+                this.setState(prevState => ({isFlipped:!prevState.isFlipped}));},
+            1000);
+    }
+
 
   }
 
+
+
   render(){
+
     // Dimensiones del puzzle
     let altoImg;
     let anchoImg;
@@ -126,7 +132,6 @@ export default class Piece extends React.Component {
           <div
             className={"imgPiece"}
             onDoubleClick={this.handleClick}
-
             style={{
               width:anchoContenedor + "px",
               height:altoContenedor + "px",

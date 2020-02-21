@@ -20,6 +20,7 @@ import {
 import MensajeInicial from './MensajeInicial';
 import MensajeFinal from "./MensajeFinal";
 import Instructions from "./Instructions";
+import Attempts from "./Attempts";
 
 export class App extends React.Component {
   constructor(props){
@@ -122,7 +123,7 @@ export class App extends React.Component {
         {appHeader}
         {appContent}
         {}
-        <h1 className="intentos">INTENTOS: {msgIntentos}</h1>
+        <Attempts numIntentos={msgIntentos}/>
       </div>
 </>
     );
