@@ -101,9 +101,9 @@ input:checked + .slider:before {
   letter-spacing: 4px;
   text-align: center;
   color: #93A603;
-  font-family: "Lucida Console";
+  font-family: "Odibee Sans";
   padding: 30px;
-  font-size: 2.5em;
+  font-size: 3.5em;
 }
 
 .titlePrint{
@@ -158,10 +158,10 @@ div.header_wrapper img {
 .tablePuzzle{
   border-spacing: 0;
   border-collapse: separate;
-  clear:both;
   border:3px #93A603 solid;
   border-radius: 3px;
-  margin :auto;
+  margin: auto;
+  float: left;
 }
 
 .tablePuzzle td{
@@ -189,11 +189,6 @@ div.header_wrapper img {
 }
 
 .attemptsContainer{
-  //width: 40%;
-  //height: 150px;
-  //background-color: #bdffbd;
-  //border-radius: 25px;
-  //margin: auto;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -204,63 +199,21 @@ div.header_wrapper img {
   max-height: 10%;
 }
 
-.attemptsNOK{
+.attemptsNOK {
   filter: grayscale(100%);
 }
-@media print {
-  .header_wrapper{
-    display: none;
-  }
 
-  .tablePuzzle{
-    border-spacing: 10px;
-    border:3px #93A603 dashed;
-    border-radius: 3px;
-    margin :auto;
-  }
-  .tablePuzzle td{
-    padding: 10px;
-
-  }
-
-  .printInstructions{
-    display:inline-block;
-  }
-
-
-  .imgPiece{
-    border: 3px #93A603 dashed !important;
-  }
-
-  .msgPrint{
-    display: block;
-    letter-spacing: 4px;
-    text-align: center;
-    color: #F2EB8D;
-    font-family: "Lucida Console";
-    padding: 10px;
-    font-size: 2.5em;
-  }
-  .btnComprobar{
-    display: none;
-  }
-
-  .intentos{
-    display: none;
-  }
-
-  .tablePrint{
-    display: table;
-  }
-
-
-  .pagebreak{
-     page-break-before: always; /* page-break-after works, as well */
-  }
-.titlePrint {
-  display: block;
+.toolkitContainer{
+  text-align: center;
+  background-color: #bdffbd;
+  border-radius: 40px;
+  border: #93A603 4px solid;
+  width: 40%;
+  margin: 4% auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  clear: both;
 }
-  .attemptsOK, .attemptsNOK, attempsContainer{
-    display: none;
-  }
-}
+
+@import "print.scss";

@@ -20,18 +20,6 @@ export default class Header extends React.Component {
       trackingTexts.push(this.props.I18n.getTrans("i.score") + ": null");
     }
 
-    if(typeof this.props.tracking.success === "boolean"){
-      trackingTexts.push(this.props.I18n.getTrans("i.success") + ": " + (this.props.tracking.success).toString());
-    } else {
-      trackingTexts.push(this.props.I18n.getTrans("i.success") + ": null");
-
-    }
-
-    if(typeof this.props.tracking.completion === "boolean"){
-      trackingTexts.push(this.props.I18n.getTrans("i.completion") + ": " + (this.props.tracking.completion).toString());
-    } else {
-      trackingTexts.push(this.props.I18n.getTrans("i.completion") + ": null");
-    }
 
     if(this.props.user_profile){
       if((typeof this.props.user_profile.name === "string")){

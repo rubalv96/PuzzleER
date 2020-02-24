@@ -2,8 +2,6 @@ export const INITIAL_STATE = {
   tracking:{
     progress_measure:0,
     score:0,
-    success:false,
-    completion:false,
     objectives:{},
     finished:false,
   },

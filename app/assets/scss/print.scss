@@ -1,0 +1,67 @@
+@media print {
+
+    .header_wrapper{
+        display: none;
+    }
+
+    .tablePuzzle{
+
+
+    }
+    .puzzleArea{
+        display: none !important;
+    }
+
+
+    .printInstructions{
+        display:inline-block;
+    }
+
+
+    .imgPiece{
+        border: 3px #93A603 dashed !important;
+    }
+
+    .msgPrint{
+        display: block;
+        letter-spacing: 4px;
+        text-align: center;
+        color: #F2EB8D;
+        font-family: "Lucida Console";
+        padding: 10px;
+        font-size: 2.5em;
+    }
+    .btnComprobar{
+        display: none;
+    }
+
+    .intentos{
+        display: none;
+    }
+
+    .toolkitContainer {
+    display: none;
+    }
+        .tablePrint{
+        border-spacing: 10px;
+        border:3px #93A603 dashed;
+        border-radius: 3px;
+        margin :auto;
+        text-align: center;
+        display: table;
+    }
+    .tablePrint td{
+        padding: 15px;
+
+    }
+
+    .pagebreak{
+        page-break-before: always; /* page-break-after works, as well */
+    }
+    .titlePrint {
+        display: block;
+    }
+    .attemptsOK, .attemptsNOK, .attemptsContainer{
+        display: none;
+    }
+}

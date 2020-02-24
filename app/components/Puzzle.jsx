@@ -5,6 +5,7 @@ import '../assets/scss/main.scss';
 import * as Utils from '../vendors/Utils';
 import {addObjectives} from "../reducers/actions";
 import {Button} from "react-bootstrap";
+import Toolkit from "./Toolkit";
 
 export default class Puzzle extends React.Component {
   constructor(props){
@@ -30,26 +31,7 @@ export default class Puzzle extends React.Component {
       columnsE.push(i);
     }
 
-    let l = -1;
-    let k = -1;
-    let m = -1;
-    let n = -1;
-
-    let toggleButton = "";
-    if(this.props.conf.image2 !== ""){
-      toggleButton =
-            (<div className="cont">
-              <label className="switch" >
-                <input type="checkbox" onClick={this.props.toggle}/>
-                <span className="slider round" />
-              </label>
-            </div>);
-    }
-
-    let btnComprobar = "";
-    btnComprobar = (<div className="btnComprobar">
-      <Button onClick={this.props.comprobarCompletado}> Comprobar </Button>
-    </div>);
+    let l = -1, k = -1, m = -1, n = -1, o = -1, p = -1;
 
     let areaPuzzle = "";
     areaPuzzle =
@@ -126,13 +108,86 @@ export default class Puzzle extends React.Component {
     }
 
     let areaPuzzlePrint = "";
+    areaPuzzlePrint =
+        (
+          <>
+            <h2 className="msgPrint">Área de puzzle</h2>
+            <table className={"tablePrint"}>
+              {rows.map((row, ind) => {
+                return (
+                  <tr key={ind}>
+                    {columns.map((col, indC) => {
+                      o++;
+                      return (
+                        <Fragment key={indC}>
+                          <td>
+
+                            <Piece posRow={this.props.piezas[o].posRow}
+                              posCol={this.props.piezas[o].posCol}
+                              row={this.props.piezas[o].row}
+                              column={this.props.piezas[o].column}
+                              conf={this.props.conf}
+                              seleccionarPieza={this.props.seleccionarPieza}
+                              piezasSeleccionadas={this.props.piezasSeleccionadas}
+                              numPuzzle={this.props.piezas[o].numPuzzle}
+                              darVuelta = {this.props.darVuelta}
+                              piezaExtra = {this.props.piezas[o].piezaExtra}
+
+                            />
+                          </td>
+                        </Fragment>);
+                    })}
+
+                  </tr>);
+              })}
+
+            </table>
+          </>
+        );
+    let areaPuzzleExtraPrint = "";
+    areaPuzzleExtraPrint =
+        (
+          <>
+            <h2 className="msgPrint">Área de piezas extra</h2>
+            <table className={"tablePrint"}>
+              {rowsE.map((row, ind) => {
+                return (
+                  <tr key={ind}>
+                    {columnsE.map((col, indC) => {
+                      p++;
+                      return (
+                        <Fragment key={indC}>
+                          <td>
+
+                            <Piece posRow={this.props.piezas[p + this.props.conf.N * this.props.conf.M].posRow}
+                              posCol={this.props.piezas[p + this.props.conf.N * this.props.conf.M].posCol}
+                              row={this.props.piezas[p + this.props.conf.N * this.props.conf.M].row}
+                              column={this.props.piezas[p + this.props.conf.N * this.props.conf.M].column}
+                              conf={this.props.conf}
+                              seleccionarPieza={this.props.seleccionarPieza}
+                              piezasSeleccionadas={this.props.piezasSeleccionadas}
+                              numPuzzle={this.props.piezas[p].numPuzzle}
+                              darVuelta = {this.props.darVuelta}
+                              piezaExtra = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].piezaExtra}
+
+                            />
+                          </td>
+                        </Fragment>);
+                    })}
+
+                  </tr>);
+              })}
+            </table>
+          </>
+        );
+    let areaPuzzlePrintReverso = "";
     if(this.props.conf.image2 !== ""){
-      areaPuzzlePrint = (
+      areaPuzzlePrintReverso = (
         <>
           <div className="pagebreak" />
           <h1 className="title titlePrint">Generador de Puzzles</h1>
           <h2 className="msgPrint">Área de puzzle</h2>
-          <table className="tablePuzzle tablePrint">
+          <table className="tablePrint">
             {rows.map((row, ind) => {
               return (
                 <tr key={ind}>
@@ -169,12 +224,12 @@ export default class Puzzle extends React.Component {
 
     }
 
-    let areaPuzzleExtraPrint = "";
+    let areaPuzzleExtraPrintReverso = "";
     if(this.props.conf.imageExtra1 !== "" && this.props.conf.image2 !== ""){
-      areaPuzzleExtraPrint = (
+      areaPuzzleExtraPrintReverso = (
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
-          <table className={"tablePuzzle tablePrint"}>
+          <table className={"tablePrint"}>
             {rowsE.map((row, ind) => {
               return (
                 <tr key={ind}>
@@ -211,13 +266,25 @@ export default class Puzzle extends React.Component {
     }
     return (
       <>
+        <div className={"puzzleArea"} style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+          {/* Componente de área de juego del puzzle*/}
+          {areaPuzzle}
 
-        {areaPuzzle}
-        {toggleButton}
-        {btnComprobar}
-        {areaPiezasExtra}
+          {/* Componente de área de piezas extra*/}
+          {areaPiezasExtra}
+        </div>
+
+        <Toolkit comprobarCompletado={this.props.comprobarCompletado}
+          conf = {this.props.conf}
+          toggle = {this.props.toggle}
+        />
+
+        {/* Componentes visibles solo en versión de impresión en papel*/}
         {areaPuzzlePrint}
         {areaPuzzleExtraPrint}
+        {areaPuzzlePrintReverso}
+        {areaPuzzleExtraPrintReverso}
+
       </>
 
     );

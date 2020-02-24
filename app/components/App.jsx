@@ -120,10 +120,11 @@ export class App extends React.Component {
         {appInitialMsg}
         {appEndMsg}
         <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
-        {appHeader}
         {appContent}
         {}
         <Attempts numIntentos={msgIntentos}/>
+        {/*{appHeader}*/}
+
       </div>
 </>
     );

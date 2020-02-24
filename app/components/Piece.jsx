@@ -17,23 +17,20 @@ export default class Piece extends React.Component {
   handleClick(e){
     e.preventDefault();
     if(this.props.conf.image2 !== ""){
+      this.setState({
+        backToFront:"1.5",
+        frontToBack:"1.5",
+      });
+      this.setState(prevState => ({isFlipped:!prevState.isFlipped}));
+      setTimeout(()=>{this.props.darVuelta(this.props.row, this.props.column);
         this.setState({
-            backToFront:"1.5",
-            frontToBack:"1.5",
+          backToFront:"0",
         });
-        this.setState(prevState => ({isFlipped:!prevState.isFlipped}));
-        setTimeout(()=>{this.props.darVuelta(this.props.row, this.props.column);
-                this.setState({
-                    backToFront:"0",
-                });
-                this.setState(prevState => ({isFlipped:!prevState.isFlipped}));},
-            1000);
+        this.setState(prevState => ({isFlipped:!prevState.isFlipped}));},
+      1000);
     }
 
-
   }
-
-
 
   render(){
 
@@ -43,7 +40,7 @@ export default class Piece extends React.Component {
     this.props.conf.heightImg === "" ? altoImg = 300 : altoImg = parseInt(this.props.conf.heightImg, 10);
     this.props.conf.widthImg === "" ? anchoImg = 500 : anchoImg = parseInt(this.props.conf.widthImg, 10);
 
-    // Fabrico el tamaño del contenedor
+    // Tamaño del contenedor
     let anchoContenedor = anchoImg / this.props.conf.M;
     let altoContenedor = altoImg / this.props.conf.N;
 
@@ -70,6 +67,8 @@ export default class Piece extends React.Component {
       borde = "1px #93A603 solid";
     }
 
+    // Selección de imagen de la pieza en posición frontal o en reverso
+
     let img, imgRev;
     this.props.numPuzzle === 1 ? img = this.props.conf.image1 : img = this.props.conf.image2;
     this.props.numPuzzle === 1 ? imgRev = this.props.conf.image2 : imgRev = this.props.conf.image1;
@@ -86,6 +85,7 @@ export default class Piece extends React.Component {
 
     }
 
+    // Imagen de pieza en posición frontal
     let imgPieza = (
       <img
         style={{
@@ -105,6 +105,7 @@ export default class Piece extends React.Component {
         alt={"Imagen de pieza"}/>
     );
 
+    // Imagen de pieza en posición de reverso
     let imgPiezaRev = (
       <img
         style={{
@@ -125,7 +126,6 @@ export default class Piece extends React.Component {
     );
     return (
       <Fragment>
-
 
         <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal" flipSpeedBackToFront={this.state.backToFront} flipSpeedFrontToBack={this.state.frontToBack}>
           {/* Contenedor de la pieza frontal*/}
