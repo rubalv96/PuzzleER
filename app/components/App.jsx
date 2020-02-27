@@ -6,6 +6,7 @@ import {GLOBAL_CONFIG} from '../config/config.js';
 import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
 import Header from './Header.jsx';
+import NavBar from "./navBar";
 // import FinishScreen from './FinishScreen.jsx';
 
 import Puzzle from './Puzzle';
@@ -36,6 +37,7 @@ export class App extends React.Component {
     this.mostrarMsgFinal = this.mostrarMsgFinal.bind(this);
     this.ocultarMsgFinal = this.ocultarMsgFinal.bind(this);
     this.comprobarCompletado = this.comprobarCompletado.bind(this);
+    this.compruebaEscapp = this.compruebaEscapp.bind(this);
     this.iniciarPuzzle();
     let numIntentos;
     GLOBAL_CONFIG.numberAttempts === "" ? numIntentos = -1 : numIntentos = GLOBAL_CONFIG.numberAttempts;
@@ -115,6 +117,7 @@ export class App extends React.Component {
         <>
 
       <div id="container" style={styleBackground}>
+        <NavBar/>
         <Instructions/>
         <h1 className="title">Generador de Puzzles</h1>
         {appInitialMsg}
@@ -224,7 +227,19 @@ export class App extends React.Component {
       this.setState({numIntentos:this.state.numIntentos - 1});
     }
     this.mostrarMsgFinal();
+    // Llamada a API externa mediante la plataforma Escapp
+    this.compruebaEscapp(GLOBAL_CONFIG.solution);
 
+  }
+
+  compruebaEscapp(answer){
+      fetch("https://escapp.dit.upm.es/api/escapeRooms/1/puzzles/5/check", {
+      method: 'POST',
+      body: JSON.stringify({token: "ruben.alvarezg@alumnos.upm.es", solution: answer}),
+      headers: {"Content-type": "application/json"}
+    })
+        .then(res => res.json())
+        .then(res => console.log(res));
   }
 
 }

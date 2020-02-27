@@ -1,7 +1,7 @@
 export let GLOBAL_CONFIG = {
   dev:{
-    imageBackground:"./assets/images/diente_leon_t.png",
-    opacityBackground:".2",
+    imageBackground:"./assets/images/noruega.jpg",
+    opacityBackground:".7",
     image1:"./assets/images/cascada.jpg",
     image2:"./assets/images/cactus.jpg",
     imageExtra1:"./assets/images/egipto.jpg",
@@ -11,8 +11,8 @@ export let GLOBAL_CONFIG = {
     numberAttempts:"10",
     M:4,
     N:2,
-    Mextra:3,
-    Nextra:2,
+    Mextra:4,
+    Nextra:1,
     initialMessage:"Bienvenido al Generador de Puzzles. ",
     initialMessagePrint:"¡Ánimo!",
     initialImage:"./assets/images/cascada.jpg",
@@ -20,6 +20,7 @@ export let GLOBAL_CONFIG = {
     endMessageFail:"Puedes volver a intentarlo.",
     endImageSuccess:"./assets/images/taj_mahal.jpg",
     endImageFail:"./assets/images/noruega.jpg",
+    solution:"8132", // 8132
     debug:true,
     debug_scorm_api:false,
     debug_scorm_api_window:false,

@@ -16,15 +16,15 @@ function puzzleCompletoReducer(state = [], action){
       }
     }
 
-    if(completado){
-      fetch("https://escapp.dit.upm.es/api/escapeRooms/1/puzzles/5/check", {
-        method: 'POST',
-        body: JSON.stringify({token: "ruben.alvarezg@alumnos.upm.es", solution: "8132"}),
-        headers: {"Content-type": "application/json"}
-      })
-          .then(res => res.json())
-          .then(res => console.log(res));
-    }
+    // if(completado){
+    //   fetch("https://escapp.dit.upm.es/api/escapeRooms/1/puzzles/5/check", {
+    //     method: 'POST',
+    //     body: JSON.stringify({token: "ruben.alvarezg@alumnos.upm.es", solution: "8132"}),
+    //     headers: {"Content-type": "application/json"}
+    //   })
+    //       .then(res => res.json())
+    //       .then(res => console.log(res));
+    // }
     return completado;
 
   default:
