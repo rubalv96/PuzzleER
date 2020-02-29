@@ -3,7 +3,7 @@ import {Modal, Button} from 'react-bootstrap';
 import {GLOBAL_CONFIG} from "../config/config";
 import {objectiveAccomplished} from "../reducers/actions";
 
-export default class MensajeFinal extends React.Component
+export default class FinalMessage extends React.Component
 {
   constructor(props){
     super(props);

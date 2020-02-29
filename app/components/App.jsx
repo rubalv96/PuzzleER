@@ -18,10 +18,11 @@ import {
   darVueltaTodas,
   comprobarCompletado,
 } from '../reducers/actions';
-import MensajeInicial from './MensajeInicial';
-import MensajeFinal from "./MensajeFinal";
+import InitialMessage from './InitialMessage';
+import FinalMessage from "./FinalMessage";
 import Instructions from "./Instructions";
 import Attempts from "./Attempts";
+import CluesMenu from "./CluesMenu";
 
 export class App extends React.Component {
   constructor(props){
@@ -40,13 +41,20 @@ export class App extends React.Component {
     this.compruebaEscapp = this.compruebaEscapp.bind(this);
     this.mostrarInstrucciones = this.mostrarInstrucciones.bind(this);
     this.ocultarInstrucciones = this.ocultarInstrucciones.bind(this);
+    this.mostrarPistas = this.mostrarPistas.bind(this);
+    this.ocultarPistas = this.ocultarPistas.bind(this);
+    this.consumirPista = this.consumirPista.bind(this);
     this.iniciarPuzzle();
-    let numIntentos;
-    GLOBAL_CONFIG.numberAttempts === "" ? numIntentos = -1 : numIntentos = GLOBAL_CONFIG.numberAttempts;
+    let numIntentosComprobacion;
+    let numIntentosPistas;
+    GLOBAL_CONFIG.numberAttempts === "" ? numIntentosComprobacion = -1 : numIntentosComprobacion = GLOBAL_CONFIG.numberAttempts;
+    GLOBAL_CONFIG.numberClues === "" ? numIntentosPistas = -1 : numIntentosPistas = GLOBAL_CONFIG.numberClues;
     this.state = {
       mostrarMsgFinal:false,
       mostrarMsgInicial:false,
-      numIntentos:numIntentos,
+      mostrarPistas:false,
+      numIntentos:numIntentosComprobacion,
+      numIntentosPistas: numIntentosPistas,
 
     };
   }
@@ -95,13 +103,13 @@ export class App extends React.Component {
     if(this.state.mostrarMsgFinal){
 
       if(GLOBAL_CONFIG.endMessage !== ""){
-        appEndMsg = (<MensajeFinal numIntentos={this.state.numIntentos} ocultar ={this.ocultarMsgFinal} puzzleCompleto={this.props.puzzleCompleto} dispatch={this.props.dispatch}/>);
+        appEndMsg = (<FinalMessage numIntentos={this.state.numIntentos} ocultar ={this.ocultarMsgFinal} puzzleCompleto={this.props.puzzleCompleto} dispatch={this.props.dispatch}/>);
       }
       // this.setState({mostrarMsgFinal: false});
     }
     let appInitialMsg;
     if(GLOBAL_CONFIG.initialMessage !== ""){
-      appInitialMsg = (<MensajeInicial ocultarInstrucciones={this.ocultarInstrucciones}/>);
+      appInitialMsg = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones}/>);
     }
 
     let styleBackground = {
@@ -117,15 +125,30 @@ export class App extends React.Component {
     else {
       msgIntentos = this.state.numIntentos;
     }
+
     let instrucciones = "";
     if(this.state.mostrarMsgInicial){
-      instrucciones = (<MensajeInicial ocultarInstrucciones={this.ocultarInstrucciones}/>);
+      instrucciones = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones}/>);
+    }
+
+    let pistas = "";
+    if(this.state.mostrarPistas){
+      pistas = (
+                <CluesMenu piezas={this.props.piezas}
+                           ocultarPistas={this.ocultarPistas}
+                           consumirPista = {this.consumirPista}
+                           numIntentosPistas = {this.state.numIntentosPistas}
+      />);
     }
     return (
       <>
 
         <div id="container" style={styleBackground}>
-          <NavBar mostrarInstrucciones={this.mostrarInstrucciones} />
+          <NavBar mostrarInstrucciones={this.mostrarInstrucciones}
+                  mostrarPistas={this.mostrarPistas}
+                  numIntentos = {this.state.numIntentos}
+                  numIntentosPistas = {this.state.numIntentosPistas}
+          />
           <Instructions/>
           <h1 className="title">Generador de Puzzles</h1>
           {appInitialMsg}
@@ -133,6 +156,7 @@ export class App extends React.Component {
           <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
           {appContent}
           {instrucciones}
+          {pistas}
           <Attempts numIntentos={msgIntentos}/>
           {/* {appHeader}*/}
 
@@ -229,6 +253,16 @@ export class App extends React.Component {
     this.setState({mostrarMsgFinal:false});
 
   }
+
+  consumirPista(coste){
+    if(coste <= this.state.numIntentosPistas){
+      this.setState({numIntentosPistas: this.state.numIntentosPistas - coste});
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
   comprobarCompletado(){
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
     if(this.state.numIntentos !== -1){
@@ -253,13 +287,18 @@ export class App extends React.Component {
 
   mostrarInstrucciones(){
     this.setState({mostrarMsgInicial:true});
-    console.log("MSG inicial trueeee");
 
+  }
+mostrarPistas(){
+    this.setState({mostrarPistas:true});
   }
 
   ocultarInstrucciones(){
     this.setState({mostrarMsgInicial:false});
-    console.log("MSG inicial falseeee");
+  }
+
+  ocultarPistas(){
+    this.setState({mostrarPistas:false});
   }
 }
 

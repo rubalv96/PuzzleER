@@ -9,6 +9,7 @@ export let GLOBAL_CONFIG = {
     heightImg:"",
     widthImg:"",
     numberAttempts:"10",
+    numberClues:"300",
     M:4,
     N:2,
     Mextra:4,
@@ -21,6 +22,7 @@ export let GLOBAL_CONFIG = {
     endImageSuccess:"./assets/images/taj_mahal.jpg",
     endImageFail:"./assets/images/noruega.jpg",
     solution:"8132", // 8132
+    cluesTime: "8000", //en milisegundos
     debug:true,
     debug_scorm_api:false,
     debug_scorm_api_window:false,

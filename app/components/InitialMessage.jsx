@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import {GLOBAL_CONFIG} from "../config/config";
 import {Modal, Button} from 'react-bootstrap';
 
-export default function MensajeInicial(props){
+export default function InitialMessage(props){
   const [show, setShow] = useState(true);
   const handleClose = () => setShow(false);
 
