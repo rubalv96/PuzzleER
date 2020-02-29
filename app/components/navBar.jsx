@@ -9,7 +9,8 @@ export default class NavBar extends React.Component {
                 <a className="navbar-brand title" href="https://github.com/rubalv96/PuzzleER">
                     <img src="../assets/images/intentos.png" width="40px" height="40px"/>
                     </a>
-                <a className="navbar-brand title" href="https://github.com/rubalv96/PuzzleER">
+                <a className="navbar-brand title" style={{cursor:"pointer" }} onClick={()=>{
+                    this.props.mostrarInstrucciones();}}>
                    ¿Cómo jugar?
                 </a>
 

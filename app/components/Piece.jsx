@@ -41,8 +41,8 @@ export default class Piece extends React.Component {
     this.props.conf.widthImg === "" ? anchoImg = 500 : anchoImg = parseInt(this.props.conf.widthImg, 10);
 
     // Tamaño del contenedor
-    let anchoContenedor = anchoImg / this.props.conf.M;
-    let altoContenedor = altoImg / this.props.conf.N;
+    let anchoContenedor = anchoImg / (this.props.conf.M);
+    let altoContenedor = altoImg / (this.props.conf.N);
 
     // Calculo de las posiciones de las fotos
     let top = -((this.props.posRow - 1) * altoImg / this.props.conf.N) + "px";

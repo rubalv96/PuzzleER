@@ -38,12 +38,16 @@ export class App extends React.Component {
     this.ocultarMsgFinal = this.ocultarMsgFinal.bind(this);
     this.comprobarCompletado = this.comprobarCompletado.bind(this);
     this.compruebaEscapp = this.compruebaEscapp.bind(this);
+    this.mostrarInstrucciones = this.mostrarInstrucciones.bind(this);
+    this.ocultarInstrucciones = this.ocultarInstrucciones.bind(this);
     this.iniciarPuzzle();
     let numIntentos;
     GLOBAL_CONFIG.numberAttempts === "" ? numIntentos = -1 : numIntentos = GLOBAL_CONFIG.numberAttempts;
     this.state = {
       mostrarMsgFinal:false,
+      mostrarMsgInicial:false,
       numIntentos:numIntentos,
+
     };
   }
 
@@ -97,7 +101,7 @@ export class App extends React.Component {
     }
     let appInitialMsg;
     if(GLOBAL_CONFIG.initialMessage !== ""){
-      appInitialMsg = (<MensajeInicial/>);
+      appInitialMsg = (<MensajeInicial ocultarInstrucciones={this.ocultarInstrucciones}/>);
     }
 
     let styleBackground = {
@@ -113,23 +117,27 @@ export class App extends React.Component {
     else {
       msgIntentos = this.state.numIntentos;
     }
+    let instrucciones = "";
+    if(this.state.mostrarMsgInicial){
+      instrucciones = (<MensajeInicial ocultarInstrucciones={this.ocultarInstrucciones}/>);
+    }
     return (
-        <>
+      <>
 
-      <div id="container" style={styleBackground}>
-        <NavBar/>
-        <Instructions/>
-        <h1 className="title">Generador de Puzzles</h1>
-        {appInitialMsg}
-        {appEndMsg}
-        <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
-        {appContent}
-        {}
-        <Attempts numIntentos={msgIntentos}/>
-        {/*{appHeader}*/}
+        <div id="container" style={styleBackground}>
+          <NavBar mostrarInstrucciones={this.mostrarInstrucciones} />
+          <Instructions/>
+          <h1 className="title">Generador de Puzzles</h1>
+          {appInitialMsg}
+          {appEndMsg}
+          <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
+          {appContent}
+          {instrucciones}
+          <Attempts numIntentos={msgIntentos}/>
+          {/* {appHeader}*/}
 
-      </div>
-</>
+        </div>
+      </>
     );
   }
 
@@ -232,16 +240,27 @@ export class App extends React.Component {
 
   }
 
+  // Llamada a API externa mediante la plataforma Escapp
   compruebaEscapp(answer){
-      fetch("https://escapp.dit.upm.es/api/escapeRooms/1/puzzles/5/check", {
-      method: 'POST',
-      body: JSON.stringify({token: "ruben.alvarezg@alumnos.upm.es", solution: answer}),
-      headers: {"Content-type": "application/json"}
+    fetch("https://escapp.dit.upm.es/api/escapeRooms/1/puzzles/5/check", {
+      method:'POST',
+      body:JSON.stringify({token:"ruben.alvarezg@alumnos.upm.es", solution:answer}),
+      headers:{"Content-type":"application/json"},
     })
-        .then(res => res.json())
-        .then(res => console.log(res));
+      .then(res => res.json())
+      .then(res => console.log(res));
   }
 
+  mostrarInstrucciones(){
+    this.setState({mostrarMsgInicial:true});
+    console.log("MSG inicial trueeee");
+
+  }
+
+  ocultarInstrucciones(){
+    this.setState({mostrarMsgInicial:false});
+    console.log("MSG inicial falseeee");
+  }
 }
 
 function mapStateToProps(state){

@@ -74,7 +74,7 @@ export default class Puzzle extends React.Component {
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
 
-          <table className={"tablePuzzle"}>
+          <table className={"tablePuzzle extra"}>
             {rowsE.map((row, ind) => {
               return (
                 <tr key={ind}>

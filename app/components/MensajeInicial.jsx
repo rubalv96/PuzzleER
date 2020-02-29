@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import {GLOBAL_CONFIG} from "../config/config";
 import {Modal, Button} from 'react-bootstrap';
 
-export default function MensajeInicial(){
+export default function MensajeInicial(props){
   const [show, setShow] = useState(true);
-
   const handleClose = () => setShow(false);
 
   let initialImage;
@@ -12,8 +11,8 @@ export default function MensajeInicial(){
   return (
     <>
 
-      <Modal show={show} onHide={handleClose} animation={false} size="lg">
-        <Modal.Header closeButton>
+      <Modal backdrop="static" keyboard="false" show={show} onHide={handleClose} animation={false} size="lg">
+        <Modal.Header>
           <Modal.Title>Resuelve el puzzle</Modal.Title>
         </Modal.Header>
         <Modal.Body>
@@ -34,7 +33,7 @@ export default function MensajeInicial(){
         </Modal.Body>
         <Modal.Footer>
 
-          <Button variant="primary" onClick={handleClose}>
+          <Button variant="primary" onClick={()=>{handleClose(); props.ocultarInstrucciones();}}>
                         ¡Jugar!
           </Button>
         </Modal.Footer>
