@@ -1,28 +1,30 @@
 export let GLOBAL_CONFIG = {
   dev:{
-    imageBackground:"./assets/images/noruega.jpg",
-    opacityBackground:".7",
-    image1:"./assets/images/cascada.jpg",
-    image2:"./assets/images/cactus.jpg",
-    imageExtra1:"./assets/images/egipto.jpg",
-    imageExtra2:"./assets/images/noruega.jpg",
-    heightImg:"",
-    widthImg:"",
-    numberAttempts:"10",
-    numberClues:"300",
-    M:4,
-    N:2,
-    Mextra:4,
-    Nextra:1,
-    initialMessage:"Bienvenido al Generador de Puzzles. ",
-    initialMessagePrint:"¡Ánimo!",
-    initialImage:"./assets/images/cascada.jpg",
-    endMessageSuccess:"Enhorabuena has finalizado el puzzle.",
-    endMessageFail:"Puedes volver a intentarlo.",
-    endImageSuccess:"./assets/images/taj_mahal.jpg",
-    endImageFail:"./assets/images/noruega.jpg",
-    solution:"8132", // 8132
-    cluesTime: "8000", //en milisegundos
+    imageBackground:"./assets/images/noruega.jpg", // imagen de fondo
+    opacityBackground:".7", // opacidad de la imagen
+    image1:"./assets/images/cascada.jpg", // imagen solución
+    image2:"./assets/images/cactus.jpg", // imagen solución reverso
+    imageExtra1:"./assets/images/egipto.jpg", // imagen señuelo cara
+    imageExtra2:"./assets/images/noruega.jpg", // imagen señuelo reverso
+    heightImg:"", // tamaño altura cuadro de puzzles
+    widthImg:"", // tamaño anchura de cuadro de puzzles
+    numberAttempts:"-1", // -1 para desactivar
+    numberClues:"300", // número de vidas para consumir pistas
+    clues:false, // false: sin pistas, true: con pistas
+    time:"456", // tiempo en segundos para resolver el puzzle
+    M:4, // numero de columnas del puzzle
+    N:2, // numero de filas del puzzle
+    Mextra:4, // numero de columnas del area de piezas sobrantes
+    Nextra:1, // número de filas del área de piezas sobrantes
+    initialMessage:"Bienvenido al Generador de Puzzles. ", // mensaje inicial de bienvenida
+    initialMessagePrint:"¡Ánimo!", // mensaje inicial de bienvenida para impresión
+    initialImage:"./assets/images/cascada.jpg", // foto inicial de bienvenida
+    endMessageSuccess:"Enhorabuena has finalizado el puzzle.", // mensaje de exito
+    endMessageFail:"Esa no es la solución.", // mensaje de fallo
+    endImageSuccess:"./assets/images/taj_mahal.jpg", // imagen de exito
+    endImageFail:"./assets/images/noruega.jpg", // imagen de fallo
+    solution:"8132", // 8132 (solución que considera escapp correcta)
+    cluesTime:"8000", // en milisegundos (tiempo en la que se ve la imagen de la solución)
     debug:true,
     debug_scorm_api:false,
     debug_scorm_api_window:false,

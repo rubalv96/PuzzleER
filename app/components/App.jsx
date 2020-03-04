@@ -44,6 +44,7 @@ export class App extends React.Component {
     this.mostrarPistas = this.mostrarPistas.bind(this);
     this.ocultarPistas = this.ocultarPistas.bind(this);
     this.consumirPista = this.consumirPista.bind(this);
+    this.onStartTime = this.onStartTime.bind(this);
     this.iniciarPuzzle();
     let numIntentosComprobacion;
     let numIntentosPistas;
@@ -55,6 +56,7 @@ export class App extends React.Component {
       mostrarPistas:false,
       numIntentos:numIntentosComprobacion,
       numIntentosPistas: numIntentosPistas,
+      onStartTime: false,
 
     };
   }
@@ -109,7 +111,7 @@ export class App extends React.Component {
     }
     let appInitialMsg;
     if(GLOBAL_CONFIG.initialMessage !== ""){
-      appInitialMsg = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones}/>);
+      appInitialMsg = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
 
     let styleBackground = {
@@ -128,7 +130,7 @@ export class App extends React.Component {
 
     let instrucciones = "";
     if(this.state.mostrarMsgInicial){
-      instrucciones = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones}/>);
+      instrucciones = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
 
     let pistas = "";
@@ -148,6 +150,9 @@ export class App extends React.Component {
                   mostrarPistas={this.mostrarPistas}
                   numIntentos = {this.state.numIntentos}
                   numIntentosPistas = {this.state.numIntentosPistas}
+                  comprobarCompletado = {this.comprobarCompletado}
+                  onStartTime={this.state.onStartTime}
+                  conf = {GLOBAL_CONFIG}
           />
           <Instructions/>
           <h1 className="title">Generador de Puzzles</h1>
@@ -263,10 +268,13 @@ export class App extends React.Component {
       return false;
     }
   }
-  comprobarCompletado(){
+  comprobarCompletado(flag){
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
     if(this.state.numIntentos !== -1){
       this.setState({numIntentos:this.state.numIntentos - 1});
+    }
+    if(flag === "gameover"){
+      this.setState({numIntentos: 0});
     }
     this.mostrarMsgFinal();
     // Llamada a API externa mediante la plataforma Escapp
@@ -299,6 +307,11 @@ mostrarPistas(){
 
   ocultarPistas(){
     this.setState({mostrarPistas:false});
+  }
+
+  onStartTime(){
+    this.setState({onStartTime: true});
+    console.log("STATE ONSTARTTIME: " + this.state.onStartTime);
   }
 }
 

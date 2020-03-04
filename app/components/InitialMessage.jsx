@@ -33,7 +33,7 @@ export default function InitialMessage(props){
         </Modal.Body>
         <Modal.Footer>
 
-          <Button variant="primary" onClick={()=>{handleClose(); props.ocultarInstrucciones();}}>
+          <Button variant="primary" onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime()}}>
                         ¡Jugar!
           </Button>
         </Modal.Footer>
