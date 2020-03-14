@@ -4,7 +4,7 @@ export let GLOBAL_CONFIG = {
     opacityBackground:".7", // opacidad de la imagen
     image1:"./assets/images/egipto.jpg", // imagen solución
     image2:"./assets/images/cactus.jpg", // imagen solución reverso
-    imageExtra1:"./assets/images/egipto.jpg", // imagen señuelo cara
+    imageExtra1:"./assets/images/taj_mahal.jpg", // imagen señuelo cara
     imageExtra2:"./assets/images/noruega.jpg", // imagen señuelo reverso
     heightImg:"", // tamaño altura cuadro de puzzles
     widthImg:"", // tamaño anchura de cuadro de puzzles

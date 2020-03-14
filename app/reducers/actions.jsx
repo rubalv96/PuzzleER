@@ -117,12 +117,14 @@ export function darVueltaTodas(){
   };
 }
 
-export function cargarImagenes(imagenes, imagenesRev){
+export function cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev){
   return {
     type: 'CARGAR_IMAGENES',
     payload:{
       imagenes: imagenes,
       imagenesRev: imagenesRev,
+      imagenesExtra: imagenesExtra,
+      imagenesExtraRev: imagenesExtraRev,
     }
   }
 }

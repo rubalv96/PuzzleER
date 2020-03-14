@@ -6,22 +6,26 @@ import * as Utils from '../vendors/Utils';
 import {addObjectives, cargarImagenes} from "../reducers/actions";
 import Toolkit from "./Toolkit";
 import Cropper from "react-cropper";
-const imagenes = [], imagenesRev=[];
+const imagenes = [], imagenesRev = [], imagenesExtra = [], imagenesExtraRev = [];
 
 export default class Puzzle extends React.Component {
   constructor(props){
     super(props);
-    this.state={
-        data: {
-            'x':0,
-            'y':0,
-            'width': 320,
-            'height': 360
-        },
-        src: this.props.conf.image1,
+    this.state = {
+      data:{
+        'x':0,
+        'y':0,
+        'width':320,
+        'height':360,
+      },
+      src:this.props.conf.image1,
+      lock1:false,
+      lock2:false,
+      lock3:false,
+      lock4:false,
     };
     this.motor = this.motor.bind(this);
-    setTimeout(()=>{this.motor()},1000)
+    setTimeout(()=>{this.motor();}, 1000);
   }
 
   render(){
@@ -50,36 +54,38 @@ export default class Puzzle extends React.Component {
         (<>
           <h2 className="msgPrint">Área de puzzle</h2>
           <table className={"tablePuzzle"}>
-              <tbody>
-            {rows.map((row, ind) => {
-              return (
-                <tr key={ind}>
-                  {columns.map((col, indC) => {
-                    l++;
-                    return (
-                      <Fragment key={indC}>
-                        <td>
+            <tbody>
+              {rows.map((row, ind) => {
+                return (
+                  <tr key={ind}>
+                    {columns.map((col, indC) => {
+                      l++;
+                      return (
+                        <Fragment key={indC}>
+                          <td>
 
-                          <Piece posRow={this.props.piezas[l].posRow}
-                            posCol={this.props.piezas[l].posCol}
-                            row={this.props.piezas[l].row}
-                            column={this.props.piezas[l].column}
-                            conf={this.props.conf}
-                            seleccionarPieza={this.props.seleccionarPieza}
-                            piezasSeleccionadas={this.props.piezasSeleccionadas}
-                            numPuzzle={this.props.piezas[l].numPuzzle}
-                            darVuelta = {this.props.darVuelta}
-                            imagen = {this.props.piezas[l].imgSol}
-                            imagenRev = {this.props.piezas[l].imgRev}
+                            <Piece posRow={this.props.piezas[l].posRow}
+                              posCol={this.props.piezas[l].posCol}
+                              row={this.props.piezas[l].row}
+                              column={this.props.piezas[l].column}
+                              conf={this.props.conf}
+                              seleccionarPieza={this.props.seleccionarPieza}
+                              piezasSeleccionadas={this.props.piezasSeleccionadas}
+                              numPuzzle={this.props.piezas[l].numPuzzle}
+                              darVuelta = {this.props.darVuelta}
+                              imagen = {this.props.piezas[l].imgSol}
+                              imagenRev = {this.props.piezas[l].imgRev}
+                              imagenExtra = {this.props.piezas[l].imgExtra}
+                              imagenExtraRev = {this.props.piezas[l].imgExtraRev}
 
-                          />
-                        </td>
-                      </Fragment>);
-                  })}
+                            />
+                          </td>
+                        </Fragment>);
+                    })}
 
-                </tr>);
-            })}
-              </tbody>
+                  </tr>);
+              })}
+            </tbody>
           </table>
         </>);
     let areaPiezasExtra = "";
@@ -89,36 +95,36 @@ export default class Puzzle extends React.Component {
           <h2 className="msgPrint">Área de piezas extra</h2>
 
           <table className={"tablePuzzle extra"}>
-              <tbody>
+            <tbody>
               {rowsE.map((row, ind) => {
-              return (
-                <tr key={ind}>
-                  {columnsE.map((col, indC) => {
-                    k++;
-                    return (
-                      <Fragment key={indC}>
-                        <td>
+                return (
+                  <tr key={ind}>
+                    {columnsE.map((col, indC) => {
+                      k++;
+                      return (
+                        <Fragment key={indC}>
+                          <td>
 
-                          <Piece posRow={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posRow}
-                            posCol={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posCol}
-                            row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
-                            column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
-                            conf={this.props.conf}
-                            seleccionarPieza={this.props.seleccionarPieza}
-                            piezasSeleccionadas={this.props.piezasSeleccionadas}
-                            numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
-                            darVuelta = {this.props.darVuelta}
-                            piezaExtra = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].piezaExtra}
+                            <Piece posRow={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posRow}
+                              posCol={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posCol}
+                              row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
+                              column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
+                              conf={this.props.conf}
+                              seleccionarPieza={this.props.seleccionarPieza}
+                              piezasSeleccionadas={this.props.piezasSeleccionadas}
+                              numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
+                              darVuelta = {this.props.darVuelta}
+                              piezaExtra = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].piezaExtra}
 
-                          />
-                        </td>
-                      </Fragment>);
-                  })}
+                            />
+                          </td>
+                        </Fragment>);
+                    })}
 
-                </tr>);
-            })}
+                  </tr>);
+              })}
             </tbody>
-            </table>
+          </table>
         </>
       );
     }
@@ -129,35 +135,35 @@ export default class Puzzle extends React.Component {
           <>
             <h2 className="msgPrint">Área de puzzle</h2>
             <table className={"tablePrint"}>
-                <tbody>
+              <tbody>
                 {rows.map((row, ind) => {
-                return (
-                  <tr key={ind}>
-                    {columns.map((col, indC) => {
-                      o++;
-                      return (
-                        <Fragment key={indC}>
-                          <td>
+                  return (
+                    <tr key={ind}>
+                      {columns.map((col, indC) => {
+                        o++;
+                        return (
+                          <Fragment key={indC}>
+                            <td>
 
-                            <Piece posRow={this.props.piezas[o].posRow}
-                              posCol={this.props.piezas[o].posCol}
-                              row={this.props.piezas[o].row}
-                              column={this.props.piezas[o].column}
-                              conf={this.props.conf}
-                              seleccionarPieza={this.props.seleccionarPieza}
-                              piezasSeleccionadas={this.props.piezasSeleccionadas}
-                              numPuzzle={this.props.piezas[o].numPuzzle}
-                              darVuelta = {this.props.darVuelta}
-                              piezaExtra = {this.props.piezas[o].piezaExtra}
+                              <Piece posRow={this.props.piezas[o].posRow}
+                                posCol={this.props.piezas[o].posCol}
+                                row={this.props.piezas[o].row}
+                                column={this.props.piezas[o].column}
+                                conf={this.props.conf}
+                                seleccionarPieza={this.props.seleccionarPieza}
+                                piezasSeleccionadas={this.props.piezasSeleccionadas}
+                                numPuzzle={this.props.piezas[o].numPuzzle}
+                                darVuelta = {this.props.darVuelta}
+                                piezaExtra = {this.props.piezas[o].piezaExtra}
 
-                            />
-                          </td>
-                        </Fragment>);
-                    })}
+                              />
+                            </td>
+                          </Fragment>);
+                      })}
 
-                  </tr>);
-              })}
-                </tbody>
+                    </tr>);
+                })}
+              </tbody>
 
             </table>
           </>
@@ -168,35 +174,35 @@ export default class Puzzle extends React.Component {
           <>
             <h2 className="msgPrint">Área de piezas extra</h2>
             <table className={"tablePrint"}>
-                <tbody>
+              <tbody>
                 {rowsE.map((row, ind) => {
-                return (
-                  <tr key={ind}>
-                    {columnsE.map((col, indC) => {
-                      p++;
-                      return (
-                        <Fragment key={indC}>
-                          <td>
+                  return (
+                    <tr key={ind}>
+                      {columnsE.map((col, indC) => {
+                        p++;
+                        return (
+                          <Fragment key={indC}>
+                            <td>
 
-                            <Piece posRow={this.props.piezas[p + this.props.conf.N * this.props.conf.M].posRow}
-                              posCol={this.props.piezas[p + this.props.conf.N * this.props.conf.M].posCol}
-                              row={this.props.piezas[p + this.props.conf.N * this.props.conf.M].row}
-                              column={this.props.piezas[p + this.props.conf.N * this.props.conf.M].column}
-                              conf={this.props.conf}
-                              seleccionarPieza={this.props.seleccionarPieza}
-                              piezasSeleccionadas={this.props.piezasSeleccionadas}
-                              numPuzzle={this.props.piezas[p].numPuzzle}
-                              darVuelta = {this.props.darVuelta}
-                              piezaExtra = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].piezaExtra}
+                              <Piece posRow={this.props.piezas[p + this.props.conf.N * this.props.conf.M].posRow}
+                                posCol={this.props.piezas[p + this.props.conf.N * this.props.conf.M].posCol}
+                                row={this.props.piezas[p + this.props.conf.N * this.props.conf.M].row}
+                                column={this.props.piezas[p + this.props.conf.N * this.props.conf.M].column}
+                                conf={this.props.conf}
+                                seleccionarPieza={this.props.seleccionarPieza}
+                                piezasSeleccionadas={this.props.piezasSeleccionadas}
+                                numPuzzle={this.props.piezas[p].numPuzzle}
+                                darVuelta = {this.props.darVuelta}
+                                piezaExtra = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].piezaExtra}
 
-                            />
-                          </td>
-                        </Fragment>);
-                    })}
+                              />
+                            </td>
+                          </Fragment>);
+                      })}
 
-                  </tr>);
-              })}
-                </tbody>
+                    </tr>);
+                })}
+              </tbody>
             </table>
           </>
         );
@@ -208,37 +214,37 @@ export default class Puzzle extends React.Component {
           <h1 className="title titlePrint">Generador de Puzzles</h1>
           <h2 className="msgPrint">Área de puzzle</h2>
           <table className="tablePrint">
-              <tbody>
-            {rows.map((row, ind) => {
-              return (
-                <tr key={ind}>
-                  {columns.map((col, indC) => {
-                    m++;
-                    let numP1;
-                    this.props.piezas[m].numPuzzle === 1 ? numP1 = 2 : numP1 = 1;
-                    return (
-                      <Fragment key={indC}>
-                        <td>
+            <tbody>
+              {rows.map((row, ind) => {
+                return (
+                  <tr key={ind}>
+                    {columns.map((col, indC) => {
+                      m++;
+                      let numP1;
+                      this.props.piezas[m].numPuzzle === 1 ? numP1 = 2 : numP1 = 1;
+                      return (
+                        <Fragment key={indC}>
+                          <td>
 
-                          <Piece posRow={this.props.piezas[m].posRow}
-                            posCol={this.props.piezas[m].posCol}
-                            row={this.props.piezas[m].row}
-                            column={this.props.piezas[m].column}
-                            conf={this.props.conf}
-                            seleccionarPieza={this.props.seleccionarPieza}
-                            piezasSeleccionadas={this.props.piezasSeleccionadas}
-                            numPuzzle={numP1}
-                            darVuelta = {this.props.darVuelta}
-                            piezaExtra = {this.props.piezas[m].piezaExtra}
+                            <Piece posRow={this.props.piezas[m].posRow}
+                              posCol={this.props.piezas[m].posCol}
+                              row={this.props.piezas[m].row}
+                              column={this.props.piezas[m].column}
+                              conf={this.props.conf}
+                              seleccionarPieza={this.props.seleccionarPieza}
+                              piezasSeleccionadas={this.props.piezasSeleccionadas}
+                              numPuzzle={numP1}
+                              darVuelta = {this.props.darVuelta}
+                              piezaExtra = {this.props.piezas[m].piezaExtra}
 
-                          />
-                        </td>
-                      </Fragment>);
-                  })}
+                            />
+                          </td>
+                        </Fragment>);
+                    })}
 
-                </tr>);
-            })}
-              </tbody>
+                  </tr>);
+              })}
+            </tbody>
           </table>
         </>
       );
@@ -251,38 +257,38 @@ export default class Puzzle extends React.Component {
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
           <table className={"tablePrint"}>
-              <tbody>
-            {rowsE.map((row, ind) => {
-              return (
-                <tr key={ind}>
-                  {columnsE.map((col, indC) => {
-                    n++;
-                    console.log("n: " + n);
-                    let numP2;
-                    this.props.piezas[n + this.props.conf.N * this.props.conf.M].numPuzzle === 1 ? numP2 = 2 : numP2 = 1;
-                    return (
-                      <Fragment key={indC}>
-                        <td>
+            <tbody>
+              {rowsE.map((row, ind) => {
+                return (
+                  <tr key={ind}>
+                    {columnsE.map((col, indC) => {
+                      n++;
+                      console.log("n: " + n);
+                      let numP2;
+                      this.props.piezas[n + this.props.conf.N * this.props.conf.M].numPuzzle === 1 ? numP2 = 2 : numP2 = 1;
+                      return (
+                        <Fragment key={indC}>
+                          <td>
 
-                          <Piece posRow={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posRow}
-                            posCol={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posCol}
-                            row={this.props.piezas[n + this.props.conf.N * this.props.conf.M].row}
-                            column={this.props.piezas[n + this.props.conf.N * this.props.conf.M].column}
-                            conf={this.props.conf}
-                            seleccionarPieza={this.props.seleccionarPieza}
-                            piezasSeleccionadas={this.props.piezasSeleccionadas}
-                            numPuzzle={numP2}
-                            darVuelta = {this.props.darVuelta}
-                            piezaExtra = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].piezaExtra}
+                            <Piece posRow={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posRow}
+                              posCol={this.props.piezas[n + this.props.conf.N * this.props.conf.M].posCol}
+                              row={this.props.piezas[n + this.props.conf.N * this.props.conf.M].row}
+                              column={this.props.piezas[n + this.props.conf.N * this.props.conf.M].column}
+                              conf={this.props.conf}
+                              seleccionarPieza={this.props.seleccionarPieza}
+                              piezasSeleccionadas={this.props.piezasSeleccionadas}
+                              numPuzzle={numP2}
+                              darVuelta = {this.props.darVuelta}
+                              piezaExtra = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].piezaExtra}
 
-                          />
-                        </td>
-                      </Fragment>);
-                  })}
+                            />
+                          </td>
+                        </Fragment>);
+                    })}
 
-                </tr>);
-            })}
-              </tbody>
+                  </tr>);
+              })}
+            </tbody>
           </table>
         </>
       );
@@ -308,99 +314,132 @@ export default class Puzzle extends React.Component {
         {areaPuzzlePrintReverso}
         {areaPuzzleExtraPrintReverso}
 
-          <Cropper
-              ref={cropper => { this.cropper = cropper; }}
-              src = {this.state.src}
-              style={{height:"100%", width:500, display: ''}}
-              // Cropper.js options
-              // aspectRatio={"free"}
-              guides={false}
-              crop={this._crop.bind(this)}
-              data={this.state.data}
+        <Cropper
+          ref={cropper => { this.cropper = cropper; }}
+          src = {this.state.src}
+          style={{height:"100%", width:500, display:'none'}}
+          // Cropper.js options
+          // aspectRatio={"free"}
+          guides={false}
+          crop={this._crop.bind(this)}
+          data={this.state.data}
 
-          />
+        />
 
+        {imagenes.map((imagen, ind)=>{
+          return (
+            <span key={ind}>
+              <img src={imagen}/>
+            </span>
+          );
+        })}
 
+        {imagenesRev.map((imagenRev, ind)=>{
+          return (
+            <span key={ind}>
+              <img src={imagenRev}/>
+            </span>
+          );
+        })}
 
+        {imagenesExtra.map((imagenExtra, ind)=>{
+          return (
+            <span key={ind}>
+              <img src={imagenExtra}/>
+            </span>
+          );
+        })}
 
-          {/*{imagenes.map((imagen, ind)=>{*/}
-          {/*    return(*/}
-          {/*        <span key={ind}>*/}
-          {/*            <img src={imagen}/>*/}
-          {/*        </span>*/}
-          {/*    );*/}
-          {/*})}*/}
-
-          {imagenesRev.map((imagenRev, ind)=>{
-              return(
-                  <span key={ind}>
-                      <img src={imagenRev}/>
-                  </span>
-              );
-          })}
+        {imagenesExtraRev.map((imagenExtraRev, ind)=>{
+          return (
+            <span key={ind}>
+              <img src={imagenExtraRev}/>
+            </span>
+          );
+        })}
       </>
 
     );
   }
 
   motor(){
-      for(let i = 0; i<this.props.piezas.length; i++){
-          let x= (this.props.piezas[i].posCol-1)*320;
-          let y = (this.props.piezas[i].posRow-1)*360;
-          setTimeout(this.setState({data:{'x': x, 'y':y, 'width':320, 'height':360}}),100);
-          console.log("MOTOR "+ i)
+    this.setState({src:this.props.conf.image1, lock1:true, lock2:false, lock3:false, lock4:false});
+    for(let i = 0; i < this.props.piezas.length; i++){
+      console.log("MODIFICO 1");
+      let x = (this.props.piezas[i].posCol - 1) * 320;
+      let y = (this.props.piezas[i].posRow - 1) * 360;
+      this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
+    }
+
+    this.setState({src:this.props.conf.image2});
+    setTimeout(()=>{
+      this.setState({lock1:false, lock2:true, lock3:false, lock4:false});
+      for(let j = 0; j < this.props.piezas.length; j++){
+        console.log("MODIFICO 2");
+        let x = (this.props.piezas[j].posCol - 1) * 320;
+        let y = (this.props.piezas[j].posRow - 1) * 360;
+        this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
+
+        // setTimeout(this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}}), 100);
       }
+    }, 1500);
+    setTimeout(()=>{ this.setState({src:this.props.conf.imageExtra1});
+    }, 2500);
+    setTimeout(()=>{
+      this.setState({lock1:false, lock2:false, lock3:true, lock4:false});
+      for(let i = 0; i < this.props.piezas.length; i++){
+        console.log("MODIFICO 3");
+        let x = (this.props.piezas[i].posCol - 1) * 320;
+        let y = (this.props.piezas[i].posRow - 1) * 360;
+        this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
 
-      this.setState({src:this.props.conf.image2});
+      }
+    }, 3000);
 
-      setTimeout(()=>{
-          for(let i = 0; i<this.props.piezas.length; i++){
-              let x= (this.props.piezas[i].posCol-1)*320;
-              let y = (this.props.piezas[i].posRow-1)*360;
-              setTimeout(this.setState({data:{'x': x, 'y':y, 'width':320, 'height':360}}),100);
-              console.log("MOTOR "+ i)
-          }
-      },1000)
+    setTimeout(()=>{
+      this.setState({src:this.props.conf.imageExtra2});
+    }, 3500);
+
+    setTimeout(()=>{
+      this.setState({lock1:false, lock2:false, lock3:false, lock4:true});
+      for(let i = 0; i < this.props.piezas.length; i++){
+        console.log("MODIFICO 4");
+        let x = (this.props.piezas[i].posCol - 1) * 320;
+        let y = (this.props.piezas[i].posRow - 1) * 360;
+        this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
+
+      }
+    }, 4000);
+
   }
-    _crop(){
-      if(this.state.src === this.props.conf.image1){
-          console.log("SRC 1");
-          imagenes.push(this.cropper.getCroppedCanvas().toDataURL());
-          if(imagenes.length === this.props.piezas.length +2){
-              imagenes.splice(0,2);
+  _crop(){
+    if(this.state.src === this.props.conf.image1 && this.state.lock1){
+      console.log("CORTE IMG1");
+      imagenes.push(this.cropper.getCroppedCanvas().toDataURL());
+    }
 
-              // imagenesRev.push(this.cropper.getCroppedCanvas().toDataURL());
-              // if(imagenesRev.length === this.props.piezas.length){
-              //     console.log("IMAGENES: " + imagenes);
-              //     console.log("imagenesREV: " + imagenesRev);
-              //     this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
-              // }
+    if(this.state.src === this.props.conf.image2 && this.state.lock2){
+      console.log("ESTADO LOCK2: " + this.state.lock2);
+      console.log("CORTE IMG2");
+      imagenesRev.push(this.cropper.getCroppedCanvas().toDataURL());
+    }
 
-              // this.props.dispatch(cargarImagenes(imagenes));
-          }
-          console.log("TAMAÑO DE LAS IMGS: " + imagenes.length);
-      }
+    if(this.state.src === this.props.conf.imageExtra1 && this.state.lock3){
+      console.log("CORTE IMG extra1");
 
-        if(this.state.src === this.props.conf.image2){
-            console.log("SRC 2");
-            console.log("length de imagenesREV"+ imagenesRev.length);
-            imagenesRev.push(this.cropper.getCroppedCanvas().toDataURL());
-            console.log("Imagenes length" + imagenes.length);
-            console.log("ImagenesRev length" + imagenesRev.length);
-            if(imagenesRev.length === this.props.piezas.length +3) {
-                imagenesRev.splice(0, 3);
-                this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
-
-            }
-                // if(imagenesRev.length === this.props.piezas.length){
-                //     console.log("IMAGENES: " + imagenes);
-                //     console.log("imagenesREV: " + imagenesRev);
-                //     this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
-                // }
-        }
-
+      imagenesExtra.push(this.cropper.getCroppedCanvas().toDataURL());
 
     }
+    if(this.state.src === this.props.conf.imageExtra2 && this.state.lock4){
+      console.log("CORTE imgEXTRA2");
+
+      imagenesExtraRev.push(this.cropper.getCroppedCanvas().toDataURL());
+
+    }
+
+    this.props.dispatch(cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev));
+
+  }
 
   componentDidMount(){
     let objectives = [];

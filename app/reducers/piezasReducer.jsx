@@ -27,14 +27,14 @@ function piezasReducer(state = [], action){
       // los parámetros row y column indican la posición donde se encuentran las piezas
       // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
 
-      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \"../assets/images/loading.gif\" "+ ", \"imgRev\" : \"../assets/images/loading.gif\""+"},";
+      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \"../assets/images/loading.gif\" "+ ", \"imgRev\" : \"../assets/images/loading.gif\""+ ", \"imgExtra\" : \"../assets/images/loading.gif\"" + ", \"imgExtraRev\" : \"../assets/images/loading.gif\"" +"},";
       columnIndex++;
       if(columnIndex === columns.length){
         columnIndex = 0;
         rowIndex++;
       }
     }
-    puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \"../assets/images/loading.gif\""+", \"imgRev\" : \"../assets/images/loading.gif\""+"}]";
+    puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \"../assets/images/loading.gif\""+", \"imgRev\" : \"../assets/images/loading.gif\""+ ", \"imgExtra\" : \"../assets/images/loading.gif\"" + ", \"imgExtraRev\" : \"../assets/images/loading.gif\""  +"}]";
     puzzle = JSON.parse(puzzleJSON);
 
     // En caso de piezas extra, se añaden al final del JSON del puzzle.
@@ -128,6 +128,9 @@ function piezasReducer(state = [], action){
       for(let k = 0; k < piezas.length; k ++){
         piezas[k].imgSol = action.payload.imagenes[k];
         piezas[k].imgRev = action.payload.imagenesRev[k];
+        //TO DO: modificar codigo de EXTRAS
+        piezas[k].imgExtra = action.payload.imagenesExtra[k];
+        piezas[k].imgExtraRev = action.payload.imagenesExtraRev[k];
       }
       return piezas;
 

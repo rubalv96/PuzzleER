@@ -43,9 +43,6 @@ export default class Piece extends React.Component {
     let anchoContenedor = anchoImg / (this.props.conf.M);
     let altoContenedor = altoImg / (this.props.conf.N);
 
-    // Calculo de las posiciones de las fotos
-    let top = -((this.props.posRow - 1) * altoImg / this.props.conf.N) + "px";
-    let left = -((this.props.posCol - 1) * anchoImg / this.props.conf.M) + "px";
 
     // Color del borde de la piza dependiendo de si está seleccionada o no
     let rowPieza = this.props.row;
@@ -74,8 +71,8 @@ export default class Piece extends React.Component {
 
     if(this.props.piezaExtra && this.props.numPuzzle === 1)
     {
-      img = this.props.conf.imageExtra1;
-      imgRev = this.props.conf.imageExtra2;
+      img = this.props.imagenExtra;
+      imgRev = this.props.conf.imagenExtraRev;
     }
     if(this.props.piezaExtra && this.props.numPuzzle === 2)
     {
@@ -88,9 +85,6 @@ export default class Piece extends React.Component {
     let imgPieza = (
       <img
         style={{
-          // position:"absolute",
-          // left:left,
-          // top:top,
             overflow:"hidden",
             margin:"auto",
           width:anchoContenedor,
@@ -99,7 +93,6 @@ export default class Piece extends React.Component {
         src={img}
         onClick={()=>{
           this.props.seleccionarPieza(this.props.row, this.props.column);
-
         }}
 
         alt={"Imagen de pieza"}/>
@@ -110,9 +103,7 @@ export default class Piece extends React.Component {
       <img
         style={{
           position:"absolute",
-          // left:left,
-          // top:top,
-          // margin:"auto",
+          margin:"auto",
             overflow:"hidden",
             width:anchoContenedor,
           height:altoContenedor,
