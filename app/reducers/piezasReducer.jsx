@@ -27,14 +27,14 @@ function piezasReducer(state = [], action){
       // los parámetros row y column indican la posición donde se encuentran las piezas
       // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
 
-      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : 0"+ ", \"imgRev\" : 0"+"},";
+      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \"../assets/images/loading.gif\" "+ ", \"imgRev\" : \"../assets/images/loading.gif\""+"},";
       columnIndex++;
       if(columnIndex === columns.length){
         columnIndex = 0;
         rowIndex++;
       }
     }
-    puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : 0"+", \"imgRev\" : 0"+"}]";
+    puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \"../assets/images/loading.gif\""+", \"imgRev\" : \"../assets/images/loading.gif\""+"}]";
     puzzle = JSON.parse(puzzleJSON);
 
     // En caso de piezas extra, se añaden al final del JSON del puzzle.
