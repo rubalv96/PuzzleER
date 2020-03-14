@@ -9,7 +9,7 @@ function piezasReducer(state = [], action){
     numPiezasExtra, piezasEscogidas = [];
 
   // Action INTERCAMBIAR_PIEZAS
-  let piezas, ind1, ind2, posRow1, posRow2, isExtra1, isExtra2, numPuzzle1, numPuzzle2, posCol1, posCol2;
+  let piezas, ind1, ind2, posRow1, posRow2, isExtra1, isExtra2, numPuzzle1, numPuzzle2, posCol1, posCol2, img1, img2, imgRev1, imgRev2;
 
   switch (action.type){
   case 'INICIAR_PUZZLE':
@@ -27,14 +27,14 @@ function piezasReducer(state = [], action){
       // los parámetros row y column indican la posición donde se encuentran las piezas
       // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
 
-      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + "},";
+      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : 0"+ ", \"imgRev\" : 0"+"},";
       columnIndex++;
       if(columnIndex === columns.length){
         columnIndex = 0;
         rowIndex++;
       }
     }
-    puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + "}]";
+    puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : 0"+", \"imgRev\" : 0"+"}]";
     puzzle = JSON.parse(puzzleJSON);
 
     // En caso de piezas extra, se añaden al final del JSON del puzzle.
@@ -50,7 +50,7 @@ function piezasReducer(state = [], action){
     });
     return puzzle;
 
-  case 'INTERCAMBIAR_PIEZAS':
+    case 'INTERCAMBIAR_PIEZAS':
     ind1 = -1;
     ind2 = -1;
 
@@ -79,14 +79,29 @@ function piezasReducer(state = [], action){
     isExtra1 = piezas[ind1].piezaExtra;
     isExtra2 = piezas[ind2].piezaExtra;
 
+    img1 = piezas[ind1].imgSol;
+    img2 = piezas[ind2].imgSol;
+
+    imgRev1 = piezas[ind1].imgRev;
+    imgRev2 = piezas[ind2].imgRev;
+
     piezas[ind1].posRow = posRow2;
     piezas[ind2].posRow = posRow1;
+
     piezas[ind1].posCol = posCol2;
     piezas[ind2].posCol = posCol1;
+
     piezas[ind1].numPuzzle = numPuzzle2;
     piezas[ind2].numPuzzle = numPuzzle1;
+
     piezas[ind1].piezaExtra = isExtra2;
     piezas[ind2].piezaExtra = isExtra1;
+
+    piezas[ind1].imgSol = img2;
+    piezas[ind2].imgSol = img1;
+
+    piezas[ind1].imgRev = imgRev2;
+    piezas[ind2].imgRev = imgRev1;
 
     return piezas;
 
@@ -108,9 +123,19 @@ function piezasReducer(state = [], action){
     }
     return piezas;
 
+    case 'CARGAR_IMAGENES':
+      piezas = Object.assign([], state);
+      for(let k = 0; k < piezas.length; k ++){
+        piezas[k].imgSol = action.payload.imagenes[k];
+        piezas[k].imgRev = action.payload.imagenesRev[k];
+      }
+      return piezas;
+
   default:
     return state;
   }
+
+
 }
 
 export default piezasReducer;

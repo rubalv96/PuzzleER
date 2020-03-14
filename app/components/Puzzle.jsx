@@ -3,13 +3,25 @@ import {Fragment} from 'react';
 import Piece from "./Piece";
 import '../assets/scss/main.scss';
 import * as Utils from '../vendors/Utils';
-import {addObjectives} from "../reducers/actions";
-import {Button} from "react-bootstrap";
+import {addObjectives, cargarImagenes} from "../reducers/actions";
 import Toolkit from "./Toolkit";
+import Cropper from "react-cropper";
+const imagenes = [], imagenesRev=[];
 
 export default class Puzzle extends React.Component {
   constructor(props){
     super(props);
+    this.state={
+        data: {
+            'x':0,
+            'y':0,
+            'width': 320,
+            'height': 360
+        },
+        src: this.props.conf.image1,
+    };
+    this.motor = this.motor.bind(this);
+    setTimeout(()=>{this.motor()},1000)
   }
 
   render(){
@@ -38,6 +50,7 @@ export default class Puzzle extends React.Component {
         (<>
           <h2 className="msgPrint">Área de puzzle</h2>
           <table className={"tablePuzzle"}>
+              <tbody>
             {rows.map((row, ind) => {
               return (
                 <tr key={ind}>
@@ -56,7 +69,8 @@ export default class Puzzle extends React.Component {
                             piezasSeleccionadas={this.props.piezasSeleccionadas}
                             numPuzzle={this.props.piezas[l].numPuzzle}
                             darVuelta = {this.props.darVuelta}
-                            piezaExtra = {this.props.piezas[l].piezaExtra}
+                            imagen = {this.props.piezas[l].imgSol}
+                            imagenRev = {this.props.piezas[l].imgRev}
 
                           />
                         </td>
@@ -65,7 +79,7 @@ export default class Puzzle extends React.Component {
 
                 </tr>);
             })}
-
+              </tbody>
           </table>
         </>);
     let areaPiezasExtra = "";
@@ -75,7 +89,8 @@ export default class Puzzle extends React.Component {
           <h2 className="msgPrint">Área de piezas extra</h2>
 
           <table className={"tablePuzzle extra"}>
-            {rowsE.map((row, ind) => {
+              <tbody>
+              {rowsE.map((row, ind) => {
               return (
                 <tr key={ind}>
                   {columnsE.map((col, indC) => {
@@ -102,7 +117,8 @@ export default class Puzzle extends React.Component {
 
                 </tr>);
             })}
-          </table>
+            </tbody>
+            </table>
         </>
       );
     }
@@ -113,7 +129,8 @@ export default class Puzzle extends React.Component {
           <>
             <h2 className="msgPrint">Área de puzzle</h2>
             <table className={"tablePrint"}>
-              {rows.map((row, ind) => {
+                <tbody>
+                {rows.map((row, ind) => {
                 return (
                   <tr key={ind}>
                     {columns.map((col, indC) => {
@@ -140,6 +157,7 @@ export default class Puzzle extends React.Component {
 
                   </tr>);
               })}
+                </tbody>
 
             </table>
           </>
@@ -150,7 +168,8 @@ export default class Puzzle extends React.Component {
           <>
             <h2 className="msgPrint">Área de piezas extra</h2>
             <table className={"tablePrint"}>
-              {rowsE.map((row, ind) => {
+                <tbody>
+                {rowsE.map((row, ind) => {
                 return (
                   <tr key={ind}>
                     {columnsE.map((col, indC) => {
@@ -177,6 +196,7 @@ export default class Puzzle extends React.Component {
 
                   </tr>);
               })}
+                </tbody>
             </table>
           </>
         );
@@ -188,6 +208,7 @@ export default class Puzzle extends React.Component {
           <h1 className="title titlePrint">Generador de Puzzles</h1>
           <h2 className="msgPrint">Área de puzzle</h2>
           <table className="tablePrint">
+              <tbody>
             {rows.map((row, ind) => {
               return (
                 <tr key={ind}>
@@ -217,7 +238,7 @@ export default class Puzzle extends React.Component {
 
                 </tr>);
             })}
-
+              </tbody>
           </table>
         </>
       );
@@ -230,6 +251,7 @@ export default class Puzzle extends React.Component {
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
           <table className={"tablePrint"}>
+              <tbody>
             {rowsE.map((row, ind) => {
               return (
                 <tr key={ind}>
@@ -260,6 +282,7 @@ export default class Puzzle extends React.Component {
 
                 </tr>);
             })}
+              </tbody>
           </table>
         </>
       );
@@ -285,10 +308,100 @@ export default class Puzzle extends React.Component {
         {areaPuzzlePrintReverso}
         {areaPuzzleExtraPrintReverso}
 
+          <Cropper
+              ref={cropper => { this.cropper = cropper; }}
+              src = {this.state.src}
+              style={{height:"100%", width:500, display: ''}}
+              // Cropper.js options
+              // aspectRatio={"free"}
+              guides={false}
+              crop={this._crop.bind(this)}
+              data={this.state.data}
+
+          />
+
+
+
+
+          {/*{imagenes.map((imagen, ind)=>{*/}
+          {/*    return(*/}
+          {/*        <span key={ind}>*/}
+          {/*            <img src={imagen}/>*/}
+          {/*        </span>*/}
+          {/*    );*/}
+          {/*})}*/}
+
+          {imagenesRev.map((imagenRev, ind)=>{
+              return(
+                  <span key={ind}>
+                      <img src={imagenRev}/>
+                  </span>
+              );
+          })}
       </>
 
     );
   }
+
+  motor(){
+      for(let i = 0; i<this.props.piezas.length; i++){
+          let x= (this.props.piezas[i].posCol-1)*320;
+          let y = (this.props.piezas[i].posRow-1)*360;
+          setTimeout(this.setState({data:{'x': x, 'y':y, 'width':320, 'height':360}}),100);
+          console.log("MOTOR "+ i)
+      }
+
+      this.setState({src:this.props.conf.image2});
+
+      setTimeout(()=>{
+          for(let i = 0; i<this.props.piezas.length; i++){
+              let x= (this.props.piezas[i].posCol-1)*320;
+              let y = (this.props.piezas[i].posRow-1)*360;
+              setTimeout(this.setState({data:{'x': x, 'y':y, 'width':320, 'height':360}}),100);
+              console.log("MOTOR "+ i)
+          }
+      },1000)
+  }
+    _crop(){
+      if(this.state.src === this.props.conf.image1){
+          console.log("SRC 1");
+          imagenes.push(this.cropper.getCroppedCanvas().toDataURL());
+          if(imagenes.length === this.props.piezas.length +2){
+              imagenes.splice(0,2);
+
+              // imagenesRev.push(this.cropper.getCroppedCanvas().toDataURL());
+              // if(imagenesRev.length === this.props.piezas.length){
+              //     console.log("IMAGENES: " + imagenes);
+              //     console.log("imagenesREV: " + imagenesRev);
+              //     this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
+              // }
+
+              // this.props.dispatch(cargarImagenes(imagenes));
+          }
+          console.log("TAMAÑO DE LAS IMGS: " + imagenes.length);
+      }
+
+        if(this.state.src === this.props.conf.image2){
+            console.log("SRC 2");
+            console.log("length de imagenesREV"+ imagenesRev.length);
+            imagenesRev.push(this.cropper.getCroppedCanvas().toDataURL());
+            console.log("Imagenes length" + imagenes.length);
+            console.log("ImagenesRev length" + imagenesRev.length);
+            if(imagenesRev.length === this.props.piezas.length +3) {
+                imagenesRev.splice(0, 3);
+                this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
+
+            }
+                // if(imagenesRev.length === this.props.piezas.length){
+                //     console.log("IMAGENES: " + imagenes);
+                //     console.log("imagenesREV: " + imagenesRev);
+                //     this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
+                // }
+        }
+
+
+    }
+
   componentDidMount(){
     let objectives = [];
     objectives.push(new Utils.Objective({id:(1), progress_measure:(1), score:(1)}));

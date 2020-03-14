@@ -2,7 +2,7 @@ export let GLOBAL_CONFIG = {
   dev:{
     imageBackground:"./assets/images/noruega.jpg", // imagen de fondo
     opacityBackground:".7", // opacidad de la imagen
-    image1:"./assets/images/cascada.jpg", // imagen solución
+    image1:"./assets/images/egipto.jpg", // imagen solución
     image2:"./assets/images/cactus.jpg", // imagen solución reverso
     imageExtra1:"./assets/images/egipto.jpg", // imagen señuelo cara
     imageExtra2:"./assets/images/noruega.jpg", // imagen señuelo reverso
@@ -14,8 +14,8 @@ export let GLOBAL_CONFIG = {
     time:"456", // tiempo en segundos para resolver el puzzle
     M:4, // numero de columnas del puzzle
     N:2, // numero de filas del puzzle
-    Mextra:4, // numero de columnas del area de piezas sobrantes
-    Nextra:1, // número de filas del área de piezas sobrantes
+    Mextra:0, // numero de columnas del area de piezas sobrantes
+    Nextra:0, // número de filas del área de piezas sobrantes
     initialMessage:"Bienvenido al Generador de Puzzles. ", // mensaje inicial de bienvenida
     initialMessagePrint:"¡Ánimo!", // mensaje inicial de bienvenida para impresión
     initialImage:"./assets/images/cascada.jpg", // foto inicial de bienvenida

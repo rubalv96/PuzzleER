@@ -7,6 +7,7 @@ import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
 import Header from './Header.jsx';
 import NavBar from "./navBar";
+import {cargarImagenes} from "../reducers/actions";
 // import FinishScreen from './FinishScreen.jsx';
 
 import Puzzle from './Puzzle';
@@ -45,6 +46,7 @@ export class App extends React.Component {
     this.ocultarPistas = this.ocultarPistas.bind(this);
     this.consumirPista = this.consumirPista.bind(this);
     this.onStartTime = this.onStartTime.bind(this);
+    this.cargarImagenes = this.cargarImagenes.bind(this);
     this.iniciarPuzzle();
     let numIntentosComprobacion;
     let numIntentosPistas;
@@ -246,6 +248,9 @@ export class App extends React.Component {
 
   }
 
+  cargarImagenes(imagenes, imagenesRev){
+    this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
+  }
   // Dar vuelta a todas las piezas
   toggle(){
     this.props.dispatch(darVueltaTodas());

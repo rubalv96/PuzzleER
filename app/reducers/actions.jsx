@@ -117,6 +117,16 @@ export function darVueltaTodas(){
   };
 }
 
+export function cargarImagenes(imagenes, imagenesRev){
+  return {
+    type: 'CARGAR_IMAGENES',
+    payload:{
+      imagenes: imagenes,
+      imagenesRev: imagenesRev,
+    }
+  }
+}
+
 export function comprobarCompletado(piezas, N, M){
   return {
     type:'COMPROBAR_COMPLETADO',

@@ -33,7 +33,6 @@ export default class Piece extends React.Component {
   }
 
   render(){
-
     // Dimensiones del puzzle
     let altoImg;
     let anchoImg;
@@ -70,8 +69,8 @@ export default class Piece extends React.Component {
     // Selección de imagen de la pieza en posición frontal o en reverso
 
     let img, imgRev;
-    this.props.numPuzzle === 1 ? img = this.props.conf.image1 : img = this.props.conf.image2;
-    this.props.numPuzzle === 1 ? imgRev = this.props.conf.image2 : imgRev = this.props.conf.image1;
+    this.props.numPuzzle === 1 ? img = this.props.imagen : img = this.props.imagenRev;
+    this.props.numPuzzle === 1 ? imgRev = this.props.imagenRev : imgRev = this.props.imagen;
 
     if(this.props.piezaExtra && this.props.numPuzzle === 1)
     {
@@ -89,12 +88,13 @@ export default class Piece extends React.Component {
     let imgPieza = (
       <img
         style={{
-          position:"absolute",
-          left:left,
-          top:top,
-          margin:"auto",
-          width:anchoImg,
-          height:altoImg,
+          // position:"absolute",
+          // left:left,
+          // top:top,
+            overflow:"hidden",
+            margin:"auto",
+          width:anchoContenedor,
+          height:altoContenedor,
         }}
         src={img}
         onClick={()=>{
@@ -110,11 +110,12 @@ export default class Piece extends React.Component {
       <img
         style={{
           position:"absolute",
-          left:left,
-          top:top,
-          margin:"auto",
-          width:anchoImg,
-          height:altoImg,
+          // left:left,
+          // top:top,
+          // margin:"auto",
+            overflow:"hidden",
+            width:anchoContenedor,
+          height:altoContenedor,
         }}
         src={imgRev}
         onClick={()=>{
