@@ -6,9 +6,13 @@ import * as Utils from '../vendors/Utils';
 import {addObjectives, cargarImagenes} from "../reducers/actions";
 import Toolkit from "./Toolkit";
 import Cropper from "react-cropper";
+import {GLOBAL_CONFIG} from "../config/config";
 const imagenes = [], imagenesRev = [], imagenesExtra = [], imagenesExtraRev = [];
+let ancho = (1280/GLOBAL_CONFIG.M);
+let alto = (720/GLOBAL_CONFIG.N);
 
 export default class Puzzle extends React.Component {
+
   constructor(props){
     super(props);
     this.state = {
@@ -29,6 +33,9 @@ export default class Puzzle extends React.Component {
   }
 
   render(){
+
+
+
     let rows = []; // rows=[1,2,3,4,5,...,N]
     for(let i = 1; i <= this.props.conf.N; i++){
       rows.push(i);
@@ -105,16 +112,19 @@ export default class Puzzle extends React.Component {
                         <Fragment key={indC}>
                           <td>
 
-                            <Piece posRow={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posRow}
-                              posCol={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posCol}
-                              row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
-                              column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
-                              conf={this.props.conf}
-                              seleccionarPieza={this.props.seleccionarPieza}
-                              piezasSeleccionadas={this.props.piezasSeleccionadas}
-                              numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
-                              darVuelta = {this.props.darVuelta}
-                              piezaExtra = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].piezaExtra}
+                            <Piece posRow={this.props.piezas[k +this.props.conf.N * this.props.conf.M].posRow}
+                                   posCol={this.props.piezas[k+  this.props.conf.N * this.props.conf.M].posCol}
+                                   row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
+                                   column={this.props.piezas[k+  this.props.conf.N * this.props.conf.M].column}
+                                   conf={this.props.conf}
+                                   seleccionarPieza={this.props.seleccionarPieza}
+                                   piezasSeleccionadas={this.props.piezasSeleccionadas}
+                                   numPuzzle={this.props.piezas[k+  this.props.conf.N * this.props.conf.M].numPuzzle}
+                                   darVuelta = {this.props.darVuelta}
+                                   imagen = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgSol}
+                                   imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgRev}
+                                // imagenExtra = {this.props.piezas[l].imgExtra}
+                                // imagenExtraRev = {this.props.piezas[l].imgExtraRev}
 
                             />
                           </td>
@@ -263,7 +273,6 @@ export default class Puzzle extends React.Component {
                   <tr key={ind}>
                     {columnsE.map((col, indC) => {
                       n++;
-                      console.log("n: " + n);
                       let numP2;
                       this.props.piezas[n + this.props.conf.N * this.props.conf.M].numPuzzle === 1 ? numP2 = 2 : numP2 = 1;
                       return (
@@ -366,9 +375,9 @@ export default class Puzzle extends React.Component {
     this.setState({src:this.props.conf.image1, lock1:true, lock2:false, lock3:false, lock4:false});
     for(let i = 0; i < this.props.piezas.length; i++){
       console.log("MODIFICO 1");
-      let x = (this.props.piezas[i].posCol - 1) * 320;
-      let y = (this.props.piezas[i].posRow - 1) * 360;
-      this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
+      let x = (this.props.piezas[i].posCol - 1) * ancho;
+      let y = (this.props.piezas[i].posRow - 1) * alto;
+      this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
     }
 
     this.setState({src:this.props.conf.image2});
@@ -376,9 +385,9 @@ export default class Puzzle extends React.Component {
       this.setState({lock1:false, lock2:true, lock3:false, lock4:false});
       for(let j = 0; j < this.props.piezas.length; j++){
         console.log("MODIFICO 2");
-        let x = (this.props.piezas[j].posCol - 1) * 320;
-        let y = (this.props.piezas[j].posRow - 1) * 360;
-        this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
+        let x = (this.props.piezas[j].posCol - 1) * ancho;
+        let y = (this.props.piezas[j].posRow - 1) * alto;
+        this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
 
         // setTimeout(this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}}), 100);
       }
@@ -389,9 +398,9 @@ export default class Puzzle extends React.Component {
       this.setState({lock1:false, lock2:false, lock3:true, lock4:false});
       for(let i = 0; i < this.props.piezas.length; i++){
         console.log("MODIFICO 3");
-        let x = (this.props.piezas[i].posCol - 1) * 320;
-        let y = (this.props.piezas[i].posRow - 1) * 360;
-        this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
+        let x = (this.props.piezas[i].posCol - 1) * ancho;
+        let y = (this.props.piezas[i].posRow - 1) * alto;
+        this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
 
       }
     }, 3000);
@@ -404,9 +413,9 @@ export default class Puzzle extends React.Component {
       this.setState({lock1:false, lock2:false, lock3:false, lock4:true});
       for(let i = 0; i < this.props.piezas.length; i++){
         console.log("MODIFICO 4");
-        let x = (this.props.piezas[i].posCol - 1) * 320;
-        let y = (this.props.piezas[i].posRow - 1) * 360;
-        this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}});
+        let x = (this.props.piezas[i].posCol - 1) * ancho;
+        let y = (this.props.piezas[i].posRow - 1) * alto;
+        this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
 
       }
     }, 4000);

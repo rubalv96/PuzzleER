@@ -33,6 +33,8 @@ export default class Piece extends React.Component {
   }
 
   render(){
+
+
     // Dimensiones del puzzle
     let altoImg;
     let anchoImg;
@@ -69,17 +71,17 @@ export default class Piece extends React.Component {
     this.props.numPuzzle === 1 ? img = this.props.imagen : img = this.props.imagenRev;
     this.props.numPuzzle === 1 ? imgRev = this.props.imagenRev : imgRev = this.props.imagen;
 
-    if(this.props.piezaExtra && this.props.numPuzzle === 1)
-    {
-      img = this.props.imagenExtra;
-      imgRev = this.props.conf.imagenExtraRev;
-    }
-    if(this.props.piezaExtra && this.props.numPuzzle === 2)
-    {
-      img = this.props.conf.imageExtra2;
-      imgRev = this.props.conf.imageExtra1;
-
-    }
+    // if(this.props.piezaExtra && this.props.numPuzzle === 1)
+    // {
+    //   img = this.props.imagenExtra;
+    //   imgRev = this.props.imagenExtraRev;
+    // }
+    // if(this.props.piezaExtra && this.props.numPuzzle === 2)
+    // {
+    //   img = this.props.imagenExtraRev;
+    //   imgRev = this.props.imagenExtra;
+    //
+    // }
 
     // Imagen de pieza en posición frontal
     let imgPieza = (
@@ -102,7 +104,6 @@ export default class Piece extends React.Component {
     let imgPiezaRev = (
       <img
         style={{
-          position:"absolute",
           margin:"auto",
             overflow:"hidden",
             width:anchoContenedor,

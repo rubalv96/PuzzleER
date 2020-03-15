@@ -1,3 +1,4 @@
+import {GLOBAL_CONFIG} from "../config/config";
 
 function piezasReducer(state = [], action){
 
@@ -46,7 +47,7 @@ function piezasReducer(state = [], action){
     piezasEscogidas.forEach(pieza => {
       let isExtraRandom = action.payload.aleatorizaTrueFalse();
       puzzle[pieza].piezaExtra = isExtraRandom;
-      puzzle.push({"row":"E" + puzzle[pieza].row, "column":"E" + puzzle[pieza].column, "posRow":puzzle[pieza].posRow, "posCol":puzzle[pieza].posCol, "numPuzzle":puzzle[pieza].numPuzzle, "piezaExtra":!isExtraRandom});
+      puzzle.push({"row":"E" + puzzle[pieza].row, "column":"E" + puzzle[pieza].column, "posRow":puzzle[pieza].posRow, "posCol":puzzle[pieza].posCol, "numPuzzle":puzzle[pieza].numPuzzle, "piezaExtra":!isExtraRandom, "imgSol":0, "imgRev":0, "imgExtra":0, "imgExtraRev":0});
     });
     return puzzle;
 
@@ -125,13 +126,37 @@ function piezasReducer(state = [], action){
 
     case 'CARGAR_IMAGENES':
       piezas = Object.assign([], state);
-      for(let k = 0; k < piezas.length; k ++){
-        piezas[k].imgSol = action.payload.imagenes[k];
-        piezas[k].imgRev = action.payload.imagenesRev[k];
-        //TO DO: modificar codigo de EXTRAS
-        piezas[k].imgExtra = action.payload.imagenesExtra[k];
-        piezas[k].imgExtraRev = action.payload.imagenesExtraRev[k];
+      let numPiezasExtra = GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra;
+      let g=0;
+
+      for(let k = 0; k < piezas.length - numPiezasExtra; k ++){
+        if(piezas[k].piezaExtra){
+          piezas[k].imgSol = action.payload.imagenesExtra[g];
+          piezas[k].imgRev = action.payload.imagenesExtraRev[g];
+          g++;
+          for(let f=piezas.length-numPiezasExtra; f<piezas.length; f++){
+            if(piezas[k].posRow === piezas[f].posRow && piezas[f].posCol === piezas[k].posCol){
+              piezas[f].imgSol = action.payload.imagenes[k];
+              piezas[f].imgRev = action.payload.imagenesRev[k];
+            }
+          }
+        }
+        else{
+          piezas[k].imgSol = action.payload.imagenes[k];
+          piezas[k].imgRev = action.payload.imagenesRev[k];
+        }
+
       }
+
+      for(let u=piezas.length-numPiezasExtra; u<piezas.length; u++){
+        if(piezas[u].piezaExtra){
+          piezas[u].imgSol = action.payload.imagenesExtra[g];
+          piezas[u].imgRev = action.payload.imagenesExtraRev[g];
+          g++;
+        }
+      }
+
+
       return piezas;
 
   default:
