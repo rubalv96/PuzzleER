@@ -11,7 +11,7 @@ export default function InitialMessage(props){
   return (
     <>
 
-      <Modal backdrop="static" keyboard="false" show={show} onHide={handleClose} animation={false} size="lg">
+      <Modal backdrop="static" keyboard={false} show={show} onHide={handleClose} animation={false} size="lg">
         <Modal.Header>
           <Modal.Title>Resuelve el puzzle</Modal.Title>
         </Modal.Header>

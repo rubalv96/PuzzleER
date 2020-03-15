@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {GLOBAL_CONFIG} from '../config/config.js';
 import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
-import Header from './Header.jsx';
+// import Header from './Header.jsx';
 import NavBar from "./navBar";
 import {cargarImagenes} from "../reducers/actions";
 // import FinishScreen from './FinishScreen.jsx';
@@ -64,18 +64,18 @@ export class App extends React.Component {
   }
 
   render(){
-    let appHeader = "";
+    // let appHeader = "";
     let appContent = "";
     // Variable para mostrar mensaje final si se ha completado
     let appEndMsg = "";
 
     if((this.props.tracking.finished !== true) || (GLOBAL_CONFIG.finish_screen === false)){
-      appHeader = (
-        <Header
-          user_profile={this.props.user_profile}
-          tracking={this.props.tracking}
-          config={GLOBAL_CONFIG}
-          I18n={I18n}/>);
+      // appHeader = (
+      //   <Header
+      //     user_profile={this.props.user_profile}
+      //     tracking={this.props.tracking}
+      //     config={GLOBAL_CONFIG}
+      //     I18n={I18n}/>);
       if(this.props.wait_for_user_profile !== true){
         appContent = (
           <>

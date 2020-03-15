@@ -7,11 +7,11 @@ function piezasReducer(state = [], action){
   // Action INICIAR_PUZZLE
   let i, columns = [], rows = [], arrayFinal = [], rowIndex = 0,
     columnIndex = 0, puzzle, puzzlePiezas = [], puzzleJSON,
-    numPiezasExtra, piezasEscogidas = [];
+    piezasEscogidas = [];
 
   // Action INTERCAMBIAR_PIEZAS
   let piezas, ind1, ind2, posRow1, posRow2, isExtra1, isExtra2, numPuzzle1, numPuzzle2, posCol1, posCol2, img1, img2, imgRev1, imgRev2;
-
+  let numPiezasExtra, g=0;
   switch (action.type){
   case 'INICIAR_PUZZLE':
     for(i = 1; i <= action.payload.N; i++){
@@ -47,7 +47,7 @@ function piezasReducer(state = [], action){
     piezasEscogidas.forEach(pieza => {
       let isExtraRandom = action.payload.aleatorizaTrueFalse();
       puzzle[pieza].piezaExtra = isExtraRandom;
-      puzzle.push({"row":"E" + puzzle[pieza].row, "column":"E" + puzzle[pieza].column, "posRow":puzzle[pieza].posRow, "posCol":puzzle[pieza].posCol, "numPuzzle":puzzle[pieza].numPuzzle, "piezaExtra":!isExtraRandom, "imgSol":0, "imgRev":0, "imgExtra":0, "imgExtraRev":0});
+      puzzle.push({"row":"E" + puzzle[pieza].row, "column":"E" + puzzle[pieza].column, "posRow":puzzle[pieza].posRow, "posCol":puzzle[pieza].posCol, "numPuzzle":puzzle[pieza].numPuzzle, "piezaExtra":!isExtraRandom, "imgSol":"../assets/images/loading.gif", "imgRev": "../assets/images/loading.gif", "imgExtra":0, "imgExtraRev":0});
     });
     return puzzle;
 
@@ -126,8 +126,8 @@ function piezasReducer(state = [], action){
 
     case 'CARGAR_IMAGENES':
       piezas = Object.assign([], state);
-      let numPiezasExtra = GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra;
-      let g=0;
+      numPiezasExtra = GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra;
+      g=0;
 
       for(let k = 0; k < piezas.length - numPiezasExtra; k ++){
         if(piezas[k].piezaExtra){

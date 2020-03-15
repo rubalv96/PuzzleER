@@ -335,37 +335,37 @@ export default class Puzzle extends React.Component {
 
         />
 
-        {imagenes.map((imagen, ind)=>{
-          return (
-            <span key={ind}>
-              <img src={imagen}/>
-            </span>
-          );
-        })}
+        {/*{imagenes.map((imagen, ind)=>{*/}
+        {/*  return (*/}
+        {/*    <span key={ind}>*/}
+        {/*      <img src={imagen}/>*/}
+        {/*    </span>*/}
+        {/*  );*/}
+        {/*})}*/}
 
-        {imagenesRev.map((imagenRev, ind)=>{
-          return (
-            <span key={ind}>
-              <img src={imagenRev}/>
-            </span>
-          );
-        })}
+        {/*{imagenesRev.map((imagenRev, ind)=>{*/}
+        {/*  return (*/}
+        {/*    <span key={ind}>*/}
+        {/*      <img src={imagenRev}/>*/}
+        {/*    </span>*/}
+        {/*  );*/}
+        {/*})}*/}
 
-        {imagenesExtra.map((imagenExtra, ind)=>{
-          return (
-            <span key={ind}>
-              <img src={imagenExtra}/>
-            </span>
-          );
-        })}
+        {/*{imagenesExtra.map((imagenExtra, ind)=>{*/}
+        {/*  return (*/}
+        {/*    <span key={ind}>*/}
+        {/*      <img src={imagenExtra}/>*/}
+        {/*    </span>*/}
+        {/*  );*/}
+        {/*})}*/}
 
-        {imagenesExtraRev.map((imagenExtraRev, ind)=>{
-          return (
-            <span key={ind}>
-              <img src={imagenExtraRev}/>
-            </span>
-          );
-        })}
+        {/*{imagenesExtraRev.map((imagenExtraRev, ind)=>{*/}
+        {/*  return (*/}
+        {/*    <span key={ind}>*/}
+        {/*      <img src={imagenExtraRev}/>*/}
+        {/*    </span>*/}
+        {/*  );*/}
+        {/*})}*/}
       </>
 
     );
@@ -391,9 +391,9 @@ export default class Puzzle extends React.Component {
 
         // setTimeout(this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}}), 100);
       }
-    }, 1500);
+    }, 4000);
     setTimeout(()=>{ this.setState({src:this.props.conf.imageExtra1});
-    }, 2500);
+    }, 8000);
     setTimeout(()=>{
       this.setState({lock1:false, lock2:false, lock3:true, lock4:false});
       for(let i = 0; i < this.props.piezas.length; i++){
@@ -403,11 +403,11 @@ export default class Puzzle extends React.Component {
         this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
 
       }
-    }, 3000);
+    }, 12000);
 
     setTimeout(()=>{
       this.setState({src:this.props.conf.imageExtra2});
-    }, 3500);
+    }, 16000);
 
     setTimeout(()=>{
       this.setState({lock1:false, lock2:false, lock3:false, lock4:true});
@@ -418,7 +418,7 @@ export default class Puzzle extends React.Component {
         this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
 
       }
-    }, 4000);
+    }, 20000);
 
   }
   _crop(){
@@ -446,7 +446,7 @@ export default class Puzzle extends React.Component {
 
     }
 
-    this.props.dispatch(cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev));
+   setTimeout(()=>{this.props.dispatch(cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev));},30000) ;
 
   }
 

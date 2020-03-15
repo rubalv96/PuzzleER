@@ -12,10 +12,10 @@ export let GLOBAL_CONFIG = {
     numberClues:"300", // número de vidas para consumir pistas
     clues:false, // false: sin pistas, true: con pistas
     time:"456", // tiempo en segundos para resolver el puzzle
-    M:3, // numero de columnas del puzzle
+    M:4, // numero de columnas del puzzle
     N:4, // numero de filas del puzzle
-    Mextra:2, // numero de columnas del area de piezas sobrantes
-    Nextra:1, // número de filas del área de piezas sobrantes
+    Mextra:1, // numero de columnas del area de piezas sobrantes
+    Nextra:5, // número de filas del área de piezas sobrantes
     initialMessage:"Bienvenido al Generador de Puzzles. ", // mensaje inicial de bienvenida
     initialMessagePrint:"¡Ánimo!", // mensaje inicial de bienvenida para impresión
     initialImage:"./assets/images/cascada.jpg", // foto inicial de bienvenida

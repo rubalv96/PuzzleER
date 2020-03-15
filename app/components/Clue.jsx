@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {GLOBAL_CONFIG} from "../config/config";
+// import {GLOBAL_CONFIG} from "../config/config";
 import {Toast, Row, Col, Button} from 'react-bootstrap';
 export default function Clue(props) {
     const [show, setShow] = useState(false);
