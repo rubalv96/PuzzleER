@@ -1,20 +1,37 @@
 import React, {useState} from "react";
+import {comprobarCompletado} from "../reducers/actions";
+
 export default function Timer(props){
-  const [segundos, setSegundos] = useState(props.conf.time);
+  const [segundos, setSegundos] = useState(props.time);
   let min = Math.floor(segundos / 60);
+  let timePannel = "";
+  if(props.showMinutes){
+    timePannel=(
+        <div style={{width: "100%", height: "auto"}}>
+          {min} : {segundos - min * 60}
+        </div>
+    ) ;
+  }
+  else{
+    timePannel=(
+        <div style={{width: "100%", height: "auto"}}>
+      {segundos - min * 60}
+    </div>
+    );
+  }
   if(segundos > 0 && props.onStartTime){
     setTimeout(()=>{
       setSegundos(segundos - 1);
       if(segundos === 1){
-        props.comprobarCompletado("gameover");
+        // props.dispatch(comprobarCompletado("gameover"));
+        props.onFinishTime();
       }
+
     }, 1000);
   }
 
 
   return (
-    <div style={{width: "40%", height: "auto"}}>
-      {min} : {segundos - min * 60}
-    </div>
+      timePannel
   );
 }

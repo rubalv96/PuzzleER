@@ -59,6 +59,7 @@ export class App extends React.Component {
       numIntentos:numIntentosComprobacion,
       numIntentosPistas: numIntentosPistas,
       onStartTime: false,
+      temporizador: true,
 
     };
   }
@@ -113,7 +114,7 @@ export class App extends React.Component {
     }
     let appInitialMsg;
     if(GLOBAL_CONFIG.initialMessage !== ""){
-      appInitialMsg = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
+      appInitialMsg = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
 
     let styleBackground = {
@@ -132,7 +133,7 @@ export class App extends React.Component {
 
     let instrucciones = "";
     if(this.state.mostrarMsgInicial){
-      instrucciones = (<InitialMessage ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
+      instrucciones = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
 
     let pistas = "";
@@ -152,7 +153,8 @@ export class App extends React.Component {
                   mostrarPistas={this.mostrarPistas}
                   numIntentos = {this.state.numIntentos}
                   numIntentosPistas = {this.state.numIntentosPistas}
-                  comprobarCompletado = {this.comprobarCompletado}
+                  dispatch = {this.props.dispatch}
+                  onFinishTime={this.comprobarCompletado}
                   onStartTime={this.state.onStartTime}
                   conf = {GLOBAL_CONFIG}
           />
@@ -299,8 +301,7 @@ export class App extends React.Component {
   }
 
   mostrarInstrucciones(){
-    this.setState({mostrarMsgInicial:true});
-
+    this.setState({mostrarMsgInicial:true, temporizador:false});
   }
 mostrarPistas(){
     this.setState({mostrarPistas:true});

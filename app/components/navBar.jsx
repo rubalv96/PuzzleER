@@ -3,8 +3,12 @@ import '../assets/scss/main.scss';
 import {OverlayTrigger} from "react-bootstrap";
 import {Tooltip} from "react-bootstrap";
 import Timer from "./Timer";
-export default class NavBar extends React.Component {
 
+export default class NavBar extends React.Component {
+    constructor(props) {
+        super(props);
+        this.onFinish = this.onFinish.bind(this);
+    }
     render(){
         let pistas = "", contadorPistas="";
         if(this.props.conf.clues){
@@ -45,7 +49,7 @@ export default class NavBar extends React.Component {
         let timer = "";
         if(this.props.conf.time !== ""){
             timer= (
-                <Timer conf={this.props.conf} comprobarCompletado={this.props.comprobarCompletado} onStartTime={this.props.onStartTime}/>
+                <Timer showMinutes={true} time={this.props.conf.time} onFinishTime={this.onFinish} onStartTime={this.props.onStartTime}/>
             )
         }
         return (
@@ -66,6 +70,10 @@ export default class NavBar extends React.Component {
 
             </nav>
         );
+    }
+    onFinish(){
+        this.props.onFinishTime("gameover");
+        console.log("Hola");
     }
 
     comprobacionTooltip(){

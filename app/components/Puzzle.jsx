@@ -11,6 +11,11 @@ const imagenes = [], imagenesRev = [], imagenesExtra = [], imagenesExtraRev = []
 let ancho = (1280/GLOBAL_CONFIG.M);
 let alto = (720/GLOBAL_CONFIG.N);
 
+//Tiempos de carga de imagenes
+let tiempoPieza = 500; //tiempo de carga por pieza
+let tiempoTotal = (GLOBAL_CONFIG.N * GLOBAL_CONFIG.M + GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra) * tiempoPieza;
+
+let tiempoFase = tiempoTotal/6;
 export default class Puzzle extends React.Component {
 
   constructor(props){
@@ -391,9 +396,9 @@ export default class Puzzle extends React.Component {
 
         // setTimeout(this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}}), 100);
       }
-    }, 4000);
+    }, tiempoFase);
     setTimeout(()=>{ this.setState({src:this.props.conf.imageExtra1});
-    }, 8000);
+    }, tiempoFase*2);
     setTimeout(()=>{
       this.setState({lock1:false, lock2:false, lock3:true, lock4:false});
       for(let i = 0; i < this.props.piezas.length; i++){
@@ -403,11 +408,11 @@ export default class Puzzle extends React.Component {
         this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
 
       }
-    }, 12000);
+    }, tiempoFase*3);
 
     setTimeout(()=>{
       this.setState({src:this.props.conf.imageExtra2});
-    }, 16000);
+    }, tiempoFase*4);
 
     setTimeout(()=>{
       this.setState({lock1:false, lock2:false, lock3:false, lock4:true});
@@ -418,7 +423,7 @@ export default class Puzzle extends React.Component {
         this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
 
       }
-    }, 20000);
+    }, tiempoFase*5);
 
   }
   _crop(){
@@ -446,7 +451,7 @@ export default class Puzzle extends React.Component {
 
     }
 
-   setTimeout(()=>{this.props.dispatch(cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev));},30000) ;
+   setTimeout(()=>{this.props.dispatch(cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev));},tiempoTotal) ;
 
   }
 

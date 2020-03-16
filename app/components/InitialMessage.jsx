@@ -1,10 +1,20 @@
 import React, {useState} from "react";
 import {GLOBAL_CONFIG} from "../config/config";
 import {Modal, Button} from 'react-bootstrap';
+import Timer from "./Timer";
 
 export default function InitialMessage(props){
   const [show, setShow] = useState(true);
+  const [enable, setEnable] = useState(false);
   const handleClose = () => setShow(false);
+  let timePiece = 0.5;
+  let time = Math.floor((GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra)*timePiece);
+  let timer="";
+  props.temporizador? timer =(
+      <div style={{display: !enable? 'block':'none'}}>
+        <Timer time={time} showMinutes={false} onStartTime={true} onFinishTime={()=>{setEnable(true)}}></Timer>
+      </div>
+  ): timer="";
 
   let initialImage;
   GLOBAL_CONFIG.initialImage === "" ? initialImage = "./assets/images/egipto.jpg" : initialImage = GLOBAL_CONFIG.initialImage;
@@ -33,11 +43,15 @@ export default function InitialMessage(props){
         </Modal.Body>
         <Modal.Footer>
 
-          <Button variant="primary" onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime()}}>
+          <Button style={{width: "50%", margin:"auto"}} variant="primary" disabled={!enable && props.temporizador} onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime()}}>
                         ¡Jugar!
+            {timer}
+
+
           </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
+
 }
