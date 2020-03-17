@@ -159,7 +159,7 @@ export class App extends React.Component {
                   conf = {GLOBAL_CONFIG}
           />
           <Instructions/>
-          <h1 className="title">Generador de Puzzles</h1>
+          <h1 className="title">{GLOBAL_CONFIG.title}</h1>
           {appInitialMsg}
           {appEndMsg}
           <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
@@ -251,6 +251,7 @@ export class App extends React.Component {
   }
 
   cargarImagenes(imagenes, imagenesRev){
+    console.log("Cargando imágenes");
     this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
   }
   // Dar vuelta a todas las piezas

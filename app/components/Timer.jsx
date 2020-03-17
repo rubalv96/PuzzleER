@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import {comprobarCompletado} from "../reducers/actions";
 
 export default function Timer(props){
   const [segundos, setSegundos] = useState(props.time);

@@ -3,43 +3,18 @@ import {Fragment} from 'react';
 import Piece from "./Piece";
 import '../assets/scss/main.scss';
 import * as Utils from '../vendors/Utils';
-import {addObjectives, cargarImagenes} from "../reducers/actions";
+import {addObjectives} from "../reducers/actions";
 import Toolkit from "./Toolkit";
-import Cropper from "react-cropper";
+import ImagesCropper from "./ImagesCropper";
 import {GLOBAL_CONFIG} from "../config/config";
-const imagenes = [], imagenesRev = [], imagenesExtra = [], imagenesExtraRev = [];
-let ancho = (1280/GLOBAL_CONFIG.M);
-let alto = (720/GLOBAL_CONFIG.N);
 
-//Tiempos de carga de imagenes
-let tiempoPieza = 500; //tiempo de carga por pieza
-let tiempoTotal = (GLOBAL_CONFIG.N * GLOBAL_CONFIG.M + GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra) * tiempoPieza;
-
-let tiempoFase = tiempoTotal/6;
 export default class Puzzle extends React.Component {
 
   constructor(props){
     super(props);
-    this.state = {
-      data:{
-        'x':0,
-        'y':0,
-        'width':320,
-        'height':360,
-      },
-      src:this.props.conf.image1,
-      lock1:false,
-      lock2:false,
-      lock3:false,
-      lock4:false,
-    };
-    this.motor = this.motor.bind(this);
-    setTimeout(()=>{this.motor();}, 1000);
   }
 
   render(){
-
-
 
     let rows = []; // rows=[1,2,3,4,5,...,N]
     for(let i = 1; i <= this.props.conf.N; i++){
@@ -101,7 +76,7 @@ export default class Puzzle extends React.Component {
           </table>
         </>);
     let areaPiezasExtra = "";
-    if(this.props.conf.imageExtra1 !== ""){
+    if(!(this.props.conf.Nextra === 0 || this.props.conf.Mextra === 0 || this.props.conf.imageExtra1==="" )){
       areaPiezasExtra = (
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
@@ -117,19 +92,19 @@ export default class Puzzle extends React.Component {
                         <Fragment key={indC}>
                           <td>
 
-                            <Piece posRow={this.props.piezas[k +this.props.conf.N * this.props.conf.M].posRow}
-                                   posCol={this.props.piezas[k+  this.props.conf.N * this.props.conf.M].posCol}
-                                   row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
-                                   column={this.props.piezas[k+  this.props.conf.N * this.props.conf.M].column}
-                                   conf={this.props.conf}
-                                   seleccionarPieza={this.props.seleccionarPieza}
-                                   piezasSeleccionadas={this.props.piezasSeleccionadas}
-                                   numPuzzle={this.props.piezas[k+  this.props.conf.N * this.props.conf.M].numPuzzle}
-                                   darVuelta = {this.props.darVuelta}
-                                   imagen = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgSol}
-                                   imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgRev}
-                                // imagenExtra = {this.props.piezas[l].imgExtra}
-                                // imagenExtraRev = {this.props.piezas[l].imgExtraRev}
+                            <Piece posRow={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posRow}
+                              posCol={this.props.piezas[k + this.props.conf.N * this.props.conf.M].posCol}
+                              row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
+                              column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
+                              conf={this.props.conf}
+                              seleccionarPieza={this.props.seleccionarPieza}
+                              piezasSeleccionadas={this.props.piezasSeleccionadas}
+                              numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
+                              darVuelta = {this.props.darVuelta}
+                              imagen = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgSol}
+                              imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgRev}
+                              // imagenExtra = {this.props.piezas[l].imgExtra}
+                              // imagenExtraRev = {this.props.piezas[l].imgExtraRev}
 
                             />
                           </td>
@@ -226,7 +201,7 @@ export default class Puzzle extends React.Component {
       areaPuzzlePrintReverso = (
         <>
           <div className="pagebreak" />
-          <h1 className="title titlePrint">Generador de Puzzles</h1>
+          <h1 className="title titlePrint">{this.props.conf.title}</h1>
           <h2 className="msgPrint">Área de puzzle</h2>
           <table className="tablePrint">
             <tbody>
@@ -328,131 +303,33 @@ export default class Puzzle extends React.Component {
         {areaPuzzlePrintReverso}
         {areaPuzzleExtraPrintReverso}
 
-        <Cropper
-          ref={cropper => { this.cropper = cropper; }}
-          src = {this.state.src}
-          style={{height:"100%", width:500, display:'none'}}
-          // Cropper.js options
-          // aspectRatio={"free"}
-          guides={false}
-          crop={this._crop.bind(this)}
-          data={this.state.data}
-
+        <ImagesCropper
+          imagen={GLOBAL_CONFIG.image1}
+          piezas={this.props.piezas}
+          dispatch={this.props.dispatch}
+          imagenes={"imagenes"}
+        />
+        <ImagesCropper
+          imagen={GLOBAL_CONFIG.image2}
+          piezas={this.props.piezas}
+          dispatch={this.props.dispatch}
+          imagenes={"imagenesRev"}
+        />
+        <ImagesCropper
+          imagen={GLOBAL_CONFIG.imageExtra1}
+          piezas={this.props.piezas}
+          dispatch={this.props.dispatch}
+          imagenes={"imagenesExtra"}
+        />
+        <ImagesCropper
+          imagen={GLOBAL_CONFIG.imageExtra2}
+          piezas={this.props.piezas}
+          dispatch={this.props.dispatch}
+          imagenes={"imagenesExtraRev"}
         />
 
-        {/*{imagenes.map((imagen, ind)=>{*/}
-        {/*  return (*/}
-        {/*    <span key={ind}>*/}
-        {/*      <img src={imagen}/>*/}
-        {/*    </span>*/}
-        {/*  );*/}
-        {/*})}*/}
-
-        {/*{imagenesRev.map((imagenRev, ind)=>{*/}
-        {/*  return (*/}
-        {/*    <span key={ind}>*/}
-        {/*      <img src={imagenRev}/>*/}
-        {/*    </span>*/}
-        {/*  );*/}
-        {/*})}*/}
-
-        {/*{imagenesExtra.map((imagenExtra, ind)=>{*/}
-        {/*  return (*/}
-        {/*    <span key={ind}>*/}
-        {/*      <img src={imagenExtra}/>*/}
-        {/*    </span>*/}
-        {/*  );*/}
-        {/*})}*/}
-
-        {/*{imagenesExtraRev.map((imagenExtraRev, ind)=>{*/}
-        {/*  return (*/}
-        {/*    <span key={ind}>*/}
-        {/*      <img src={imagenExtraRev}/>*/}
-        {/*    </span>*/}
-        {/*  );*/}
-        {/*})}*/}
       </>
-
     );
-  }
-
-  motor(){
-    this.setState({src:this.props.conf.image1, lock1:true, lock2:false, lock3:false, lock4:false});
-    for(let i = 0; i < this.props.piezas.length; i++){
-      console.log("MODIFICO 1");
-      let x = (this.props.piezas[i].posCol - 1) * ancho;
-      let y = (this.props.piezas[i].posRow - 1) * alto;
-      this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
-    }
-
-    this.setState({src:this.props.conf.image2});
-    setTimeout(()=>{
-      this.setState({lock1:false, lock2:true, lock3:false, lock4:false});
-      for(let j = 0; j < this.props.piezas.length; j++){
-        console.log("MODIFICO 2");
-        let x = (this.props.piezas[j].posCol - 1) * ancho;
-        let y = (this.props.piezas[j].posRow - 1) * alto;
-        this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
-
-        // setTimeout(this.setState({data:{'x':x, 'y':y, 'width':320, 'height':360}}), 100);
-      }
-    }, tiempoFase);
-    setTimeout(()=>{ this.setState({src:this.props.conf.imageExtra1});
-    }, tiempoFase*2);
-    setTimeout(()=>{
-      this.setState({lock1:false, lock2:false, lock3:true, lock4:false});
-      for(let i = 0; i < this.props.piezas.length; i++){
-        console.log("MODIFICO 3");
-        let x = (this.props.piezas[i].posCol - 1) * ancho;
-        let y = (this.props.piezas[i].posRow - 1) * alto;
-        this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
-
-      }
-    }, tiempoFase*3);
-
-    setTimeout(()=>{
-      this.setState({src:this.props.conf.imageExtra2});
-    }, tiempoFase*4);
-
-    setTimeout(()=>{
-      this.setState({lock1:false, lock2:false, lock3:false, lock4:true});
-      for(let i = 0; i < this.props.piezas.length; i++){
-        console.log("MODIFICO 4");
-        let x = (this.props.piezas[i].posCol - 1) * ancho;
-        let y = (this.props.piezas[i].posRow - 1) * alto;
-        this.setState({data:{'x':x, 'y':y, 'width':ancho, 'height':alto}});
-
-      }
-    }, tiempoFase*5);
-
-  }
-  _crop(){
-    if(this.state.src === this.props.conf.image1 && this.state.lock1){
-      console.log("CORTE IMG1");
-      imagenes.push(this.cropper.getCroppedCanvas().toDataURL());
-    }
-
-    if(this.state.src === this.props.conf.image2 && this.state.lock2){
-      console.log("ESTADO LOCK2: " + this.state.lock2);
-      console.log("CORTE IMG2");
-      imagenesRev.push(this.cropper.getCroppedCanvas().toDataURL());
-    }
-
-    if(this.state.src === this.props.conf.imageExtra1 && this.state.lock3){
-      console.log("CORTE IMG extra1");
-
-      imagenesExtra.push(this.cropper.getCroppedCanvas().toDataURL());
-
-    }
-    if(this.state.src === this.props.conf.imageExtra2 && this.state.lock4){
-      console.log("CORTE imgEXTRA2");
-
-      imagenesExtraRev.push(this.cropper.getCroppedCanvas().toDataURL());
-
-    }
-
-   setTimeout(()=>{this.props.dispatch(cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev));},tiempoTotal) ;
-
   }
 
   componentDidMount(){

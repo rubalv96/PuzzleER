@@ -1,22 +1,22 @@
 export let GLOBAL_CONFIG = {
   dev:{
+    //Nombre de la prueba
+    title: "La fuga de Cleopatra",
     //Imagen de fondo
     imageBackground:"./assets/images/noruega.jpg", // imagen de fondo
     opacityBackground:".7", // opacidad de la imagen
 
     //Imagenes de las piezas
     image1:"./assets/images/egipto.jpg", // imagen solución
-    image2:"./assets/images/cactus.jpg", // imagen solución reverso
-    imageExtra1:"./assets/images/taj_mahal.jpg", // imagen señuelo cara
-    imageExtra2:"./assets/images/noruega.jpg", // imagen señuelo reverso
-
-
+    image2:"", // imagen solución reverso
+    imageExtra1:"", // imagen señuelo cara
+    imageExtra2:"", // imagen señuelo reverso
 
     //Dimensiones del puzzle
-    M:6, // numero de columnas del puzzle
-    N:6, // numero de filas del puzzle
-    Mextra:5, // numero de columnas del area de piezas sobrantes
-    Nextra:1, // número de filas del área de piezas sobrantes
+    M:8, // numero de columnas del puzzle
+    N:3, // numero de filas del puzzle
+    Mextra:0, // numero de columnas del area de piezas sobrantes
+    Nextra:0, // número de filas del área de piezas sobrantes
 
     //Timer
     time:"", // tiempo en segundos para resolver el puzzle

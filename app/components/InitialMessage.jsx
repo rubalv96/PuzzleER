@@ -7,14 +7,14 @@ export default function InitialMessage(props){
   const [show, setShow] = useState(true);
   const [enable, setEnable] = useState(false);
   const handleClose = () => setShow(false);
-  let timePiece = 0.5;
-  let time = Math.floor((GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra)*timePiece);
-  let timer="";
-  props.temporizador? timer =(
-      <div style={{display: !enable? 'block':'none'}}>
-        <Timer time={time} showMinutes={false} onStartTime={true} onFinishTime={()=>{setEnable(true)}}></Timer>
-      </div>
-  ): timer="";
+  // let timePiece = 0.5;
+  // let time = Math.floor((GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra) * timePiece);
+  let timer = "";
+  props.temporizador ? timer = (
+    <div style={{display:!enable ? 'block' : 'none'}}>
+      <Timer time={5} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
+    </div>
+  ) : timer = "";
 
   let initialImage;
   GLOBAL_CONFIG.initialImage === "" ? initialImage = "./assets/images/egipto.jpg" : initialImage = GLOBAL_CONFIG.initialImage;
@@ -23,7 +23,7 @@ export default function InitialMessage(props){
 
       <Modal backdrop="static" keyboard={false} show={show} onHide={handleClose} animation={false} size="lg">
         <Modal.Header>
-          <Modal.Title>Resuelve el puzzle</Modal.Title>
+          <Modal.Title>{GLOBAL_CONFIG.title}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p><b>Instrucciones</b></p>
@@ -43,10 +43,9 @@ export default function InitialMessage(props){
         </Modal.Body>
         <Modal.Footer>
 
-          <Button style={{width: "50%", margin:"auto"}} variant="primary" disabled={!enable && props.temporizador} onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime()}}>
+          <Button style={{width:"50%", margin:"auto"}} variant="primary" disabled={!enable && props.temporizador} onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime();}}>
                         ¡Jugar!
             {timer}
-
 
           </Button>
         </Modal.Footer>

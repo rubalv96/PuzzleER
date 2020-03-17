@@ -53,11 +53,11 @@ export default class NavBar extends React.Component {
             )
         }
         return (
-            <nav className="navbar navbar-expand-sm " style={{backgroundColor: "white"}}>
+            <nav className="navbar navbar-light navbar-expand-xl " style={{backgroundColor: "transparent !important", height: "75px !important"}}>
                 <a className="navbar-brand title" href="https://github.com/rubalv96/PuzzleER">
                     <img src="../assets/images/intentos.png" width="40px" height="40px"/>
                     </a>
-                <a className="navbar-brand title" style={{cursor:"pointer" }} onClick={()=>{
+                <a className="navbar-brand title" style={{color: "dark", cursor:"pointer", paddingLeft:"30px", paddingRight:"30px" }} onClick={()=>{
                     this.props.mostrarInstrucciones();}}>
                    ¿Cómo jugar?
                 </a>
