@@ -3,32 +3,35 @@ export let GLOBAL_CONFIG = {
     //Nombre de la prueba
     title: "La fuga de Cleopatra",
     //Imagen de fondo
-    imageBackground:"./assets/images/noruega.jpg", // imagen de fondo
-    opacityBackground:".7", // opacidad de la imagen
+    imageBackground:"./assets/images/demo_egipto/egipto_fondo.jpg", // imagen de fondo
+    opacityBackground:".3", // opacidad de la imagen
 
     //Imagenes de las piezas
-    image1:"./assets/images/egipto.jpg", // imagen solución
-    image2:"", // imagen solución reverso
-    imageExtra1:"", // imagen señuelo cara
-    imageExtra2:"", // imagen señuelo reverso
+    image1:"./assets/images/demo_egipto/egipto_pintura.jpg", // imagen solución
+    image2:"./assets/images/demo_egipto/egipto_ank.jpg", // imagen solución reverso
+    imageExtra1:"./assets/images/demo_egipto/egipto_altamira.jpg", // imagen señuelo cara
+    imageExtra2:"./assets/images/demo_egipto/egipto_fatima.jpg", // imagen señuelo reverso
 
+    //Sonidos
+    // backgroundMusic: "./assets/images/demo_egipto/egipto_musica.mp3",
+    
     //Dimensiones del puzzle
-    M:8, // numero de columnas del puzzle
-    N:3, // numero de filas del puzzle
-    Mextra:0, // numero de columnas del area de piezas sobrantes
-    Nextra:0, // número de filas del área de piezas sobrantes
+    M:2, // numero de columnas del puzzle
+    N:2, // numero de filas del puzzle
+    Mextra:1, // numero de columnas del area de piezas sobrantes
+    Nextra:3, // número de filas del área de piezas sobrantes
 
     //Timer
-    time:"", // tiempo en segundos para resolver el puzzle
+    time:"50", // tiempo en segundos para resolver el puzzle
 
     //Cuadro de puzzle
     heightImg:"", // tamaño altura cuadro de puzzles
     widthImg:"", // tamaño anchura de cuadro de puzzles
 
     //Modo juego independiente
-    numberAttempts:"-1", // -1 para desactivar
-    numberClues:"300", // número de vidas para consumir pistas
-    clues:false, // false: sin pistas, true: con pistas
+    numberAttempts:"5", // -1 para desactivar
+    numberClues:"35", // número de vidas para consumir pistas
+    clues:true, // false: sin pistas, true: con pistas
     cluesTime:"8000", // en milisegundos (tiempo en la que se ve la imagen de la solución)
 
     //Mensaje inicial

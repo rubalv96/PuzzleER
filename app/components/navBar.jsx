@@ -1,7 +1,7 @@
 import React from "react";
 import '../assets/scss/main.scss';
 import {OverlayTrigger} from "react-bootstrap";
-import {Tooltip} from "react-bootstrap";
+import {Tooltip, Button} from "react-bootstrap";
 import Timer from "./Timer";
 
 export default class NavBar extends React.Component {
@@ -52,6 +52,22 @@ export default class NavBar extends React.Component {
                 <Timer showMinutes={true} time={this.props.conf.time} onFinishTime={this.onFinish} onStartTime={this.props.onStartTime}/>
             )
         }
+
+        let darVuelta = "";
+        if(this.props.conf.image2 !== ""){
+            darVuelta =
+                (
+                    <div>
+                        <a className="navbar-brand title" style={{color: "dark", cursor:"pointer", padding: "auto", paddingRight: "20px"}}
+                            onClick={()=>{this.props.toggle();}}
+                        >
+                            Girar las piezas
+                        </a>
+
+                    </div>
+                );
+
+        }
         return (
             <nav className="navbar navbar-light navbar-expand-xl " style={{backgroundColor: "transparent !important", height: "75px !important"}}>
                 <a className="navbar-brand title" href="https://github.com/rubalv96/PuzzleER">
@@ -62,11 +78,18 @@ export default class NavBar extends React.Component {
                    ¿Cómo jugar?
                 </a>
 
+
+
+
+                {darVuelta}
+
+                <a className="navbar-brand title" style={{color: "dark", cursor:"pointer", padding: "auto" }} onClick={()=>{this.props.comprobarCompletado();}}>
+                    Comprobar solución
+                </a>
                 {pistas}
                 {contadorIntentos}
                 {contadorPistas}
                 {timer}
-
 
             </nav>
         );

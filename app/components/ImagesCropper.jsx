@@ -5,8 +5,8 @@ import Cropper from "react-cropper";
 import {GLOBAL_CONFIG} from "../config/config";
 import {cargarImagenes} from "../reducers/actions";
 
-let ancho = (1280/GLOBAL_CONFIG.M);
-let alto = (720/GLOBAL_CONFIG.N);
+let ancho = (1920/GLOBAL_CONFIG.M);
+let alto = (1358/GLOBAL_CONFIG.N);
 const imagenes = []
 const imagenesRev = []
 const imagenesExtra = []
@@ -15,13 +15,16 @@ export default class ImagesCropper extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+
+            anchoImagen: 0,
+            altoImagen: 0,
+            lock: false,
             datos: {
                 'x': 0,
                 'y': 0,
-                'width': 320,
-                'height': 360,
+                'width': 0,
+                'height': 0,
             },
-            lock: false,
         }
         this.motor = this.motor.bind(this);
     }
@@ -29,14 +32,15 @@ export default class ImagesCropper extends React.Component {
 
     motor() {
         console.log("MOTOR CROPPER 1");
+        console.log("naturalWidth: "+ this.cropper.getImageData().naturalWidth);
+        console.log("naturalHeight: "+ this.cropper.getImageData().naturalHeight);
         this.setState({lock: true});
         for (let i = 0; i < this.props.piezas.length; i++) {
             let x = (this.props.piezas[i].posCol - 1) * ancho;
             console.log("x: " + x);
             let y = (this.props.piezas[i].posRow - 1) * alto;
             console.log("y: " + y);
-            this.setState({datos: {'x': x, 'y': y, 'width': ancho, 'height': alto}});
-            console.log(this.state.datos.x);
+            this.setState({datos: {'x': x, 'y': y}});
         }
     }
 
@@ -60,14 +64,12 @@ export default class ImagesCropper extends React.Component {
     }
 
     render(){
-        console.log("HOLA X: " +this.state.datos.x);
-
-
+console.log("Length de imagenes: " + imagenes.length);
         return (
             <Cropper
                 ref={cropper => { this.cropper = cropper; }}
                 src = {this.props.imagen}
-                style={{height:"100%", width:500, display:'none'}}
+                style={{height:"200", width:"200", display:'none'}}
                 // Cropper.js options
                 // aspectRatio={"free"}
                 guides={false}
@@ -80,6 +82,17 @@ export default class ImagesCropper extends React.Component {
     }
 
     componentDidMount() {
+        setTimeout(
+            ()=> {
+                this.setState(
+                    {
+                        datos: {
+                            'width': this.cropper.getImageData().naturalWidth/GLOBAL_CONFIG.M,
+                            'height': this.cropper.getImageData().naturalHeight/GLOBAL_CONFIG.N,
+                        }
+                    });
+
+            }, 800);
         setTimeout(
             ()=>{this.motor();},
             1000);

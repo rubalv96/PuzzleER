@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import {GLOBAL_CONFIG} from '../config/config.js';
 import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
+
 // import Header from './Header.jsx';
 import NavBar from "./navBar";
 import {cargarImagenes} from "../reducers/actions";
@@ -60,6 +61,7 @@ export class App extends React.Component {
       numIntentosPistas: numIntentosPistas,
       onStartTime: false,
       temporizador: true,
+      muted: true,
 
     };
   }
@@ -122,6 +124,7 @@ export class App extends React.Component {
       "backgroundPosition":"center center",
       "backgroundRepeat":"no-repeat",
       "backgroundSize":"cover",
+
     };
     let msgIntentos;
     if(this.state.numIntentos === -1){
@@ -157,6 +160,8 @@ export class App extends React.Component {
                   onFinishTime={this.comprobarCompletado}
                   onStartTime={this.state.onStartTime}
                   conf = {GLOBAL_CONFIG}
+                  toggle = {this.toggle}
+                  comprobarCompletado = {this.comprobarCompletado}
           />
           <Instructions/>
           <h1 className="title">{GLOBAL_CONFIG.title}</h1>
@@ -169,7 +174,12 @@ export class App extends React.Component {
           <Attempts numIntentos={msgIntentos}/>
           {/* {appHeader}*/}
 
+          {/*<audio id={"audio"}controls autoPlay muted={this.state.muted} >*/}
+          {/*  <source src={GLOBAL_CONFIG.backgroundMusic} type="audio/mp3"/>*/}
+          {/*      Tu navegador no soporta este audio.*/}
+          {/*</audio>*/}
         </div>
+
       </>
     );
   }
@@ -320,6 +330,12 @@ mostrarPistas(){
     this.setState({onStartTime: true});
     console.log("STATE ONSTARTTIME: " + this.state.onStartTime);
   }
+componentDidMount() {
+    setTimeout(()=>{
+      this.setState({muted: false});
+    },5000)
+}
+
 }
 
 function mapStateToProps(state){

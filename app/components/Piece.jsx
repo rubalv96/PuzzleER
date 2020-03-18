@@ -38,8 +38,10 @@ export default class Piece extends React.Component {
     // Dimensiones del puzzle
     let altoImg;
     let anchoImg;
-    this.props.conf.heightImg === "" ? altoImg = 300 : altoImg = parseInt(this.props.conf.heightImg, 10);
-    this.props.conf.widthImg === "" ? anchoImg = 500 : anchoImg = parseInt(this.props.conf.widthImg, 10);
+
+
+    this.props.conf.heightImg === "" ? (this.props.extraArea? altoImg = 300/2 : altoImg=300) : altoImg = parseInt(this.props.conf.heightImg, 10);
+    this.props.conf.widthImg === "" ? (this.props.extraArea? anchoImg = 500/2 : anchoImg=500) : anchoImg = parseInt(this.props.conf.widthImg, 10);
 
     // Tamaño del contenedor
     let anchoContenedor = anchoImg / (this.props.conf.M);
@@ -59,10 +61,12 @@ export default class Piece extends React.Component {
 
     (rowPieza === rowSelec1 && colPieza === colSelec1)
         || (rowPieza === rowSelec2 && colPieza === colSelec2)
-      ? borde = "3px #487329 solid" : borde = "1px #93A603 solid";
+      ? borde = "3px black solid" : borde = "1px black solid";
+      // ? borde = "3px #487329 solid" : borde = "1px #93A603 solid";
 
     if(rowSelec1 !== -1 && rowSelec2 !== -1){
-      borde = "1px #93A603 solid";
+      borde = "1px black solid";
+      // borde = "1px #93A603 solid";
     }
 
     // Selección de imagen de la pieza en posición frontal o en reverso
