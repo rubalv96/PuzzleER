@@ -3,21 +3,21 @@ import React, {useState} from "react";
 export default function Timer(props){
   const [segundos, setSegundos] = useState(props.time);
   let min = Math.floor(segundos / 60);
-  let timePannel = "";
+  let timePannel;
   if(props.showMinutes){
-    timePannel=(
-        <div style={{fontSize: "20px", fontFamily: "'Megrim', cursive", margin:"auto"
-        }}>
-          {min} : {segundos - min * 60}
-        </div>
-    ) ;
+    timePannel = (
+      <div style={{fontSize:"20px", fontFamily:"'Megrim', cursive", margin:"auto",
+      }}>
+        {min} : {segundos - min * 60}
+      </div>
+    );
   }
-  else{
-    timePannel=(
-        <div style={{fontSize: "20px", fontFamily: "'Megrim', cursive", margin:"auto"
-        }}>
-      {segundos - min * 60}
-    </div>
+  else {
+    timePannel = (
+      <div style={{fontSize:"20px", fontFamily:"'Megrim', cursive", margin:"auto",
+      }}>
+        {segundos - min * 60}
+      </div>
     );
   }
   if(segundos > 0 && props.onStartTime){
@@ -31,8 +31,7 @@ export default function Timer(props){
     }, 1000);
   }
 
-
   return (
-      timePannel
+    timePannel
   );
 }

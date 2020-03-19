@@ -9,7 +9,7 @@ export default function InitialMessage(props){
   const handleClose = () => setShow(false);
   // let timePiece = 0.5;
   // let time = Math.floor((GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra) * timePiece);
-  let timer = "";
+  let timer;
   props.temporizador ? timer = (
     <div style={{display:!enable ? 'block' : 'none'}}>
       <Timer time={5} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />

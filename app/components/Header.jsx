@@ -20,7 +20,6 @@ export default class Header extends React.Component {
       trackingTexts.push(this.props.I18n.getTrans("i.score") + ": null");
     }
 
-
     if(this.props.user_profile){
       if((typeof this.props.user_profile.name === "string")){
         loggedText = (this.props.I18n.getTrans("i.logged_as") + " " + this.props.user_profile.name);
@@ -38,7 +37,7 @@ export default class Header extends React.Component {
 
     return (
       <div className="header_wrapper">
-        <a target="_blank" rel="noopener noreferrer" href="https://github.com/agordillo/RESCORM"><img src="assets/images/react_logo.png"/></a>
+        <a target="_blank" rel="noopener noreferrer" href="https://github.com/agordillo/RESCORM"><img src="assets/images/react_logo.png" alt={"Logo React"}/></a>
         <h1 id="heading">{this.props.I18n.getTrans("i.title")}</h1>
         <p id="tracking">{trackingEls}</p>
         {loggedEl}

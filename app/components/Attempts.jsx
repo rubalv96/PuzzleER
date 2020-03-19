@@ -15,15 +15,15 @@ export default class Attempts extends React.Component {
     for(let j = 0; j < numIntentosDisponibles; j++){
       arrayTotales[j] = "attemptsOK";
     }
+    // eslint-disable-next-line radix
     if(parseInt(numIntentosTotales) > 0){
       return (
         <>
 
           <div className="attemptsContainer">
             {arrayTotales.map((div, ind)=>{
-              return (
-                <img key={ind} src="../assets/images/intentos.png" style={{width:600 / numIntentosTotales}}className={div} />
-              );
+              return <img key={ind} src="../assets/images/intentos.png" style={{width:600 / numIntentosTotales}}
+                className={div} alt={"Intentos disponibles"}/>;
             })}
 
           </div>

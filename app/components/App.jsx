@@ -58,10 +58,10 @@ export class App extends React.Component {
       mostrarMsgInicial:false,
       mostrarPistas:false,
       numIntentos:numIntentosComprobacion,
-      numIntentosPistas: numIntentosPistas,
-      onStartTime: false,
-      temporizador: true,
-      muted: true,
+      numIntentosPistas:numIntentosPistas,
+      onStartTime:false,
+      temporizador:true,
+      muted:true,
 
     };
   }
@@ -142,26 +142,26 @@ export class App extends React.Component {
     let pistas = "";
     if(this.state.mostrarPistas){
       pistas = (
-                <CluesMenu piezas={this.props.piezas}
-                           ocultarPistas={this.ocultarPistas}
-                           consumirPista = {this.consumirPista}
-                           numIntentosPistas = {this.state.numIntentosPistas}
-      />);
+        <CluesMenu piezas={this.props.piezas}
+          ocultarPistas={this.ocultarPistas}
+          consumirPista = {this.consumirPista}
+          numIntentosPistas = {this.state.numIntentosPistas}
+        />);
     }
     return (
       <>
 
         <div id="container" style={styleBackground}>
           <NavBar mostrarInstrucciones={this.mostrarInstrucciones}
-                  mostrarPistas={this.mostrarPistas}
-                  numIntentos = {this.state.numIntentos}
-                  numIntentosPistas = {this.state.numIntentosPistas}
-                  dispatch = {this.props.dispatch}
-                  onFinishTime={this.comprobarCompletado}
-                  onStartTime={this.state.onStartTime}
-                  conf = {GLOBAL_CONFIG}
-                  toggle = {this.toggle}
-                  comprobarCompletado = {this.comprobarCompletado}
+            mostrarPistas={this.mostrarPistas}
+            numIntentos = {this.state.numIntentos}
+            numIntentosPistas = {this.state.numIntentosPistas}
+            dispatch = {this.props.dispatch}
+            onFinishTime={this.comprobarCompletado}
+            onStartTime={this.state.onStartTime}
+            conf = {GLOBAL_CONFIG}
+            toggle = {this.toggle}
+            comprobarCompletado = {this.comprobarCompletado}
           />
           <Instructions/>
           <h1 className="title">{GLOBAL_CONFIG.title}</h1>
@@ -174,10 +174,10 @@ export class App extends React.Component {
           <Attempts numIntentos={msgIntentos}/>
           {/* {appHeader}*/}
 
-          {/*<audio id={"audio"}controls autoPlay muted={this.state.muted} >*/}
+          {/* <audio id={"audio"}controls autoPlay muted={this.state.muted} >*/}
           {/*  <source src={GLOBAL_CONFIG.backgroundMusic} type="audio/mp3"/>*/}
           {/*      Tu navegador no soporta este audio.*/}
-          {/*</audio>*/}
+          {/* </audio>*/}
         </div>
 
       </>
@@ -279,12 +279,12 @@ export class App extends React.Component {
 
   consumirPista(coste){
     if(coste <= this.state.numIntentosPistas){
-      this.setState({numIntentosPistas: this.state.numIntentosPistas - coste});
+      this.setState({numIntentosPistas:this.state.numIntentosPistas - coste});
       return true;
     }
-    else{
-      return false;
-    }
+
+    return false;
+
   }
   comprobarCompletado(flag){
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
@@ -292,7 +292,7 @@ export class App extends React.Component {
       this.setState({numIntentos:this.state.numIntentos - 1});
     }
     if(flag === "gameover"){
-      this.setState({numIntentos: 0});
+      this.setState({numIntentos:0});
     }
     this.mostrarMsgFinal();
     // Llamada a API externa mediante la plataforma Escapp
@@ -314,7 +314,7 @@ export class App extends React.Component {
   mostrarInstrucciones(){
     this.setState({mostrarMsgInicial:true, temporizador:false});
   }
-mostrarPistas(){
+  mostrarPistas(){
     this.setState({mostrarPistas:true});
   }
 
@@ -327,14 +327,14 @@ mostrarPistas(){
   }
 
   onStartTime(){
-    this.setState({onStartTime: true});
+    this.setState({onStartTime:true});
     console.log("STATE ONSTARTTIME: " + this.state.onStartTime);
   }
-componentDidMount() {
+  componentDidMount(){
     setTimeout(()=>{
-      this.setState({muted: false});
-    },5000)
-}
+      this.setState({muted:false});
+    }, 5000);
+  }
 
 }
 

@@ -4,7 +4,6 @@ import Piece from "./Piece";
 import '../assets/scss/main.scss';
 import * as Utils from '../vendors/Utils';
 import {addObjectives} from "../reducers/actions";
-import Toolkit from "./Toolkit";
 import ImagesCropper from "./ImagesCropper";
 import {GLOBAL_CONFIG} from "../config/config";
 
@@ -36,7 +35,7 @@ export default class Puzzle extends React.Component {
 
     let l = -1, k = -1, m = -1, n = -1, o = -1, p = -1;
 
-    let areaPuzzle = "";
+    let areaPuzzle;
     areaPuzzle =
         (<>
           <h2 className="msgPrint">Área de puzzle</h2>
@@ -76,7 +75,7 @@ export default class Puzzle extends React.Component {
           </table>
         </>);
     let areaPiezasExtra = "";
-    if(!(this.props.conf.Nextra === 0 || this.props.conf.Mextra === 0 || this.props.conf.imageExtra1==="" )){
+    if(!(this.props.conf.Nextra === 0 || this.props.conf.Mextra === 0 || this.props.conf.imageExtra1 === "")){
       areaPiezasExtra = (
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
@@ -105,7 +104,7 @@ export default class Puzzle extends React.Component {
                               imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgRev}
                               // imagenExtra = {this.props.piezas[l].imgExtra}
                               // imagenExtraRev = {this.props.piezas[l].imgExtraRev}
-                                extraArea = {true}
+                              extraArea
                             />
                           </td>
                         </Fragment>);
@@ -119,7 +118,7 @@ export default class Puzzle extends React.Component {
       );
     }
 
-    let areaPuzzlePrint = "";
+    let areaPuzzlePrint;
     areaPuzzlePrint =
         (
           <>
@@ -158,7 +157,7 @@ export default class Puzzle extends React.Component {
             </table>
           </>
         );
-    let areaPuzzleExtraPrint = "";
+    let areaPuzzleExtraPrint;
     areaPuzzleExtraPrint =
         (
           <>
@@ -292,10 +291,10 @@ export default class Puzzle extends React.Component {
           {areaPiezasExtra}
         </div>
 
-            {/*<Toolkit comprobarCompletado={this.props.comprobarCompletado}*/}
-            {/*  conf = {this.props.conf}*/}
-            {/*  toggle = {this.props.toggle}*/}
-            {/*/>*/}
+        {/* <Toolkit comprobarCompletado={this.props.comprobarCompletado}*/}
+        {/*  conf = {this.props.conf}*/}
+        {/*  toggle = {this.props.toggle}*/}
+        {/* />*/}
 
         {/* Componentes visibles solo en versión de impresión en papel*/}
         {areaPuzzlePrint}

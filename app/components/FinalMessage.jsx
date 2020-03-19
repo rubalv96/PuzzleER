@@ -43,9 +43,9 @@ export default class FinalMessage extends React.Component
     let btnSeguir;
     (!this.props.puzzleCompleto) ? btnSeguir = <Button onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
 
-    if(this.props.numIntentos===0 && !this.props.puzzleCompleto) {
+    if(this.props.numIntentos === 0 && !this.props.puzzleCompleto){
       msg = GLOBAL_CONFIG.endMessageFail;
-      btnSeguir ="";
+      btnSeguir = "";
     }
     return (
       <>
