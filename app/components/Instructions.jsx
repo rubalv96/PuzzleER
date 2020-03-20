@@ -1,13 +1,17 @@
 import React from "react";
 import {GLOBAL_CONFIG} from "../config/config";
+import './../assets/scss/main.scss';
 
 export default function Instructions(){
 
   let initialImage;
-  GLOBAL_CONFIG.initialImage === "" ? initialImage = "./assets/images/egipto.jpg" : initialImage = GLOBAL_CONFIG.initialImage;
+  GLOBAL_CONFIG.initialImage === "" ? initialImage = "" : initialImage =
+      (<img src={GLOBAL_CONFIG.initialImage} style={{width:300, height:200, display:"block", margin:"auto"}} alt={"Imagen de mensaje inicial."}/>
+      );
   return (
     <>
       <div className="printInstructions" >
+          <p className={"title"}>{GLOBAL_CONFIG.title}</p>
         <p><b>Instrucciones</b></p>
         <ul>
           <li>El objetivo del puzle es ordenar las piezas para completar una imagen.</li>
@@ -15,8 +19,7 @@ export default function Instructions(){
           <li>En caso de que las piezas fuesen de doble cara se recomienda imprimir a doble cara las hojas 2 y 3 del recurso para que coincidan las piezas con su reverso</li>
         </ul>
         <p>{GLOBAL_CONFIG.initialMessagePrint}</p>
-
-        <img src={initialImage} style={{width:300, height:200, display:"block", margin:"auto"}} alt={"Imagen de mensaje inicial."}/>
+        {initialImage}
 
       </div>
       <div className="pagebreak" />

@@ -5,8 +5,7 @@ import Cropper from "react-cropper";
 import {GLOBAL_CONFIG} from "../config/config";
 import {cargarImagenes} from "../reducers/actions";
 
-let ancho = (1920 / GLOBAL_CONFIG.M);
-let alto = (1358 / GLOBAL_CONFIG.N);
+
 const imagenes = [];
 const imagenesRev = [];
 const imagenesExtra = [];
@@ -33,11 +32,12 @@ export default class ImagesCropper extends React.Component {
     console.log("MOTOR CROPPER 1");
     console.log("naturalWidth: " + this.cropper.getImageData().naturalWidth);
     console.log("naturalHeight: " + this.cropper.getImageData().naturalHeight);
+    this.setState({anchoImagen: this.cropper.getImageData().naturalWidth/GLOBAL_CONFIG.M, altoImagen:this.cropper.getImageData().naturalHeight/GLOBAL_CONFIG.N })
     this.setState({lock:true});
     for(let i = 0; i < this.props.piezas.length; i++){
-      let x = (this.props.piezas[i].posCol - 1) * ancho;
+      let x = (this.props.piezas[i].posCol - 1) * (this.state.anchoImagen);
       console.log("x: " + x);
-      let y = (this.props.piezas[i].posRow - 1) * alto;
+      let y = (this.props.piezas[i].posRow - 1) * (this.state.altoImagen);
       console.log("y: " + y);
       this.setState({datos:{'x':x, 'y':y}});
     }
@@ -90,6 +90,7 @@ export default class ImagesCropper extends React.Component {
               'width':this.cropper.getImageData().naturalWidth / GLOBAL_CONFIG.M,
               'height':this.cropper.getImageData().naturalHeight / GLOBAL_CONFIG.N,
             },
+
           });
 
       }, 800);

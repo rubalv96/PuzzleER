@@ -38,14 +38,14 @@ export default class Piece extends React.Component {
     let altoImg;
     let anchoImg;
 
-    this.props.conf.heightImg === "" ? (this.props.extraArea ? altoImg = 300 / 2 : altoImg = 300) : altoImg = parseInt(this.props.conf.heightImg, 10);
-    this.props.conf.widthImg === "" ? (this.props.extraArea ? anchoImg = 500 / 2 : anchoImg = 500) : anchoImg = parseInt(this.props.conf.widthImg, 10);
+    this.props.conf.heightImg === "" ? (this.props.extraArea ? altoImg = 430  : altoImg = 430) : altoImg = parseInt(this.props.conf.heightImg, 10);
+    this.props.conf.widthImg === "" ? (this.props.extraArea ? anchoImg = 700  : anchoImg = 700) : anchoImg = parseInt(this.props.conf.widthImg, 10);
 
     // Tamaño del contenedor
     let anchoContenedor = anchoImg / (this.props.conf.M);
     let altoContenedor = altoImg / (this.props.conf.N);
 
-    // Color del borde de la piza dependiendo de si está seleccionada o no
+    // Color del borde de la pieza dependiendo de si está seleccionada o no
     let rowPieza = this.props.row;
     let colPieza = this.props.column;
 
