@@ -8,6 +8,7 @@ export function Objective(options){
     progress_measure:0,
     score:null,
     accomplished_score:null,
+
   };
   let _objective = Object.assign({}, defaults, options);
 
@@ -19,6 +20,7 @@ export function Objective(options){
       _objective.accomplished_score = Math.min(_objective.accomplished_score, _objective.score);
     }
   }
+
 
   next_objective_id += 1;
   return _objective;
