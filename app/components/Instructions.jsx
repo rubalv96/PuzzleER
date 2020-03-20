@@ -1,5 +1,5 @@
 import React from "react";
-import {GLOBAL_CONFIG} from "../config/config";
+let GLOBAL_CONFIG = require('../config/config.js');
 
 export default function Instructions(){
 

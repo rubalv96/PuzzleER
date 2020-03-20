@@ -43,6 +43,7 @@
         "no-unreachable": 1,
         "use-isnan": 1,
         "valid-typeof": 1,
+        "no-unused-vars": 0,
 
 
         /* Best Practices */

@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import {GLOBAL_CONFIG} from "../config/config";
+let GLOBAL_CONFIG = require('../config/config.js');
 import {Modal, Button} from 'react-bootstrap';
 import Clue from "./Clue";
 

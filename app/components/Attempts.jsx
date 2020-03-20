@@ -1,7 +1,7 @@
 import React from 'react';
 import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {GLOBAL_CONFIG} from '../config/config.js';
+let GLOBAL_CONFIG = require('../config/config.js');
 
 export default class Attempts extends React.Component {
 

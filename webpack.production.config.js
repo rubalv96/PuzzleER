@@ -46,9 +46,15 @@ const config = {
       //   exclude: /node_modules/,
       //   loader: "eslint-loader"
       // }, 
+      // {
+      //   test: /\.(jsx|js|es6)?$/,
+      //   exclude: /(node_modules|config/config_development.js)/,
+      //   use: ["babel-loader"]
+
+      // },
       {
         test: /\.(jsx|js|es6)?$/,
-        exclude: /node_modules/,
+        exclude: /(node_modules)/,
         use: ["babel-loader"]
 
       },

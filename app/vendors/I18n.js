@@ -1,4 +1,4 @@
-import {GLOBAL_CONFIG} from '../config/config.js';
+let GLOBAL_CONFIG = require('../config/config.js');
 import {LOCALES} from '../config/locales.js';
 
 let default_locale;

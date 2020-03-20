@@ -1,6 +1,6 @@
 import React from "react";
 import {Modal, Button} from 'react-bootstrap';
-import {GLOBAL_CONFIG} from "../config/config";
+let GLOBAL_CONFIG = require('../config/config.js');
 import {objectiveAccomplished} from "../reducers/actions";
 
 export default class FinalMessage extends React.Component

@@ -2,7 +2,7 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {createStore, compose, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
-import {GLOBAL_CONFIG} from '../config/config.js';
+let GLOBAL_CONFIG = require('../config/config.js');
 import {INITIAL_STATE} from '../constants/constants';
 import GlobalState from './../reducers/reducers';
 import App from './App';

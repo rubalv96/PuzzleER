@@ -5,7 +5,7 @@ import '../assets/scss/main.scss';
 import * as Utils from '../vendors/Utils';
 import {addObjectives} from "../reducers/actions";
 import ImagesCropper from "./ImagesCropper";
-import {GLOBAL_CONFIG} from "../config/config";
+let GLOBAL_CONFIG = require('../config/config.js');
 
 export default class Puzzle extends React.Component {
 

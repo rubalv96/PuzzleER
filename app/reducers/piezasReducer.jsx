@@ -1,4 +1,4 @@
-import {GLOBAL_CONFIG} from "../config/config";
+let GLOBAL_CONFIG = require('../config/config.js');
 
 function piezasReducer(state = [], action){
 

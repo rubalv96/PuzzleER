@@ -2,7 +2,7 @@ import React from 'react';
 import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Cropper from "react-cropper";
-import {GLOBAL_CONFIG} from "../config/config";
+let GLOBAL_CONFIG = require('../config/config.js');
 import {cargarImagenes} from "../reducers/actions";
 
 let ancho = (1920 / GLOBAL_CONFIG.M);
@@ -15,7 +15,6 @@ export default class ImagesCropper extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-
       anchoImagen:0,
       altoImagen:0,
       lock:false,
