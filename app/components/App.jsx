@@ -81,22 +81,21 @@ export class App extends React.Component {
       //     I18n={I18n}/>);
       if(this.props.wait_for_user_profile !== true){
         appContent = (
-          <>
+            <>
 
-            <Puzzle
-              piezasSeleccionadas={this.props.piezasSeleccionadas}
-              piezas={this.props.piezas}
-              conf={GLOBAL_CONFIG}
-              seleccionarPieza={this.seleccionarPieza}
-              darVuelta = {this.darVuelta}
-              toggle = {this.toggle}
-              comprobarCompletado={this.comprobarCompletado}
-              dispatch={this.props.dispatch}
-            />
+              <Puzzle
+                  piezasSeleccionadas={this.props.piezasSeleccionadas}
+                  piezas={this.props.piezas}
+                  conf={GLOBAL_CONFIG}
+                  seleccionarPieza={this.seleccionarPieza}
+                  darVuelta = {this.darVuelta}
+                  toggle = {this.toggle}
+                  comprobarCompletado={this.comprobarCompletado}
+                  dispatch={this.props.dispatch}
+              />
 
-          </>
+            </>
         );
-
       }
     }
     else {
@@ -106,9 +105,7 @@ export class App extends React.Component {
       //   //   I18n={I18n}/>
       // );
     }
-
     if(this.state.mostrarMsgFinal){
-
       if(GLOBAL_CONFIG.endMessage !== ""){
         appEndMsg = (<FinalMessage numIntentos={this.state.numIntentos} ocultar ={this.ocultarMsgFinal} puzzleCompleto={this.props.puzzleCompleto} dispatch={this.props.dispatch}/>);
       }
@@ -118,13 +115,11 @@ export class App extends React.Component {
     if(GLOBAL_CONFIG.initialMessage !== ""){
       appInitialMsg = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
-
     let styleBackground = {
       "background":"linear-gradient(rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + "), rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
       "backgroundPosition":"center center",
       "backgroundRepeat":"no-repeat",
       "backgroundSize":"cover",
-
     };
     let msgIntentos;
     if(this.state.numIntentos === -1){
@@ -133,66 +128,58 @@ export class App extends React.Component {
     else {
       msgIntentos = this.state.numIntentos;
     }
-
     let instrucciones = "";
     if(this.state.mostrarMsgInicial){
       instrucciones = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
-
     let pistas = "";
     if(this.state.mostrarPistas){
       pistas = (
-        <CluesMenu piezas={this.props.piezas}
-          ocultarPistas={this.ocultarPistas}
-          consumirPista = {this.consumirPista}
-          numIntentosPistas = {this.state.numIntentosPistas}
-        />);
+          <CluesMenu piezas={this.props.piezas}
+                     ocultarPistas={this.ocultarPistas}
+                     consumirPista = {this.consumirPista}
+                     numIntentosPistas = {this.state.numIntentosPistas}
+          />);
     }
     return (
-      <>
-
-        <div id="container" style={styleBackground}>
-          <NavBar mostrarInstrucciones={this.mostrarInstrucciones}
-            mostrarPistas={this.mostrarPistas}
-            numIntentos = {this.state.numIntentos}
-            numIntentosPistas = {this.state.numIntentosPistas}
-            dispatch = {this.props.dispatch}
-            onFinishTime={this.comprobarCompletado}
-            onStartTime={this.state.onStartTime}
-            conf = {GLOBAL_CONFIG}
-            toggle = {this.toggle}
-            comprobarCompletado = {this.comprobarCompletado}
-          />
-          <Instructions/>
-          <h1 className="title">{GLOBAL_CONFIG.title}</h1>
-          {appInitialMsg}
-          {appEndMsg}
-          <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
-          {appContent}
-          {instrucciones}
-          {pistas}
-          <Attempts numIntentos={msgIntentos}/>
-          {/* {appHeader}*/}
-
-          {/* <audio id={"audio"}controls autoPlay muted={this.state.muted} >*/}
-          {/*  <source src={GLOBAL_CONFIG.backgroundMusic} type="audio/mp3"/>*/}
-          {/*      Tu navegador no soporta este audio.*/}
-          {/* </audio>*/}
-        </div>
-
-      </>
+        <>
+          <div id="container" style={styleBackground}>
+            <NavBar mostrarInstrucciones={this.mostrarInstrucciones}
+                    mostrarPistas={this.mostrarPistas}
+                    numIntentos = {this.state.numIntentos}
+                    numIntentosPistas = {this.state.numIntentosPistas}
+                    dispatch = {this.props.dispatch}
+                    onFinishTime={this.comprobarCompletado}
+                    onStartTime={this.state.onStartTime}
+                    conf = {GLOBAL_CONFIG}
+                    toggle = {this.toggle}
+                    comprobarCompletado = {this.comprobarCompletado}
+            />
+            <Instructions/>
+            <h1 className="title">{GLOBAL_CONFIG.title}</h1>
+            {appInitialMsg}
+            {appEndMsg}
+            <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
+            {appContent}
+            {instrucciones}
+            {pistas}
+            <Attempts numIntentos={msgIntentos}/>
+            {/* {appHeader}*/}
+            {/* <audio id={"audio"}controls autoPlay muted={this.state.muted} >*/}
+            {/*  <source src={GLOBAL_CONFIG.backgroundMusic} type="audio/mp3"/>*/}
+            {/*      Tu navegador no soporta este audio.*/}
+            {/* </audio>*/}
+          </div>
+        </>
     );
   }
-
   // Función para aleatorizar las posiciones y las imágenes para que no se repitan y sean acordes a las dimensiones
   aleatoriza(rowArray, colArray, arrayFinal){
-
     while(arrayFinal.length < (GLOBAL_CONFIG.N * GLOBAL_CONFIG.M)){
       let row = rowArray[Math.floor(Math.random() * GLOBAL_CONFIG.N)];
       let col = colArray[Math.floor(Math.random() * GLOBAL_CONFIG.M)];
       let array = [row, col];
       let estaIncluido = false;
-
       if(arrayFinal.length === 0){
         arrayFinal.push(array);
       } else {
@@ -206,7 +193,6 @@ export class App extends React.Component {
         }
       }
     }
-
   }
   // Función aleatoria entre 0 y numPiezas
   aleatoriza2(numPiezas, arrayOrdenado){
@@ -222,7 +208,6 @@ export class App extends React.Component {
       }
     }
   }
-
   aleatorizaTrueFalse(){
     let bool;
     let num = Math.round(Math.random());
@@ -240,26 +225,18 @@ export class App extends React.Component {
     }
     this.props.dispatch(iniciarPuzzle(GLOBAL_CONFIG.N, GLOBAL_CONFIG.M, this.aleatoriza, GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra, this.aleatoriza2, this.aleatorizaTrueFalse));
   }
-
   // Darle la vuelta a una pieza
   darVuelta(row, col){
     this.props.dispatch(darVuelta(row, col));
-
   }
-
   // Selección de una de las piezas
   seleccionarPieza(row, column){
-
     this.props.dispatch(seleccionarPieza(row, column));
-
     // Si hay dos piezas seleccionadas se lanza el dispatch de intercambiar
     if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
       this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
-
     }
-
   }
-
   cargarImagenes(imagenes, imagenesRev){
     console.log("Cargando imágenes");
     this.props.dispatch(cargarImagenes(imagenes, imagenesRev));
@@ -267,24 +244,19 @@ export class App extends React.Component {
   // Dar vuelta a todas las piezas
   toggle(){
     this.props.dispatch(darVueltaTodas());
-
   }
   mostrarMsgFinal(){
     this.setState({mostrarMsgFinal:true});
   }
   ocultarMsgFinal(){
     this.setState({mostrarMsgFinal:false});
-
   }
-
   consumirPista(coste){
     if(coste <= this.state.numIntentosPistas){
       this.setState({numIntentosPistas:this.state.numIntentosPistas - coste});
       return true;
     }
-
     return false;
-
   }
   comprobarCompletado(flag){
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
@@ -297,9 +269,7 @@ export class App extends React.Component {
     this.mostrarMsgFinal();
     // Llamada a API externa mediante la plataforma Escapp
     this.compruebaEscapp(GLOBAL_CONFIG.solution);
-
   }
-
   // Llamada a API externa mediante la plataforma Escapp
   compruebaEscapp(answer){
     fetch("https://escapp.dit.upm.es/api/escapeRooms/1/puzzles/5/check", {
@@ -307,25 +277,21 @@ export class App extends React.Component {
       body:JSON.stringify({token:"ruben.alvarezg@alumnos.upm.es", solution:answer}),
       headers:{"Content-type":"application/json"},
     })
-      .then(res => res.json())
-      .then(res => console.log(res));
+        .then(res => res.json())
+        .then(res => console.log(res));
   }
-
   mostrarInstrucciones(){
     this.setState({mostrarMsgInicial:true, temporizador:false});
   }
   mostrarPistas(){
     this.setState({mostrarPistas:true});
   }
-
   ocultarInstrucciones(){
     this.setState({mostrarMsgInicial:false});
   }
-
   ocultarPistas(){
     this.setState({mostrarPistas:false});
   }
-
   onStartTime(){
     this.setState({onStartTime:true});
     console.log("STATE ONSTARTTIME: " + this.state.onStartTime);
@@ -335,11 +301,8 @@ export class App extends React.Component {
       this.setState({muted:false});
     }, 5000);
   }
-
 }
-
 function mapStateToProps(state){
   return state;
 }
-
 export default connect(mapStateToProps)(App);

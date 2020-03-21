@@ -1,1 +1,72 @@
-{"test_production_file":false,"title":"La fuga de Cleopatra","imageBackground":"./assets/images/puzzle/egipto_fondo.jpg","opacityBackground":".3","solution":"54b9756750e61ff3b4795f55f77355a1","images":[{"id":"37245","path":"./assets/images/crop/37245.jpg"},{"id":"29714","path":"./assets/images/crop/29714.jpg"},{"id":"53183","path":"./assets/images/crop/53183.jpg"},{"id":"95033","path":"./assets/images/crop/95033.jpg"},{"id":"59065","path":"./assets/images/crop/59065.jpg"},{"id":"76415","path":"./assets/images/crop/76415.jpg"},{"id":"31734","path":"./assets/images/crop/31734.jpg"},{"id":"33003","path":"./assets/images/crop/33003.jpg"},{"id":"61834","path":"./assets/images/crop/61834.jpg"},{"id":"65840","path":"./assets/images/crop/65840.jpg"},{"id":"69177","path":"./assets/images/crop/69177.jpg"},{"id":"77675","path":"./assets/images/crop/77675.jpg"},{"id":"57092","path":"./assets/images/crop/57092.jpg"},{"id":"94129","path":"./assets/images/crop/94129.jpg"},{"id":"72757","path":"./assets/images/crop/72757.jpg"},{"id":"30461","path":"./assets/images/crop/30461.jpg"},{"id":"37092","path":"./assets/images/crop/37092.jpg"},{"id":"69876","path":"./assets/images/crop/69876.jpg"},{"id":"28006","path":"./assets/images/crop/28006.jpg"},{"id":"93453","path":"./assets/images/crop/93453.jpg"},{"id":"81768","path":"./assets/images/crop/81768.jpg"},{"id":"91928","path":"./assets/images/crop/91928.jpg"},{"id":"16933","path":"./assets/images/crop/16933.jpg"},{"id":"76824","path":"./assets/images/crop/76824.jpg"}],"M":2,"N":3,"Mextra":0,"Nextra":0,"time":"50","heightImg":"","widthImg":"","numberAttempts":"-1","numberClues":"35","clues":false,"cluesTime":"8000","initialMessage":"Bienvenido al Generador de Puzzles. ","initialMessagePrint":"¡Ánimo!","initialImage":"./assets/images/cascada.jpg","endMessageSuccess":"Enhorabuena has finalizado el puzzle.","endMessageFail":"Esa no es la solución.","endImageSuccess":"./assets/images/taj_mahal.jpg","endImageFail":"./assets/images/noruega.jpg","debug":true,"debug_scorm_api":false,"debug_scorm_api_window":false,"available_locales":["es","en"],"adaptive":true,"finish_screen":true,"scorm":{"completion_threshold":0.5,"score_threshold":0.6}}
+{
+  "test_production_file":false,
+  "title":"La fuga de Cleopatra",
+  "imageBackground":"./assets/images/puzzle/egipto_fondo.jpg",
+  "opacityBackground":".3",
+  "solution":"bc0c2cecf2600db1adf21a2f3c5842b2",
+  "images":[
+    {
+      "id":"19657",
+      "path":"./assets/images/crop/19657.jpg"
+    },
+    {
+      "id":"32293",
+      "path":"./assets/images/crop/32293.jpg"
+    },
+    {
+      "id":"45279",
+      "path":"./assets/images/crop/45279.jpg"
+    },
+    {
+      "id":"6019",
+      "path":"./assets/images/crop/6019.jpg"
+    },
+    {
+      "id":"64100",
+      "path":"./assets/images/crop/64100.jpg"
+    },
+    {
+      "id":"10336",
+      "path":"./assets/images/crop/10336.jpg"
+    },
+    {
+      "id":"65248",
+      "path":"./assets/images/crop/65248.jpg"
+    },
+    {
+      "id":"65958",
+      "path":"./assets/images/crop/65958.jpg"
+    }
+  ],
+  "M":1,
+  "N":2,
+  "Mextra":0,
+  "Nextra":0,
+  "time":"50",
+  "heightImg":"",
+  "widthImg":"",
+  "numberAttempts":"-1",
+  "numberClues":"35",
+  "clues":false,
+  "cluesTime":"8000",
+  "initialMessage":"Bienvenido al Generador de Puzzles. ",
+  "initialMessagePrint":"¡Ánimo!",
+  "initialImage":"./assets/images/cascada.jpg",
+  "endMessageSuccess":"Enhorabuena has finalizado el puzzle.",
+  "endMessageFail":"Esa no es la solución.",
+  "endImageSuccess":"./assets/images/taj_mahal.jpg",
+  "endImageFail":"./assets/images/noruega.jpg",
+  "debug":true,
+  "debug_scorm_api":false,
+  "debug_scorm_api_window":false,
+  "available_locales":[
+    "es",
+    "en"
+  ],
+  "adaptive":true,
+  "finish_screen":true,
+  "scorm":{
+    "completion_threshold":0.5,
+    "score_threshold":0.6
+  }
+}

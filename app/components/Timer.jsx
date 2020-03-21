@@ -6,18 +6,18 @@ export default function Timer(props){
   let timePannel;
   if(props.showMinutes){
     timePannel = (
-      <div style={{fontSize:"20px", fontFamily:"'Megrim', cursive", margin:"auto",
-      }}>
-        {min} : {segundos - min * 60}
-      </div>
+        <div style={{fontSize:"30px", fontFamily:"'Megrim', cursive", margin:"auto",
+        }}>
+          {min} : {segundos - min * 60}
+        </div>
     );
   }
   else {
     timePannel = (
-      <div style={{fontSize:"20px", fontFamily:"'Megrim', cursive", margin:"auto",
-      }}>
-        {segundos - min * 60}
-      </div>
+        <div style={{fontSize:"20px", fontFamily:"'Megrim', cursive", margin:"auto",
+        }}>
+          {segundos - min * 60}
+        </div>
     );
   }
   if(segundos > 0 && props.onStartTime){
@@ -32,6 +32,6 @@ export default function Timer(props){
   }
 
   return (
-    timePannel
+      timePannel
   );
 }
