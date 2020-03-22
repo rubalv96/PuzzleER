@@ -28,8 +28,8 @@ function piezasReducer(state = [], action){
       // los parámetros row y column indican la posición donde se encuentran las piezas
       // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
 
-      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \""+GLOBAL_CONFIG.images[i].path + "\", \"imgRev\" : \"../assets/images/loading.gif\""+ ", \"imgExtra\" : \"../assets/images/loading.gif\"" + ", \"imgExtraRev\" : \"../assets/images/loading.gif\"" +"},";
-      console.log("GLOBAL CONFIG IMAGES: !!!!!!!!!!!!!!!!!!!!! :" + GLOBAL_CONFIG.images[i].path);
+      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \""+GLOBAL_CONFIG.pieces[i].face.path + "\", \"imgRev\" : \""+GLOBAL_CONFIG.pieces[i].reverse.path+"\""+ ", \"imgExtra\" : \"../assets/images/loading.gif\"" + ", \"imgExtraRev\" : \"../assets/images/loading.gif\"" +"},";
+      console.log("GLOBAL CONFIG IMAGES: !!!!!!!!!!!!!!!!!!!!! :" + GLOBAL_CONFIG.pieces[i].face.path);
       columnIndex++;
       if(columnIndex === columns.length){
         columnIndex = 0;

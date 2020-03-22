@@ -3,8 +3,9 @@ console.log("Init task: Cropping images");
 //Require
 const {resolve} = require('path');
 const fs = require('fs-extra');
-const configPath = resolve(__dirname, '../app/config/config.js');
-const destPath = resolve(__dirname, '../app/assets/images/crop/');
+const appConfigPath = resolve(__dirname, '../app/config/app_config.js');
+const cropConfigPath = resolve(__dirname, '../app/config/config_crop.js');
+const imagesDestPath = resolve(__dirname, '../app/assets/images/crop/');
 let sizeOf = require('image-size');
 var MD5 = require("crypto-js/md5");
 
@@ -15,28 +16,39 @@ Clipper.configure({
   canvas: Canvas
 })
 
-let GLOBAL_CONFIG = require(configPath);
+console.log("App config");
+let GLOBAL_CONFIG = require(appConfigPath);
 console.log(GLOBAL_CONFIG);
 
-//Get images from config
-let images = [GLOBAL_CONFIG.image1]; //image1 must be the solution
+console.log("Crop config");
+let GLOBAL_CONFIG_CROP = require(cropConfigPath);
+console.log(GLOBAL_CONFIG_CROP);
 
-if(typeof GLOBAL_CONFIG.image2 === "string"){
-  images.push(GLOBAL_CONFIG.image2);
-}
-if(typeof GLOBAL_CONFIG.imageExtra1 === "string"){
-  images.push(GLOBAL_CONFIG.imageExtra1);
-}
-if(typeof GLOBAL_CONFIG.imageExtra2 === "string"){
-  images.push(GLOBAL_CONFIG.imageExtra2);
-}
 
 //Global vars
 let currentImage = 0;
 let currentRow = 0;
 let currentColumn = 0;
-let generatedImages = [];
-let solucion = "";
+let generatedPieces = [];
+let currentPiece = 0;
+let solution = "";
+let reverse_mode = false;
+
+//Get images from config
+let images = [GLOBAL_CONFIG_CROP.image_solution_face];
+
+if(typeof GLOBAL_CONFIG_CROP.image_fake1_face === "string"){
+  images.push(GLOBAL_CONFIG_CROP.image_fake1_face);
+}
+
+if(typeof GLOBAL_CONFIG_CROP.image_solution_reverse === "string"){
+  reverse_mode = true;
+  images.push(GLOBAL_CONFIG_CROP.image_solution_reverse);
+
+  if(typeof GLOBAL_CONFIG_CROP.image_fake1_face === "string"){
+    images.push(GLOBAL_CONFIG_CROP.image_fake1_reverse);
+  }
+}
 
 cropNextImage = function(callback){
   if(currentImage >= images.length){
@@ -45,6 +57,7 @@ cropNextImage = function(callback){
 
   currentRow = 0;
   currentColumn = 0;
+  currentPiece = 0;
   currentImage = currentImage+1;
 
   let imagePath = resolve(__dirname, '../app/' + images[currentImage-1]);
@@ -63,6 +76,8 @@ cropNextImage = function(callback){
 }
 
 cropNextPiece = function(image,width,height,callback){
+  currentPiece = currentPiece+1;
+
   crop(image,width*currentRow,height*currentColumn,width,height,function(){
     console.log("Cropped piece [" + currentRow + "," + currentColumn + "] from image " + currentImage);
 
@@ -81,24 +96,33 @@ cropNextPiece = function(image,width,height,callback){
 }
 
 crop = function(image,x,y,width,height,callback,){
-  let pieceId = generatePieceId();
-  // let imageDestPath = destPath + "/image" + (currentImage + "_row" + currentRow + "_column" + currentColumn + "id_" + pieceId + ".jpg");
-  let imageDestPath = destPath + "/" + pieceId + ".jpg";
+  let imageId = generateImageId();
+  let imgDestPath = imagesDestPath + "/" + imageId + ".jpg";
   Clipper(image, function() {
     this.crop(x,y,width,height)
-    .quality(100)
-    .toFile(imageDestPath, function() {
-      generatedImages.push({id: pieceId, path: "./assets/images/crop/" + pieceId + ".jpg"})
-      if(currentImage === 1){
-        solucion = solucion + pieceId;
-      }
-      callback();
-    });
+        .quality(100)
+        .toFile(imgDestPath, function() {
+          let imgObject = {id: imageId, path: "./assets/images/crop/" + imageId + ".jpg"};
+          if((reverse_mode === false)||(currentImage <= images.length/2)){
+            //Image is a piece's face
+            generatedPieces.push({face: imgObject});
+          } else {
+            //Image is a piece's reverse
+            var pieceIndex = ((currentImage-(images.length/2)-1) * GLOBAL_CONFIG.N * GLOBAL_CONFIG.M) + (currentPiece-1);
+            console.log("pieceIndex:" + pieceIndex);
+
+            generatedPieces[pieceIndex]["reverse"] = imgObject;
+          }
+          if(currentImage === 1){
+            solution = solution + imageId;
+          }
+          callback();
+        });
   });
 }
 
 let generated_ids = [];
-generatePieceId = function(){
+generateImageId = function(){
   let id_candidate = Math.round(Math.random()*100000) + "";
   if(generated_ids.indexOf(id_candidate)===-1){
     generated_ids.push(id_candidate);
@@ -111,37 +135,30 @@ generatePieceId = function(){
 }
 
 shuffle = function(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
-prepareConfigFile = function(){
-  let keysToDelete = ["image1","image2","imageExtra1","imageExtra2"];
-  for(let i=0; i<keysToDelete.length; i++){
-    delete GLOBAL_CONFIG[keysToDelete[i]]
-  }
-
-  //Disable test_production
-  GLOBAL_CONFIG.test_production_file = false;
+generateData = function(){
+  let data = {};
 
   //Save images
-  GLOBAL_CONFIG["images"] = shuffle(generatedImages);
+  data["pieces"] = shuffle(generatedPieces);
 
   //Save cyphered solution
-  GLOBAL_CONFIG["solution"] = MD5(solucion).toString();
+  data["solution"] = MD5(solution).toString();
 
+  console.log("Data generated by crop");
+  console.log(JSON.stringify(data, null, "  "));
 
-  console.log("Production config file");
-  console.log(GLOBAL_CONFIG);
-
-  const configDestPath = resolve(__dirname, '../app/config/config_production.json');
-  fs.writeFileSync(configDestPath, JSON.stringify(GLOBAL_CONFIG));
+  const dataDestPath = resolve(__dirname, '../app/config/data_generated_by_crop.json');
+  fs.writeFileSync(dataDestPath, JSON.stringify(data, null, "  "));
 }
 
 cropNextImage(function(){
-  prepareConfigFile();
+  generateData();
   console.log("\n\n Crop finished");
 });
