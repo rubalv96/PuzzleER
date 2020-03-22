@@ -65,7 +65,7 @@ cropNextImage = function(callback){
 cropNextPiece = function(image,width,height,callback){
   crop(image,width*currentRow,height*currentColumn,width,height,function(){
     console.log("Cropped piece [" + currentRow + "," + currentColumn + "] from image " + currentImage);
-    
+
     let lastPiece = ((currentRow===GLOBAL_CONFIG.N-1) && (currentColumn===GLOBAL_CONFIG.M-1));
     if(lastPiece===true){
       return callback();
@@ -143,5 +143,5 @@ prepareConfigFile = function(){
 
 cropNextImage(function(){
   prepareConfigFile();
-  console.log("\n\n Crop finished"); 
+  console.log("\n\n Crop finished");
 });

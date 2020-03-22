@@ -2,6 +2,8 @@ import React, {Fragment} from 'react';
 import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactCardFlip from 'react-card-flip';
+import {OverlayTrigger, Tooltip} from "react-bootstrap";
+
 
 export default class Piece extends React.Component {
     constructor(){
@@ -35,15 +37,16 @@ export default class Piece extends React.Component {
     render(){
 
         // Dimensiones del puzzle
-        let altoImg;
-        let anchoImg;
+                let altoImg;
+                let anchoImg;
 
-        this.props.conf.heightImg === "" ? (this.props.extraArea ? altoImg = 430  : altoImg = 430) : altoImg = parseInt(this.props.conf.heightImg, 10);
-        this.props.conf.widthImg === "" ? (this.props.extraArea ? anchoImg = 700  : anchoImg = 700) : anchoImg = parseInt(this.props.conf.widthImg, 10);
+                this.props.conf.heightImg === "" ? (this.props.extraArea ? altoImg = 430  : altoImg = 430) : altoImg = parseInt(this.props.conf.heightImg, 10);
+                this.props.conf.widthImg === "" ? (this.props.extraArea ? anchoImg = 700  : anchoImg = 700) : anchoImg = parseInt(this.props.conf.widthImg, 10);
 
         // Tamaño del contenedor
-        let anchoContenedor = anchoImg / (this.props.conf.M);
-        let altoContenedor = altoImg / (this.props.conf.N);
+                let anchoContenedor = anchoImg / (this.props.conf.M);
+                let altoContenedor = altoImg / (this.props.conf.N);
+
 
         // Color del borde de la pieza dependiendo de si está seleccionada o no
         let rowPieza = this.props.row;
@@ -118,47 +121,104 @@ export default class Piece extends React.Component {
                 alt={"Imagen de pieza"}
             />
         );
+
+        let cardFlip=(
+
+            <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal" flipSpeedBackToFront={this.state.backToFront} flipSpeedFrontToBack={this.state.frontToBack}>
+
+                {/* Contenedor de la pieza frontal*/}
+
+                <OverlayTrigger
+                    placement="bottom"
+                    delay={{show:0, hide:0}}
+                    overlay={this.mostrarTooltip(img,2,anchoContenedor, altoContenedor,this.props.lupa )}
+                >
+                    <div
+                        className={"imgPiece"}
+                        onDoubleClick={this.handleClick}
+                        style={{
+                            width:anchoContenedor + "px",
+                            height:altoContenedor + "px",
+                            overflow:"hidden",
+                            position:"relative",
+                            border:borde,
+                            borderRadius:"0px",
+
+                        }}
+                    >
+
+                        {imgPieza}
+                    </div>
+                </OverlayTrigger>
+                {/*<div*/}
+                {/*    className={"imgPiece"}*/}
+                {/*    onDoubleClick={this.handleClick}*/}
+                {/*    style={{*/}
+                {/*        width:anchoContenedor + "px",*/}
+                {/*        height:altoContenedor + "px",*/}
+                {/*        overflow:"hidden",*/}
+                {/*        position:"relative",*/}
+                {/*        border:borde,*/}
+                {/*        borderRadius:"0px",*/}
+
+                {/*    }}*/}
+                {/*>*/}
+
+                {/*    {imgPieza}*/}
+                {/*</div>*/}
+
+                {/* Contenedor de la pieza trasera*/}
+                <div
+                    className={"imgPiece"}
+                    onDoubleClick={this.handleClick}
+                    style={{
+                        width:anchoContenedor + "px",
+                        height:altoContenedor + "px",
+                        overflow:"hidden",
+                        position:"relative",
+                        border:borde,
+                        borderRadius:"0px",
+
+                    }}
+                >
+                    {imgPiezaRev}
+                </div>
+
+            </ReactCardFlip>
+        );
+
+
         return (
             <Fragment>
 
-                <ReactCardFlip isFlipped={this.state.isFlipped} flipDirection="horizontal" flipSpeedBackToFront={this.state.backToFront} flipSpeedFrontToBack={this.state.frontToBack}>
-                    {/* Contenedor de la pieza frontal*/}
-                    <div
-                        className={"imgPiece"}
-                        onDoubleClick={this.handleClick}
-                        style={{
-                            width:anchoContenedor + "px",
-                            height:altoContenedor + "px",
-                            overflow:"hidden",
-                            position:"relative",
-                            border:borde,
-                            borderRadius:"0px",
+                    {cardFlip}
 
-                        }}
-                    >
-                        {imgPieza}
-                    </div>
-
-                    {/* Contenedor de la pieza trasera*/}
-                    <div
-                        className={"imgPiece"}
-                        onDoubleClick={this.handleClick}
-                        style={{
-                            width:anchoContenedor + "px",
-                            height:altoContenedor + "px",
-                            overflow:"hidden",
-                            position:"relative",
-                            border:borde,
-                            borderRadius:"0px",
-
-                        }}
-                    >
-                        {imgPiezaRev}
-                    </div>
-
-                </ReactCardFlip>
             </Fragment>
 
         );
+    }
+
+    mostrarTooltip(imagen, factorZoom, anchoContenedor, altoContenedor, lupa){
+        if(lupa){
+            return <Tooltip>
+                <img
+                    style={{
+                        overflow:"hidden",
+                        margin:"auto",
+                        width:anchoContenedor * factorZoom,
+                        height:altoContenedor * factorZoom,
+                    }}
+                    src={imagen}
+
+
+                    alt={"Imagen de pieza"}/>
+                );
+            </Tooltip>;
+        }
+        else{
+            return <Tooltip style={{display:"none"}}>{imagen} </Tooltip>;
+
+        }
+
     }
 }

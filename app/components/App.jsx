@@ -48,7 +48,9 @@ export class App extends React.Component {
     this.consumirPista = this.consumirPista.bind(this);
     this.onStartTime = this.onStartTime.bind(this);
     this.cargarImagenes = this.cargarImagenes.bind(this);
+    this.lupa = this.lupa.bind(this);
     this.iniciarPuzzle();
+
     let numIntentosComprobacion;
     let numIntentosPistas;
     GLOBAL_CONFIG.numberAttempts === "" ? numIntentosComprobacion = -1 : numIntentosComprobacion = GLOBAL_CONFIG.numberAttempts;
@@ -62,6 +64,7 @@ export class App extends React.Component {
       onStartTime:false,
       temporizador:true,
       muted:true,
+      lupa: false,
 
     };
   }
@@ -92,6 +95,7 @@ export class App extends React.Component {
                   toggle = {this.toggle}
                   comprobarCompletado={this.comprobarCompletado}
                   dispatch={this.props.dispatch}
+                  lupa={this.state.lupa}
               />
 
             </>
@@ -154,6 +158,7 @@ export class App extends React.Component {
                     conf = {GLOBAL_CONFIG}
                     toggle = {this.toggle}
                     comprobarCompletado = {this.comprobarCompletado}
+                    lupa={this.lupa}
             />
             <Instructions/>
             <h1 className="title">{GLOBAL_CONFIG.title}</h1>
@@ -231,11 +236,17 @@ export class App extends React.Component {
   }
   // Selección de una de las piezas
   seleccionarPieza(row, column){
-    this.props.dispatch(seleccionarPieza(row, column));
-    // Si hay dos piezas seleccionadas se lanza el dispatch de intercambiar
-    if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
-      this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
-    }
+    // if(!this.state.lupa){
+      this.props.dispatch(seleccionarPieza(row, column));
+      // Si hay dos piezas seleccionadas se lanza el dispatch de intercambiar
+      if(this.props.piezasSeleccionadas[0][0] !== -1 && this.props.piezasSeleccionadas[1][0] !== -1){
+        this.props.dispatch(intercambiarPiezas(this.props.piezasSeleccionadas));
+      }
+    // }
+    // else{
+    //   console.log("Zoom en la pieza: [" + row + ", " + column + "]");
+    // }
+
   }
   cargarImagenes(imagenes, imagenesRev){
     console.log("Cargando imágenes");
@@ -296,6 +307,12 @@ export class App extends React.Component {
     this.setState({onStartTime:true});
     console.log("STATE ONSTARTTIME: " + this.state.onStartTime);
   }
+
+  lupa(){
+    this.setState({lupa: !this.state.lupa});
+    console.log("LUPA: "+ this.state.lupa);
+  }
+
   componentDidMount(){
     setTimeout(()=>{
       this.setState({muted:false});

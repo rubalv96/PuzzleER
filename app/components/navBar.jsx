@@ -83,6 +83,12 @@ export default class NavBar extends React.Component {
         <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto"}} onClick={()=>{this.props.comprobarCompletado();}}>
                     Comprobar solución
         </a>
+
+          <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto"}} onClick={()=>{this.props.lupa();}}>
+                    Lupa
+        </a>
+
+
         {pistas}
         {contadorIntentos}
         {contadorPistas}
@@ -91,6 +97,8 @@ export default class NavBar extends React.Component {
       </nav>
     );
   }
+
+
   onFinish(){
     this.props.onFinishTime("gameover");
     console.log("Hola");
