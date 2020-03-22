@@ -1,23 +1,11 @@
-let GLOBAL_CONFIG;
-let configFilePathDevelopment = './config_development.js';
-let configFilePathProduction = './config_production.json';
+let GLOBAL_CONFIG = require('./app_config.js');
+let DATA_CROP =  require('./data_generated_by_crop.json');
 
 (function(){
-  let configFilePath;
-  let env = process.env.NODE_ENV || 'dev';
-  if(env === "production"){
-    configFilePath = configFilePathProduction;
-    GLOBAL_CONFIG = require('./config_production.json');
-  } else {
-    configFilePath = configFilePathDevelopment;
-    GLOBAL_CONFIG = require('./config_development.js');
-  }
-  // GLOBAL_CONFIG = require(configFilePath); //Do not work with webpack
+  //Include crop data
+  GLOBAL_CONFIG["pieces"] = DATA_CROP["pieces"];
+  GLOBAL_CONFIG["solution"] = DATA_CROP["solution"];
 
-  if((configFilePath === configFilePathDevelopment)&&(GLOBAL_CONFIG.test_production_file===true)&&(env != "dev_crop")){
-    GLOBAL_CONFIG = require('./config_production.json');
-  }
-  
   GLOBAL_CONFIG.debug_scorm_api = ((GLOBAL_CONFIG.debug) && (GLOBAL_CONFIG.debug_scorm_api));
   GLOBAL_CONFIG.debug_scorm_api_window = ((GLOBAL_CONFIG.debug_scorm_api) && (GLOBAL_CONFIG.debug_scorm_api_window));
 })();

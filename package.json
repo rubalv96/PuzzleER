@@ -6,10 +6,9 @@
   "main": "index.js",
   "scripts": {
     "start": "webpack-dev-server",
+    "startc": "cross-env npm run crop && webpack-dev-server",
     "clean": "rimraf dist rimraf dist_scorm",
-    "production": "cross-env npm run before_production && rimraf dist && cross-env NODE_ENV=production webpack --config webpack.production.config.js --progress --profile --colors && cross-env npm run copy_assets && cross-env npm run after_production",
-    "before_production": "cross-env npm run crop && cross-env mv app/config/config_development.js app/config/config_development_cseg.js && cross-env cp app/config/config_development_empty.js app/config/config_development.js",
-    "after_production": "cross-env rm app/config/config_development.js && cross-env mv app/config/config_development_cseg.js app/config/config_development.js",
+    "production": "cross-env npm run crop && rimraf dist && cross-env NODE_ENV=production webpack --config webpack.production.config.js --progress --profile --colors && cross-env npm run copy_assets",
     "copy_assets": "cross-env mkdir -p dist/assets && cross-env cp -r app/assets dist/ && cross-env rm -rf dist/assets/scss  && cross-env rm -rf dist/assets/images/puzzle",
     "scorm_package": "rimraf dist_scorm && cross-env npm run production && cross-env node tasks/scorm_package.js",
     "crop": "rimraf app/assets/images/crop && cross-env mkdir -p app/assets/images/crop && cross-env NODE_ENV=dev_crop node tasks/crop.js",

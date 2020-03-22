@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import './../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 let GLOBAL_CONFIG = require('../config/config.js');
+console.log(GLOBAL_CONFIG);
 import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
 
