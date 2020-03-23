@@ -7,10 +7,10 @@ function piezasReducer(state = [], action){
   // Action INICIAR_PUZZLE
   let i, columns = [], rows = [], arrayFinal = [], rowIndex = 0,
     columnIndex = 0, puzzle, puzzlePiezas = [], puzzleJSON,
-    piezasEscogidas = [];
+    piezasEscogidas = [], piezasExtra, r, c;
 
   // Action INTERCAMBIAR_PIEZAS
-  let piezas, ind1, ind2, posRow1, posRow2, isExtra1, isExtra2, numPuzzle1, numPuzzle2, posCol1, posCol2, img1, img2, imgRev1, imgRev2;
+  let piezas, ind1, ind2, imgFaceId1, imgFaceId2, imgReverseId1, imgReverseId2, numPuzzle1, numPuzzle2, posCol1, posCol2, img1, img2, imgRev1, imgRev2;
   let numPiezasExtra, g=0;
   switch (action.type){
   case 'INICIAR_PUZZLE':
@@ -23,33 +23,83 @@ function piezasReducer(state = [], action){
 
     action.payload.aleatoriza(rows, columns, arrayFinal);
 
-    for(i = 0; i < arrayFinal.length - 1; i++){
-      // Se crea el objeto JSON con las piezas y sus posiciones
-      // los parámetros row y column indican la posición donde se encuentran las piezas
-      // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
+    puzzle= [];
+    piezas = GLOBAL_CONFIG.pieces.slice(0, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N);
+    piezasExtra= GLOBAL_CONFIG.pieces.slice( GLOBAL_CONFIG.M * GLOBAL_CONFIG.N , GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra );
+    console.log("piezasExtra: " + JSON.stringify(piezasExtra));
+    r = 1;
+    c = 1;
 
-      puzzlePiezas = puzzlePiezas + " {\"posRow\": " + arrayFinal[i][0] + ", \"posCol\": " + arrayFinal[i][1] + ", \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \""+GLOBAL_CONFIG.pieces[i].face.path + "\", \"imgRev\" : \""+GLOBAL_CONFIG.pieces[i].reverse.path+"\""+ ", \"imgExtra\" : \"../assets/images/loading.gif\"" + ", \"imgExtraRev\" : \"../assets/images/loading.gif\"" +"},";
-      console.log("GLOBAL CONFIG IMAGES: !!!!!!!!!!!!!!!!!!!!! :" + GLOBAL_CONFIG.pieces[i].face.path);
-      columnIndex++;
-      if(columnIndex === columns.length){
-        columnIndex = 0;
-        rowIndex++;
+    for(var l in piezas){
+      var pieza = piezas[l];
+      if(c === GLOBAL_CONFIG.M + 1){
+        r++;
+        c = 1;
       }
+      puzzle.push(
+        {
+          "row":r,
+          "column":c,
+          "faceImgId":pieza.face.id,
+          "reverseImgId":pieza.reverse.id,
+          "faceImgPath":pieza.face.path,
+          "reverseImgPath":pieza.reverse.path,
+        }
+      );
+      c++;
+      console.log(JSON.stringify(puzzle));
     }
-    puzzleJSON = "[" + puzzlePiezas + " {\"posRow\": " + arrayFinal[arrayFinal.length - 1][0] + ", \"posCol\": " + arrayFinal[arrayFinal.length - 1][1] + ", \"row\": " + rows[rows.length - 1] + ", \"column\": " + columns[columns.length - 1] + ", \"numPuzzle\" : 1" + ", \"piezaExtra\" : false" + ", \"imgSol\" : \"../assets/images/loading.gif\""+", \"imgRev\" : \"../assets/images/loading.gif\""+ ", \"imgExtra\" : \"../assets/images/loading.gif\"" + ", \"imgExtraRev\" : \"../assets/images/loading.gif\""  +"}]";
-    puzzle = JSON.parse(puzzleJSON);
 
-    // En caso de piezas extra, se añaden al final del JSON del puzzle.
-    numPiezasExtra = action.payload.numPiezas;
-    // De todas las piezas que hay en el puzzle se escoge aleatoriamente un conjunto de ellas para que formen parte
-    // del área extra
-    action.payload.aleatoriza2(numPiezasExtra, piezasEscogidas);
-    // Por cada pieza escogida se va a añadir una pieza al puzzle JSON, que tendrá aleatoriamente caracter de extra o no.
-    piezasEscogidas.forEach(pieza => {
-      let isExtraRandom = action.payload.aleatorizaTrueFalse();
-      puzzle[pieza].piezaExtra = isExtraRandom;
-      puzzle.push({"row":"E" + puzzle[pieza].row, "column":"E" + puzzle[pieza].column, "posRow":puzzle[pieza].posRow, "posCol":puzzle[pieza].posCol, "numPuzzle":puzzle[pieza].numPuzzle, "piezaExtra":!isExtraRandom, "imgSol":"../assets/images/loading.gif", "imgRev": "../assets/images/loading.gif", "imgExtra":0, "imgExtraRev":0});
-    });
+    r=1; c=1;
+    for(var p in piezasExtra){
+      var pieza = piezasExtra[p];
+      if(c === GLOBAL_CONFIG.Mextra + 1){
+        r++;
+        c = 1;
+      }
+      puzzle.push(
+        {
+          "row":"E"+r,
+          "column":"E"+c,
+          "faceImgId":pieza.face.id,
+          "reverseImgId":pieza.reverse.id,
+          "faceImgPath":pieza.face.path,
+          "reverseImgPath":pieza.reverse.path,
+        }
+      );
+      c++;
+      console.log(JSON.stringify(puzzle));
+    }
+
+
+
+    // for(i = 0; i < GLOBAL_CONFIG.pieces.length -1; i++){
+    //   // Se crea el objeto JSON con las piezas y sus posiciones
+    //   // los parámetros row y column indican la posición donde se encuentran las piezas
+    //   // los parámetros posRow y posCol indican las posiciones del trozo de imagen equivalente que se muestra al usuario
+    //
+    //   puzzlePiezas = puzzlePiezas + " { \"row\": " + rows[rowIndex] + ", \"column\": " + columns[columnIndex] + ", \"faceImgPath\": \""+GLOBAL_CONFIG.pieces[i].face.path + "\", \"reverseImgPath\": \""+GLOBAL_CONFIG.pieces[i].reverse.path+"\""+ ", \"faceImgId\": \""+ GLOBAL_CONFIG.pieces[i].face.id+"\"" + ", \"reverseImgId\": \""+ GLOBAL_CONFIG.pieces[i].reverse.id +"\"" +"},";
+    //   console.log("GLOBAL CONFIG IMAGES: !!!!!!!!!!!!!!!!!!!!! :" + GLOBAL_CONFIG.pieces[i].face.path);
+    //   columnIndex++;
+    //   if(columnIndex === columns.length){
+    //     columnIndex = 0;
+    //     rowIndex++;
+    //   }
+    // }
+    // puzzleJSON = "[" + puzzlePiezas + " { \"row\": " + rows[rows.length-1]+ ", \"column\": " + columns[columns.length -1] + ", \"faceImgPath\": \""+GLOBAL_CONFIG.pieces[GLOBAL_CONFIG.pieces.length -1].face.path + ", \"reverseImgPath\": \""+GLOBAL_CONFIG.pieces[GLOBAL_CONFIG.pieces.length -1].reverse.path+"\""+ ",\"faceImgId\": \""+GLOBAL_CONFIG.pieces[GLOBAL_CONFIG.pieces.length -1].face.id +"\""+", \"reverseImgId\": \""+GLOBAL_CONFIG.pieces[GLOBAL_CONFIG.pieces.length -1].reverse.id + "\"" + "}]";
+    // puzzle = JSON.parse(puzzleJSON);
+
+    // // En caso de piezas extra, se añaden al final del JSON del puzzle.
+    // numPiezasExtra = action.payload.numPiezas;
+    // // De todas las piezas que hay en el puzzle se escoge aleatoriamente un conjunto de ellas para que formen parte
+    // // del área extra
+    // action.payload.aleatoriza2(numPiezasExtra, piezasEscogidas);
+    // // Por cada pieza escogida se va a añadir una pieza al puzzle JSON, que tendrá aleatoriamente caracter de extra o no.
+    // piezasEscogidas.forEach(pieza => {
+    //   let isExtraRandom = action.payload.aleatorizaTrueFalse();
+    //   puzzle[pieza].piezaExtra = isExtraRandom;
+    //   puzzle.push({"row":"E" + puzzle[pieza].row, "column":"E" + puzzle[pieza].column, "posRow":puzzle[pieza].posRow, "posCol":puzzle[pieza].posCol, "numPuzzle":puzzle[pieza].numPuzzle, "piezaExtra":!isExtraRandom, "imgSol":"../assets/images/loading.gif", "imgRev": "../assets/images/loading.gif", "imgExtra":0, "imgExtraRev":0});
+    // });
     return puzzle;
 
     case 'INTERCAMBIAR_PIEZAS':
@@ -69,41 +119,30 @@ function piezasReducer(state = [], action){
 
     }
 
-    posRow1 = piezas[ind1].posRow;
-    posRow2 = piezas[ind2].posRow;
+    img1 = piezas[ind1].faceImgPath;
+    img2 = piezas[ind2].faceImgPath;
 
-    posCol1 = piezas[ind1].posCol;
-    posCol2 = piezas[ind2].posCol;
+    imgRev1 = piezas[ind1].reverseImgPath;
+    imgRev2 = piezas[ind2].reverseImgPath;
 
-    numPuzzle1 = piezas[ind1].numPuzzle;
-    numPuzzle2 = piezas[ind2].numPuzzle;
+      imgFaceId1 = piezas[ind1].faceImgId;
+      imgFaceId2 = piezas[ind2].faceImgId;
 
-    isExtra1 = piezas[ind1].piezaExtra;
-    isExtra2 = piezas[ind2].piezaExtra;
+      imgReverseId1 = piezas[ind1].reverseImgId;
+      imgReverseId2 = piezas[ind2].reverseImgId;
 
-    img1 = piezas[ind1].imgSol;
-    img2 = piezas[ind2].imgSol;
 
-    imgRev1 = piezas[ind1].imgRev;
-    imgRev2 = piezas[ind2].imgRev;
+    piezas[ind1].faceImgPath = img2;
+    piezas[ind2].faceImgPath = img1;
 
-    piezas[ind1].posRow = posRow2;
-    piezas[ind2].posRow = posRow1;
+    piezas[ind1].reverseImgPath = imgRev2;
+    piezas[ind2].reverseImgPath = imgRev1;
 
-    piezas[ind1].posCol = posCol2;
-    piezas[ind2].posCol = posCol1;
+      piezas[ind1].faceImgId = imgFaceId2;
+      piezas[ind2].faceImgId = imgFaceId1;
 
-    piezas[ind1].numPuzzle = numPuzzle2;
-    piezas[ind2].numPuzzle = numPuzzle1;
-
-    piezas[ind1].piezaExtra = isExtra2;
-    piezas[ind2].piezaExtra = isExtra1;
-
-    piezas[ind1].imgSol = img2;
-    piezas[ind2].imgSol = img1;
-
-    piezas[ind1].imgRev = imgRev2;
-    piezas[ind2].imgRev = imgRev1;
+      piezas[ind1].reverseImgId = imgReverseId2;
+      piezas[ind2].reverseImgId = imgReverseId1;
 
     return piezas;
 
@@ -111,7 +150,12 @@ function piezasReducer(state = [], action){
     piezas = Object.assign([], state);
     for(i = 0; i < piezas.length; i ++){
       if(piezas[i].row === action.payload.row && piezas[i].column === action.payload.col){
-        piezas[i].numPuzzle === 1 ? piezas[i].numPuzzle = 2 : piezas[i].numPuzzle = 1;
+
+        let imgReverse = piezas[i].reverseImgPath;
+        let imgFace = piezas[i].faceImgPath;
+        piezas[i].faceImgPath = imgReverse;
+        piezas[i].reverseImgPath = imgFace;
+
         return piezas;
       }
 
@@ -121,7 +165,10 @@ function piezasReducer(state = [], action){
   case 'DAR_VUELTA_TODAS':
     piezas = Object.assign([], state);
     for(i = 0; i < piezas.length; i ++){
-      piezas[i].numPuzzle === 1 ? piezas[i].numPuzzle = 2 : piezas[i].numPuzzle = 1;
+      let imgReverse = piezas[i].reverseImgPath;
+      let imgFace = piezas[i].faceImgPath;
+      piezas[i].faceImgPath = imgReverse;
+      piezas[i].reverseImgPath = imgFace;
     }
     return piezas;
 

@@ -62,10 +62,9 @@ export default class Puzzle extends React.Component {
                                                            piezasSeleccionadas={this.props.piezasSeleccionadas}
                                                            numPuzzle={this.props.piezas[l].numPuzzle}
                                                            darVuelta = {this.props.darVuelta}
-                                                           imagen = {this.props.piezas[l].imgSol}
-                                                           imagenRev = {this.props.piezas[l].imgRev}
-                                                           imagenExtra = {this.props.piezas[l].imgExtra}
-                                                           imagenExtraRev = {this.props.piezas[l].imgExtraRev}
+                                                           imagen = {this.props.piezas[l].faceImgPath}
+                                                           imagenRev = {this.props.piezas[l].reverseImgPath}
+
                                                            lupa={this.props.lupa}
 
                                                     />
@@ -102,10 +101,9 @@ export default class Puzzle extends React.Component {
                                                                    piezasSeleccionadas={this.props.piezasSeleccionadas}
                                                                    numPuzzle={this.props.piezas[k + this.props.conf.N * this.props.conf.M].numPuzzle}
                                                                    darVuelta = {this.props.darVuelta}
-                                                                   imagen = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgSol}
-                                                                   imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].imgRev}
-                                                                   imagenExtra = {this.props.piezas[k].imgExtra}
-                                                                   imagenExtraRev = {this.props.piezas[k].imgExtraRev}
+                                                                   imagen = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].faceImgPath}
+                                                                   imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].reverseImgPath}
+
                                                                    lupa={this.props.lupa}
                                                                    extraArea
                                                             />
@@ -144,10 +142,9 @@ export default class Puzzle extends React.Component {
                                                                numPuzzle={this.props.piezas[o].numPuzzle}
                                                                darVuelta = {this.props.darVuelta}
                                                                piezaExtra = {this.props.piezas[o].piezaExtra}
-                                                               imagen = {this.props.piezas[o].imgSol}
-                                                               imagenRev = {this.props.piezas[o].imgRev}
-                                                               imagenExtra = {this.props.piezas[o].imgExtra}
-                                                               imagenExtraRev = {this.props.piezas[o].imgExtraRev}
+                                                               imagen = {this.props.piezas[o].faceImgPath}
+                                                               imagenRev = {this.props.piezas[o].reverseImgPath}
+
                                                         />
                                                     </td>
                                                 </Fragment>);
@@ -183,10 +180,8 @@ export default class Puzzle extends React.Component {
                                                                numPuzzle={this.props.piezas[p].numPuzzle}
                                                                darVuelta = {this.props.darVuelta}
                                                                piezaExtra = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].piezaExtra}
-                                                               imagen = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].imgSol}
-                                                               imagenRev = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].imgRev}
-                                                               imagenExtra = {this.props.piezas[p].imgExtra}
-                                                               imagenExtraRev = {this.props.piezas[p].imgExtraRev}
+                                                               imagen = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].faceImgPath}
+                                                               imagenRev = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].reverseImgPath}
                                                         />
                                                     </td>
                                                 </Fragment>);
@@ -226,10 +221,9 @@ export default class Puzzle extends React.Component {
                                                                    numPuzzle={numP1}
                                                                    darVuelta = {this.props.darVuelta}
                                                                    piezaExtra = {this.props.piezas[m].piezaExtra}
-                                                                   imagen = {this.props.piezas[m].imgSol}
-                                                                   imagenRev = {this.props.piezas[m].imgRev}
-                                                                   imagenExtra = {this.props.piezas[m].imgExtra}
-                                                                   imagenExtraRev = {this.props.piezas[m].imgExtraRev}
+                                                                   imagen = {this.props.piezas[m].faceImgPath}
+                                                                   imagenRev = {this.props.piezas[m].reverseImgPath}
+
                                                             />
                                                         </td>
                                                     </Fragment>);
@@ -268,10 +262,9 @@ export default class Puzzle extends React.Component {
                                                                    numPuzzle={numP2}
                                                                    darVuelta = {this.props.darVuelta}
                                                                    piezaExtra = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].piezaExtra}
-                                                                   imagen = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].imgSol}
-                                                                   imagenRev = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].imgRev}
-                                                                   imagenExtra = {this.props.piezas[n].imgExtra}
-                                                                   imagenExtraRev = {this.props.piezas[n].imgExtraRev}
+                                                                   imagen = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].faceImgPath}
+                                                                   imagenRev = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].reverseImgPath}
+
                                                             />
                                                         </td>
                                                     </Fragment>);

@@ -18,7 +18,7 @@ export default class Piece extends React.Component {
 
     handleClick(e){
         e.preventDefault();
-        if(this.props.conf.image2 !== ""){
+        if(this.props.conf.image_solution_reverse !== ""){
             this.setState({
                 backToFront:"1.5",
                 frontToBack:"1.5",
@@ -71,9 +71,9 @@ export default class Piece extends React.Component {
 
         // Selección de imagen de la pieza en posición frontal o en reverso
 
-        let img, imgRev;
-        this.props.numPuzzle === 1 ? img = this.props.imagen : img = this.props.imagenRev;
-        this.props.numPuzzle === 1 ? imgRev = this.props.imagenRev : imgRev = this.props.imagen;
+        // let img, imgRev;
+        // this.props.numPuzzle === 1 ? img = this.props.imagen : img = this.props.imagenRev;
+        // this.props.numPuzzle === 1 ? imgRev = this.props.imagenRev : imgRev = this.props.imagen;
 
         // if(this.props.piezaExtra && this.props.numPuzzle === 1)
         // {
@@ -96,7 +96,7 @@ export default class Piece extends React.Component {
                     width:anchoContenedor,
                     height:altoContenedor,
                 }}
-                src={img}
+                src={this.props.imagen}
                 onClick={()=>{
                     this.props.seleccionarPieza(this.props.row, this.props.column);
                 }}
@@ -113,7 +113,7 @@ export default class Piece extends React.Component {
                     width:anchoContenedor,
                     height:altoContenedor,
                 }}
-                src={imgRev}
+                src={this.props.imagenRev}
                 onClick={()=>{
                     this.props.seleccionarPieza(this.props.row, this.props.column);
                 }}
@@ -131,7 +131,7 @@ export default class Piece extends React.Component {
                 <OverlayTrigger
                     placement="bottom"
                     delay={{show:0, hide:0}}
-                    overlay={this.mostrarTooltip(img,2,anchoContenedor, altoContenedor,this.props.lupa )}
+                    overlay={this.mostrarTooltip(this.props.imagen,2,anchoContenedor, altoContenedor,this.props.lupa )}
                 >
                     <div
                         className={"imgPiece"}

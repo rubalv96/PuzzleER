@@ -12,7 +12,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
     //Dimensiones del puzzle
     M:2, // numero de columnas del puzzle
     N:2, // numero de filas del puzzle
-    Mextra:2, // numero de columnas del area de piezas sobrantes
+    Mextra:1, // numero de columnas del area de piezas sobrantes
     Nextra:2, // número de filas del área de piezas sobrantes
 
     //Timer

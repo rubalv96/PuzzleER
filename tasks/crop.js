@@ -156,10 +156,11 @@ generateData = function(){
       removeFakePieces(nPieces - (solutionPieces+maxFakePieces));
     }
   }
-  
+
   //Save pieces
   data["pieces"] = shuffle(generatedPieces);
 
+  console.log("Solucion: " + solution);
   //Save cyphered solution
   data["solution"] = MD5(solution).toString();
 
