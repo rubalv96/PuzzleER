@@ -37,16 +37,20 @@ let reverse_mode = false;
 //Get images from config
 let images = [GLOBAL_CONFIG_CROP.image_solution_face];
 
-if(typeof GLOBAL_CONFIG_CROP.image_fake1_face === "string"){
-  images.push(GLOBAL_CONFIG_CROP.image_fake1_face);
+for(let k=1; k<11; k++){
+  if(typeof GLOBAL_CONFIG_CROP["image_fake" + k + "_face"] === "string"){
+    images.push(GLOBAL_CONFIG_CROP["image_fake" + k + "_face"]);
+  }
 }
 
 if(typeof GLOBAL_CONFIG_CROP.image_solution_reverse === "string"){
   reverse_mode = true;
   images.push(GLOBAL_CONFIG_CROP.image_solution_reverse);
 
-  if(typeof GLOBAL_CONFIG_CROP.image_fake1_face === "string"){
-    images.push(GLOBAL_CONFIG_CROP.image_fake1_reverse);
+  for(let k=1; k<11; k++){
+    if(typeof GLOBAL_CONFIG_CROP["image_fake" + k + "_face"] === "string"){
+      images.push(GLOBAL_CONFIG_CROP["image_fake" + k + "_reverse"]);
+    }
   }
 }
 
@@ -109,8 +113,6 @@ crop = function(image,x,y,width,height,callback,){
           } else {
             //Image is a piece's reverse
             var pieceIndex = ((currentImage-(images.length/2)-1) * GLOBAL_CONFIG.N * GLOBAL_CONFIG.M) + (currentPiece-1);
-            console.log("pieceIndex:" + pieceIndex);
-
             generatedPieces[pieceIndex]["reverse"] = imgObject;
           }
           if(currentImage === 1){
@@ -145,7 +147,17 @@ shuffle = function(a) {
 generateData = function(){
   let data = {};
 
-  //Save images
+  //Filter fake pieces if necessary
+  if((typeof GLOBAL_CONFIG.Mextra === "number")&&(typeof GLOBAL_CONFIG.Nextra === "number")){
+    let solutionPieces = GLOBAL_CONFIG.M * GLOBAL_CONFIG.N;
+    let maxFakePieces = GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra;
+    let nPieces = generatedPieces.length;
+    if(nPieces > (solutionPieces+maxFakePieces)){
+      removeFakePieces(nPieces - (solutionPieces+maxFakePieces));
+    }
+  }
+  
+  //Save pieces
   data["pieces"] = shuffle(generatedPieces);
 
   //Save cyphered solution
@@ -156,6 +168,40 @@ generateData = function(){
 
   const dataDestPath = resolve(__dirname, '../app/config/data_generated_by_crop.json');
   fs.writeFileSync(dataDestPath, JSON.stringify(data, null, "  "));
+}
+
+removeFakePieces = function(n){
+  let nFakePieces = generatedPieces.length - (GLOBAL_CONFIG.M * GLOBAL_CONFIG.N);
+  if(nFakePieces > 0){
+    let indexToDelete = ((GLOBAL_CONFIG.M * GLOBAL_CONFIG.N)-1) + getRandomInt(1, nFakePieces);
+    removePiece(indexToDelete);
+    if(n>1){
+      return removeFakePieces(n-1);
+    } else {
+      return true;
+    }
+  }
+}
+
+removePiece = function(index){
+  let pieceToRemove = generatedPieces[index];
+  removePieceImg(pieceToRemove.face);
+  if(typeof pieceToRemove.reverse !== "undefined"){
+    removePieceImg(pieceToRemove.reverse);
+  }
+
+  generatedPieces.splice(index, 1);
+}
+
+removePieceImg = function(pieceImg){
+  let imgPath = resolve(__dirname, pieceImg.path.replace('./assets/images/crop/','../app/assets/images/crop/'));
+  fs.unlinkSync(imgPath);
+}
+
+getRandomInt = function(min, max){
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 cropNextImage(function(){
