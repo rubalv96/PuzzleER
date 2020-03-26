@@ -19,11 +19,7 @@ export function addObjectives(objectives){
   };
 }
 
-// export function resetObjectives(){
-//   return {
-//     type:'RESET_OBJECTIVES',
-//   };
-// }
+
 
 export function objectiveAccomplished(objectiveId, accomplishedScore = null){
   return {
@@ -33,48 +29,10 @@ export function objectiveAccomplished(objectiveId, accomplishedScore = null){
   };
 }
 
-// Example of action created using the redux-thunk middleware for Redux
-// export function objectiveAccomplishedThunk(objectiveId, accomplishedScore = null){
-//   return (dispatch, getState) => {
-//     const firstState = JSON.parse(JSON.stringify(getState()));
-//     dispatch(objectiveAccomplished(objectiveId, accomplishedScore));
-//
-//     // Perform another action after accomplishing the objective
-//     const secondState = getState();
-//     if((typeof firstState.tracking.objectives[objectiveId] === "object") && (firstState.tracking.objectives[objectiveId].accomplished === false) && (typeof secondState.tracking.objectives[objectiveId] === "object") && (secondState.tracking.objectives[objectiveId].accomplished === true)){
-//       // Objective with id objectiveId was accomplished.
-//       // Do something and/or dispatch another action.
-//       console.log("Objective with id " + objectiveId + " was accomplished.");
-//       dispatch(showDialog("Objective with id " + objectiveId + " was accomplished."));
-//     }
-//   };
-// }
 
-// export function showDialog(text){
-//   return () => {
-//     alert(text);
-//   };
-// }
-
-// export function finishApp(finished = true){
-//   return {
-//     type:'FINISH_APP',
-//     finished:finished,
-//   };
-//
-// }
-
-export function iniciarPuzzle(N, M, aleatoriza, numPiezas, aleatoriza2, aleatorizaTrueFalse){
+export function iniciarPuzzle(){
   return {
     type:'INICIAR_PUZZLE',
-    payload:{
-      N:N,
-      M:M,
-      aleatoriza:aleatoriza,
-      numPiezas:numPiezas,
-      aleatoriza2:aleatoriza2,
-      aleatorizaTrueFalse:aleatorizaTrueFalse,
-    },
   };
 }
 
@@ -117,17 +75,7 @@ export function darVueltaTodas(){
   };
 }
 
-export function cargarImagenes(imagenes, imagenesRev, imagenesExtra, imagenesExtraRev){
-  return {
-    type: 'CARGAR_IMAGENES',
-    payload:{
-      imagenes: imagenes,
-      imagenesRev: imagenesRev,
-      imagenesExtra: imagenesExtra,
-      imagenesExtraRev: imagenesExtraRev,
-    }
-  }
-}
+
 
 export function comprobarCompletado(piezas, N, M){
   return {

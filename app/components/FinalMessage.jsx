@@ -2,6 +2,7 @@ import React from "react";
 import {Modal, Button} from 'react-bootstrap';
 let GLOBAL_CONFIG = require('../config/config.js');
 import {objectiveAccomplished} from "../reducers/actions";
+import ReactPlayer from "react-player";
 
 export default class FinalMessage extends React.Component
 {
@@ -49,11 +50,10 @@ export default class FinalMessage extends React.Component
     this.props.puzzleCompleto ? msg = GLOBAL_CONFIG.endMessageSuccess : msg = GLOBAL_CONFIG.endMessageFail;
 
     let btnSeguir;
-    (!this.props.puzzleCompleto) ? btnSeguir = <Button className={"btn btn-dark"} onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
+    (!this.props.timeFinished) ? btnSeguir = <Button className={"btn btn-dark"} onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
 
-    if(this.props.numIntentos === 0 && !this.props.puzzleCompleto){
+    if(!this.props.puzzleCompleto){
       msg = GLOBAL_CONFIG.endMessageFail;
-      btnSeguir = "";
     }
     return (
         <>
@@ -72,6 +72,20 @@ export default class FinalMessage extends React.Component
 
             </Modal.Footer>
           </Modal>
+
+          <ReactPlayer
+            style={{display: "none"}}
+            url={GLOBAL_CONFIG.successMusic}
+            volume = {GLOBAL_CONFIG.volume}
+            playing={this.props.puzzleCompleto}
+          />
+
+          <ReactPlayer
+            style={{display: "none"}}
+            url={GLOBAL_CONFIG.failureMusic}
+            volume = {GLOBAL_CONFIG.volume}
+            playing={!this.props.puzzleCompleto}
+          />
 
         </>);
   }

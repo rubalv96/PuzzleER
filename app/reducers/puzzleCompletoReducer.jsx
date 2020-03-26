@@ -19,16 +19,22 @@ function puzzleCompletoReducer(state = [], action){
           if(pieza.row===row && pieza.column===col){
             idPieza = piezas[p].faceImgId;
             ids = ids.concat(idPieza);
-            console.log(idPieza);
-
           }
         }
       }
     }
 
     completado = (MD5(ids).toString() === GLOBAL_CONFIG.solution);
-    console.log(ids);
-    console.log(MD5(ids).toString());
+
+    //Lanza la solución a Escapp
+    fetch("https://escapp.dit.upm.es/api/escapeRooms/"+GLOBAL_CONFIG.escapeRoomId+"/puzzles/"+GLOBAL_CONFIG.puzzleId+"/check", {
+      method:'POST',
+      body:JSON.stringify({token:"ruben.alvarezg@alumnos.upm.es", solution: MD5(ids).toString()}),
+      headers:{"Content-type":"application/json"},
+    })
+      .then(res => res.json())
+      .then(res => console.log(res));
+
 
     return completado;
 

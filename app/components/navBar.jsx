@@ -10,41 +10,7 @@ export default class NavBar extends React.Component {
     this.onFinish = this.onFinish.bind(this);
   }
   render(){
-    let pistas = "", contadorPistas = "";
-    if(this.props.conf.clues){
-      pistas = (
-        <a className="navbar-brand title" style={{cursor:"pointer"}} onClick={()=>{
-          this.props.mostrarPistas();}}>
-                    Pistas y ayuda
-        </a>
-      );
 
-      contadorPistas = (
-        <OverlayTrigger
-          placement="bottom"
-          delay={{show:250, hide:400}}
-          overlay={this.pistasTooltip()}
-        >
-          <a className="navbar-brand title" style={{cursor:"pointer"}}>
-            {this.props.numIntentosPistas}<img src="../assets/images/intentos.png" style={{width:"10%", height:"auto"}} alt={"Intentos de Pistas"}/>
-          </a>
-        </OverlayTrigger>
-      );
-    }
-    let contadorIntentos = "";
-    if(this.props.conf.numberAttempts !== "-1"){
-      contadorIntentos = (
-        <OverlayTrigger
-          placement="bottom"
-          delay={{show:250, hide:400}}
-          overlay={this.comprobacionTooltip()}
-        >
-          <a className="navbar-brand title" style={{cursor:"pointer"}}>
-            {this.props.numIntentos}<img src="../assets/images/intentos.png" style={{width:"10%", height:"auto"}}/>
-          </a>
-        </OverlayTrigger>
-      );
-    }
 
     let timer = "";
     if(this.props.conf.time !== ""){
@@ -54,7 +20,7 @@ export default class NavBar extends React.Component {
     }
 
     let darVuelta = "";
-    if(this.props.conf.image2 !== ""){
+    if(this.props.conf.reverseMode){
       darVuelta =
                 (
                   <div>
@@ -66,8 +32,12 @@ export default class NavBar extends React.Component {
 
                   </div>
                 );
-
+      let subrayado ="";
+      if(this.props.lupa){
+        subrayado="underline";
+      }
     }
+
     return (
       <nav className="navbar navbar-light navbar-expand-xl " style={{backgroundColor:"transparent !important", height:"75px !important"}}>
         <a className="navbar-brand title" href="https://github.com/rubalv96/PuzzleER">
@@ -77,6 +47,10 @@ export default class NavBar extends React.Component {
           this.props.mostrarInstrucciones();}}>
                    ¿Cómo jugar?
         </a>
+        <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto", paddingRight:"20px"}} onClick={()=>{this.props.lupa();}}>
+          <span style={{textDecoration: this.props.lupaValue? "underline":"none"}}>Hacer zoom</span>
+        </a>
+
 
         {darVuelta}
 
@@ -84,14 +58,8 @@ export default class NavBar extends React.Component {
                     Comprobar solución
         </a>
 
-          <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto"}} onClick={()=>{this.props.lupa();}}>
-                    Lupa
-        </a>
 
 
-        {pistas}
-        {contadorIntentos}
-        {contadorPistas}
         {timer}
 
       </nav>
@@ -101,7 +69,6 @@ export default class NavBar extends React.Component {
 
   onFinish(){
     this.props.onFinishTime("gameover");
-    console.log("Hola");
   }
 
   comprobacionTooltip(){

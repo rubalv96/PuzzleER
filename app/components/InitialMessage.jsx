@@ -9,12 +9,10 @@ export default function InitialMessage(props){
   const [show, setShow] = useState(true);
   const [enable, setEnable] = useState(false);
   const handleClose = () => setShow(false);
-  // let timePiece = 0.5;
-  // let time = Math.floor((GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra) * timePiece);
   let timer;
   props.temporizador ? timer = (
       <div style={{display:!enable ? 'block' : 'none'}}>
-        <Timer time={5} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
+        <Timer time={GLOBAL_CONFIG.timeToReadInstructions} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
       </div>
   ) : timer = "";
 
@@ -25,7 +23,7 @@ export default function InitialMessage(props){
 
       );
 
-  let piezasExtra = GLOBAL_CONFIG.Nextra !== 0 && GLOBAL_CONFIG.Mextra !== 0;
+  let piezasExtra = (GLOBAL_CONFIG.Nextra !== 0 && GLOBAL_CONFIG.Mextra !== 0);
   let textoExtra;
   piezasExtra ? textoExtra = (
       <li>Hay más piezas que las correspondientes a la solución del puzzle, las piezas sobrantes se deberán colocar en el espacio reservado para ello situado en la parte derecha del área de puzzle.</li>
@@ -33,7 +31,7 @@ export default function InitialMessage(props){
 
   let textoVuelta;
   let piezasVuelta;
-  piezasVuelta = (GLOBAL_CONFIG.image2 !== "");
+  piezasVuelta = (GLOBAL_CONFIG.reverseMode);
   piezasVuelta ? textoVuelta = (
       <>
         <li>Las piezas contienen doble cara y se puede ver el reverso haciendo doble click sobre ella.</li>

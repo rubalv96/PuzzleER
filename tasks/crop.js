@@ -82,19 +82,25 @@ cropNextImage = function(callback){
 cropNextPiece = function(image,width,height,callback){
   currentPiece = currentPiece+1;
 
-  crop(image,width*currentRow,height*currentColumn,width,height,function(){
+  crop(image,width*currentColumn,height*currentRow,width,height,function(){
     console.log("Cropped piece [" + currentRow + "," + currentColumn + "] from image " + currentImage);
 
     let lastPiece = ((currentRow===GLOBAL_CONFIG.N-1) && (currentColumn===GLOBAL_CONFIG.M-1));
     if(lastPiece===true){
       return callback();
     }
-    if(currentRow<GLOBAL_CONFIG.N-1){
-      currentRow = currentRow+1;
-    } else if(currentColumn<GLOBAL_CONFIG.M-1) {
-      currentRow = 0;
+    if(currentColumn<GLOBAL_CONFIG.M-1){
       currentColumn = currentColumn+1;
+    } else if(currentRow<GLOBAL_CONFIG.N-1) {
+      currentColumn = 0;
+      currentRow = currentRow+1;
     }
+    // if(currentRow<GLOBAL_CONFIG.N-1){
+    //   currentRow = currentRow+1;
+    // } else if(currentColumn<GLOBAL_CONFIG.M-1) {
+    //   currentRow = 0;
+    //   currentColumn = currentColumn+1;
+    // }
     return cropNextPiece(image,width,height,callback);
   });
 }
@@ -104,22 +110,22 @@ crop = function(image,x,y,width,height,callback,){
   let imgDestPath = imagesDestPath + "/" + imageId + ".jpg";
   Clipper(image, function() {
     this.crop(x,y,width,height)
-        .quality(100)
-        .toFile(imgDestPath, function() {
-          let imgObject = {id: imageId, path: "./assets/images/crop/" + imageId + ".jpg"};
-          if((reverse_mode === false)||(currentImage <= images.length/2)){
-            //Image is a piece's face
-            generatedPieces.push({face: imgObject});
-          } else {
-            //Image is a piece's reverse
-            var pieceIndex = ((currentImage-(images.length/2)-1) * GLOBAL_CONFIG.N * GLOBAL_CONFIG.M) + (currentPiece-1);
-            generatedPieces[pieceIndex]["reverse"] = imgObject;
-          }
-          if(currentImage === 1){
-            solution = solution + imageId;
-          }
-          callback();
-        });
+      .quality(100)
+      .toFile(imgDestPath, function() {
+        let imgObject = {id: imageId, path: "./assets/images/crop/" + imageId + ".jpg"};
+        if((reverse_mode === false)||(currentImage <= images.length/2)){
+          //Image is a piece's face
+          generatedPieces.push({face: imgObject});
+        } else {
+          //Image is a piece's reverse
+          var pieceIndex = ((currentImage-(images.length/2)-1) * GLOBAL_CONFIG.N * GLOBAL_CONFIG.M) + (currentPiece-1);
+          generatedPieces[pieceIndex]["reverse"] = imgObject;
+        }
+        if(currentImage === 1){
+          solution = solution + imageId;
+        }
+        callback();
+      });
   });
 }
 
@@ -200,9 +206,9 @@ removePieceImg = function(pieceImg){
 }
 
 getRandomInt = function(min, max){
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 cropNextImage(function(){
