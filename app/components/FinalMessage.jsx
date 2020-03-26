@@ -50,7 +50,7 @@ export default class FinalMessage extends React.Component
     this.props.puzzleCompleto ? msg = GLOBAL_CONFIG.endMessageSuccess : msg = GLOBAL_CONFIG.endMessageFail;
 
     let btnSeguir;
-    (!this.props.timeFinished) ? btnSeguir = <Button className={"btn btn-dark"} onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
+    (!this.props.timeFinished && !this.props.puzzleCompleto) ? btnSeguir = <Button className={"btn btn-dark"} onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
 
     if(!this.props.puzzleCompleto){
       msg = GLOBAL_CONFIG.endMessageFail;

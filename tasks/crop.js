@@ -95,12 +95,7 @@ cropNextPiece = function(image,width,height,callback){
       currentColumn = 0;
       currentRow = currentRow+1;
     }
-    // if(currentRow<GLOBAL_CONFIG.N-1){
-    //   currentRow = currentRow+1;
-    // } else if(currentColumn<GLOBAL_CONFIG.M-1) {
-    //   currentRow = 0;
-    //   currentColumn = currentColumn+1;
-    // }
+
     return cropNextPiece(image,width,height,callback);
   });
 }

@@ -272,7 +272,6 @@ export default class Puzzle extends React.Component {
     );
   }
   mostrarTooltip(imagen, factorZoom){
-    console.log("Mostrando Tooltip");
     let anchoImg = 700;
     let altoImg = 430;
     let anchoPieza = 700 / GLOBAL_CONFIG.M;

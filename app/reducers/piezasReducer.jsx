@@ -16,7 +16,6 @@ function piezasReducer(state = [], action){
     puzzle= [];
     piezas = GLOBAL_CONFIG.pieces.slice(0, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N);
     piezasExtra= GLOBAL_CONFIG.pieces.slice( GLOBAL_CONFIG.M * GLOBAL_CONFIG.N , GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra );
-    console.log("piezasExtra: " + JSON.stringify(piezasExtra));
     r = 1;
     c = 1;
 
