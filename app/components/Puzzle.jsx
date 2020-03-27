@@ -216,7 +216,7 @@ export default class Puzzle extends React.Component {
       );
     }
     let areaPuzzleExtraPrintReverso = "";
-    if(this.props.conf.Nextra>0 && this.props.conf.reverse){
+    if(this.props.conf.Nextra > 0 && this.props.conf.reverse){
       areaPuzzleExtraPrintReverso = (
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>

@@ -11,7 +11,6 @@ export default class NavBar extends React.Component {
   }
   render(){
 
-
     let timer = "";
     if(this.props.conf.time !== ""){
       timer = (
@@ -32,9 +31,9 @@ export default class NavBar extends React.Component {
 
                   </div>
                 );
-      let subrayado ="";
+      let subrayado = "";
       if(this.props.lupa){
-        subrayado="underline";
+        subrayado = "underline";
       }
     }
 
@@ -48,9 +47,8 @@ export default class NavBar extends React.Component {
                    ¿Cómo jugar?
         </a>
         <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto", paddingRight:"20px"}} onClick={()=>{this.props.lupa();}}>
-          <span style={{textDecoration: this.props.lupaValue? "underline":"none"}}>Hacer zoom</span>
+          <span style={{textDecoration:this.props.lupaValue ? "underline" : "none"}}>Hacer zoom</span>
         </a>
-
 
         {darVuelta}
 
@@ -58,14 +56,11 @@ export default class NavBar extends React.Component {
                     Comprobar solución
         </a>
 
-
-
         {timer}
 
       </nav>
     );
   }
-
 
   onFinish(){
     this.props.onFinishTime("gameover");

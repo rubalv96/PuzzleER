@@ -13,14 +13,14 @@ function piezasReducer(state = [], action){
   switch (action.type){
   case 'INICIAR_PUZZLE':
 
-    puzzle= [];
+    puzzle = [];
     piezas = GLOBAL_CONFIG.pieces.slice(0, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N);
-    piezasExtra= GLOBAL_CONFIG.pieces.slice( GLOBAL_CONFIG.M * GLOBAL_CONFIG.N , GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra );
+    piezasExtra = GLOBAL_CONFIG.pieces.slice(GLOBAL_CONFIG.M * GLOBAL_CONFIG.N, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra);
     r = 1;
     c = 1;
 
-    for(var l in piezas){
-      var pieza = piezas[l];
+    for(let l in piezas){
+      let pieza = piezas[l];
       if(c === GLOBAL_CONFIG.M + 1){
         r++;
         c = 1;
@@ -38,17 +38,17 @@ function piezasReducer(state = [], action){
       c++;
     }
 
-    r=1; c=1;
-    for(var p in piezasExtra){
-      var pieza = piezasExtra[p];
+    r = 1; c = 1;
+    for(let p in piezasExtra){
+      let pieza = piezasExtra[p];
       if(c === GLOBAL_CONFIG.Mextra + 1){
         r++;
         c = 1;
       }
       puzzle.push(
         {
-          "row":"E"+r,
-          "column":"E"+c,
+          "row":"E" + r,
+          "column":"E" + c,
           "faceImgId":pieza.face.id,
           "reverseImgId":pieza.reverse.id,
           "faceImgPath":pieza.face.path,
@@ -57,9 +57,6 @@ function piezasReducer(state = [], action){
       );
       c++;
     }
-
-
-
 
     return puzzle;
 
@@ -91,7 +88,6 @@ function piezasReducer(state = [], action){
 
     imgReverseId1 = piezas[ind1].reverseImgId;
     imgReverseId2 = piezas[ind2].reverseImgId;
-
 
     piezas[ind1].faceImgPath = img2;
     piezas[ind2].faceImgPath = img1;
@@ -133,12 +129,9 @@ function piezasReducer(state = [], action){
     }
     return piezas;
 
-
-
   default:
     return state;
   }
-
 
 }
 

@@ -39,14 +39,13 @@ export class App extends React.Component {
     this.onStartTime = this.onStartTime.bind(this);
     this.lupa = this.lupa.bind(this);
 
-
     this.state = {
       mostrarMsgFinal:false,
       mostrarMsgInicial:false,
       onStartTime:false,
       temporizador:true,
       timeFinished:false,
-      lupa: false,
+      lupa:false,
 
     };
   }
@@ -62,7 +61,6 @@ export class App extends React.Component {
         appContent = (
           <>
 
-
             <Puzzle
               piezasSeleccionadas={this.props.piezasSeleccionadas}
               piezas={this.props.piezas}
@@ -76,7 +74,7 @@ export class App extends React.Component {
             />
 
             <ReactPlayer
-              style={{display: "none"}}
+              style={{display:"none"}}
               url={GLOBAL_CONFIG.backgroundMusic}
               volume = {GLOBAL_CONFIG.volume}
               loop
@@ -113,14 +111,14 @@ export class App extends React.Component {
       <>
         <div id="container" style={styleBackground}>
           <NavBar mostrarInstrucciones={this.mostrarInstrucciones}
-                  dispatch = {this.props.dispatch}
-                  onFinishTime={this.comprobarCompletado}
-                  onStartTime={this.state.onStartTime}
-                  conf = {GLOBAL_CONFIG}
-                  toggle = {this.toggle}
-                  comprobarCompletado = {this.comprobarCompletado}
-                  lupa={this.lupa}
-                  lupaValue={this.state.lupa}
+            dispatch = {this.props.dispatch}
+            onFinishTime={this.comprobarCompletado}
+            onStartTime={this.state.onStartTime}
+            conf = {GLOBAL_CONFIG}
+            toggle = {this.toggle}
+            comprobarCompletado = {this.comprobarCompletado}
+            lupa={this.lupa}
+            lupaValue={this.state.lupa}
           />
           <Instructions/>
           <h1 className="title">{GLOBAL_CONFIG.title}</h1>
@@ -129,7 +127,6 @@ export class App extends React.Component {
           <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
           {appContent}
           {instrucciones}
-
 
         </div>
       </>
@@ -177,7 +174,7 @@ export class App extends React.Component {
 
   comprobarCompletado(flag){
     if(flag === "gameover"){
-      this.setState({timeFinished: true});
+      this.setState({timeFinished:true});
     }
     this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
     this.mostrarMsgFinal();
@@ -195,7 +192,7 @@ export class App extends React.Component {
     this.setState({onStartTime:true});
   }
   lupa(){
-    this.setState({lupa: !this.state.lupa});
+    this.setState({lupa:!this.state.lupa});
   }
 
   componentDidMount(){

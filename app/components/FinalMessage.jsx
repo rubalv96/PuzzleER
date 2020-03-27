@@ -31,14 +31,14 @@ export default class FinalMessage extends React.Component
     if(this.props.puzzleCompleto){
       GLOBAL_CONFIG.endImageSuccess === "" ? endImage = "" : endImage =
           (
-              <img src={GLOBAL_CONFIG.endImageSuccess} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
+            <img src={GLOBAL_CONFIG.endImageSuccess} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
 
           );
     }
     else {
       GLOBAL_CONFIG.endImageFail === "" ? endImage = "" : endImage =
           (
-              <img src={GLOBAL_CONFIG.endImageFail} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
+            <img src={GLOBAL_CONFIG.endImageFail} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
 
           );
     }
@@ -56,37 +56,37 @@ export default class FinalMessage extends React.Component
       msg = GLOBAL_CONFIG.endMessageFail;
     }
     return (
-        <>
-          <Modal show={this.state.showModal} animation={false} size="lg">
-            <Modal.Header>
-              <Modal.Title  style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{titulo}</Modal.Title>
-            </Modal.Header>
+      <>
+        <Modal show={this.state.showModal} animation={false} size="lg">
+          <Modal.Header>
+            <Modal.Title style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{titulo}</Modal.Title>
+          </Modal.Header>
 
-            <Modal.Body>
-              <p style={{fontSize:"25px", fontFamily:"'Megrim', cursive"}}>{msg}</p>
-              {endImage}
-            </Modal.Body>
+          <Modal.Body>
+            <p style={{fontSize:"25px", fontFamily:"'Megrim', cursive"}}>{msg}</p>
+            {endImage}
+          </Modal.Body>
 
-            <Modal.Footer>
-              {btnSeguir}
+          <Modal.Footer>
+            {btnSeguir}
 
-            </Modal.Footer>
-          </Modal>
+          </Modal.Footer>
+        </Modal>
 
-          <ReactPlayer
-            style={{display: "none"}}
-            url={GLOBAL_CONFIG.successMusic}
-            volume = {GLOBAL_CONFIG.volume}
-            playing={this.props.puzzleCompleto}
-          />
+        <ReactPlayer
+          style={{display:"none"}}
+          url={GLOBAL_CONFIG.successMusic}
+          volume = {GLOBAL_CONFIG.volume}
+          playing={this.props.puzzleCompleto}
+        />
 
-          <ReactPlayer
-            style={{display: "none"}}
-            url={GLOBAL_CONFIG.failureMusic}
-            volume = {GLOBAL_CONFIG.volume}
-            playing={!this.props.puzzleCompleto}
-          />
+        <ReactPlayer
+          style={{display:"none"}}
+          url={GLOBAL_CONFIG.failureMusic}
+          volume = {GLOBAL_CONFIG.volume}
+          playing={!this.props.puzzleCompleto}
+        />
 
-        </>);
+      </>);
   }
 }

@@ -19,8 +19,6 @@ export function addObjectives(objectives){
   };
 }
 
-
-
 export function objectiveAccomplished(objectiveId, accomplishedScore = null){
   return {
     type:'OBJECTIVE_ACCOMPLISHED',
@@ -28,7 +26,6 @@ export function objectiveAccomplished(objectiveId, accomplishedScore = null){
     accomplished_score:accomplishedScore,
   };
 }
-
 
 export function iniciarPuzzle(){
   return {
@@ -74,8 +71,6 @@ export function darVueltaTodas(){
 
   };
 }
-
-
 
 export function comprobarCompletado(piezas, N, M){
   return {
