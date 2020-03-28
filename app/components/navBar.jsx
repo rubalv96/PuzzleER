@@ -41,7 +41,7 @@ export default class NavBar extends React.Component {
     let zoom;
     if(this.props.conf.zoomMode){
       let textoZoom;
-      this.props.lupaValue ? textoZoom = "Deshacer zoom" : textoZoom = "Hacer zoom";
+      this.props.lupaValue ? textoZoom = "Desactivar zoom" : textoZoom = "Activar zoom";
       zoom = (
         <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto", paddingRight:"20px"}} onClick={()=>{this.props.lupa();}}>
           <span style={{textDecoration:this.props.lupaValue ? "underline" : "none"}}>{textoZoom}</span>

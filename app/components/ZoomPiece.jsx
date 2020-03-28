@@ -10,7 +10,7 @@ export default function ZoomPiece(props){
   let zoomWidth, zoomHeight, zoomFactor;
   zoomFactor = GLOBAL_CONFIG.zoomFactor;
   zoomWidth = Math.min(props.widthPiece * zoomFactor, window.innerWidth * 0.8);
-  zoomHeight = props.heightPiece * zoomFactor;
+  zoomHeight = Math.min(props.heightPiece * zoomFactor, window.innerHeight * 0.6);
 
   return (
     <>
