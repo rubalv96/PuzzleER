@@ -20,7 +20,7 @@ export default function ZoomPiece(props){
         </Modal.Header>
         <Modal.Body>
           <div style={{textAlign:"center"}}>
-            <img src={props.srcImg} alt={"Imagen de la pieza"} style={{width:zoomWidth, height:zoomHeight}} />
+            <img src={props.srcImg} alt={"Imagen de la pieza"} style={{width:zoomWidth, height:zoomHeight, maxWidth:"100%", maxHeight:"100%"}} />
           </div>
         </Modal.Body>
         <Modal.Footer>

@@ -30,7 +30,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
 
   // Zoom
   zoomMode:true, // activar modo zoom
-  zoomFactor:4, // factor de ampliación
+  zoomFactor:25, // factor de ampliación
 
   // Tiempo mínimo exigido para leer instrucciones (en segundos)
   timeToReadInstructions:2,
