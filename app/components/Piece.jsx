@@ -17,7 +17,7 @@ export default class Piece extends React.Component {
 
   handleClick(e){
     e.preventDefault();
-    if(this.props.conf.image_solution_reverse !== ""){
+    if(this.props.conf.reverseMode === true){
       this.setState({
         backToFront:"1.5",
         frontToBack:"1.5",
@@ -39,8 +39,8 @@ export default class Piece extends React.Component {
     let altoImg;
     let anchoImg;
 
-    this.props.conf.heightImg === "" ? altoImg = 430 : altoImg = parseInt(this.props.conf.heightImg, 10);
-    this.props.conf.widthImg === "" ? anchoImg = 700 : anchoImg = parseInt(this.props.conf.widthImg, 10);
+    this.props.conf.heightFrame === "" ? altoImg = 430 : altoImg = parseInt(this.props.conf.heightFrame, 10);
+    this.props.conf.widthFrame === "" ? anchoImg = 700 : anchoImg = parseInt(this.props.conf.widthFrame, 10);
 
     // Tamaño del contenedor
     let anchoContenedor = anchoImg / (this.props.conf.M);
@@ -65,6 +65,13 @@ export default class Piece extends React.Component {
       borde = "1px black solid";
     }
 
+    // Cursor sobre la pieza
+    let cursor = "";
+    if(this.props.lupa){
+      cursor = "zoom-in";
+      console.log("Cursor: " + cursor);
+    }
+
     // Imagen de pieza en posición frontal
     let imgPieza = (
       <img
@@ -76,7 +83,12 @@ export default class Piece extends React.Component {
         }}
         src={this.props.imagen}
         onClick={()=>{
-          this.props.seleccionarPieza(this.props.row, this.props.column);
+          if(this.props.lupa){
+            this.props.zoomImage(this.props.imagen, anchoContenedor, altoContenedor);
+          }
+          else {
+            this.props.seleccionarPieza(this.props.row, this.props.column);
+          }
         }}
 
         alt={"Imagen de pieza"}/>
@@ -90,11 +102,16 @@ export default class Piece extends React.Component {
           overflow:"hidden",
           width:anchoContenedor,
           height:altoContenedor,
+
         }}
         src={this.props.imagenRev}
         onClick={()=>{
-          this.props.seleccionarPieza(this.props.row, this.props.column);
-        }}
+          if(this.props.lupa){
+            this.props.zoomImage(this.props.imagen);
+          }
+          else {
+            this.props.seleccionarPieza(this.props.row, this.props.column);
+          } }}
 
         alt={"Imagen de pieza"}
       />
@@ -106,32 +123,7 @@ export default class Piece extends React.Component {
 
         {/* Contenedor de la pieza frontal*/}
 
-        <OverlayTrigger
-          placement="auto"
-          delay={{show:0, hide:0}}
-          overlay={this.mostrarTooltip(this.props.imagen, this.props.conf.zoomFactor, anchoContenedor, altoContenedor, this.props.lupa)}
-        >
-          <div
-            className={"imgPiece"}
-            onDoubleClick={this.handleClick}
-            style={{
-              width:anchoContenedor + "px",
-              height:altoContenedor + "px",
-              overflow:"hidden",
-              position:"relative",
-              border:borde,
-              borderRadius:"0px",
-
-            }}
-          >
-
-            {imgPieza}
-          </div>
-        </OverlayTrigger>
-
-        {/* Contenedor de la pieza trasera*/}
         <div
-          className={"imgPiece"}
           onDoubleClick={this.handleClick}
           style={{
             width:anchoContenedor + "px",
@@ -140,6 +132,25 @@ export default class Piece extends React.Component {
             position:"relative",
             border:borde,
             borderRadius:"0px",
+            cursor:cursor,
+
+          }}
+        >
+
+          {imgPieza}
+        </div>
+
+        {/* Contenedor de la pieza trasera*/}
+        <div
+          onDoubleClick={this.handleClick}
+          style={{
+            width:anchoContenedor + "px",
+            height:altoContenedor + "px",
+            overflow:"hidden",
+            position:"relative",
+            border:borde,
+            borderRadius:"0px",
+            cursor:cursor,
 
           }}
         >
@@ -170,7 +181,6 @@ export default class Piece extends React.Component {
             height:altoContenedor * factorZoom,
           }}
           src={imagen}
-
           alt={"Imagen de pieza"}/>
 
       </Tooltip>;

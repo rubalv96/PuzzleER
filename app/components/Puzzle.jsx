@@ -60,7 +60,7 @@ export default class Puzzle extends React.Component {
                                           imagen = {this.props.piezas[l].faceImgPath}
                                           imagenRev = {this.props.piezas[l].reverseImgPath}
                                           lupa={this.props.lupa}
-
+                                          zoomImage={this.props.zoomImage}
                                         />
                                       </td>
                                     </Fragment>);
@@ -72,7 +72,7 @@ export default class Puzzle extends React.Component {
                       </table>
                     </>);
     let areaPiezasExtra = "";
-    if(!(this.props.conf.Nextra === 0 || this.props.conf.Mextra === 0 || this.props.conf.image_fake1_face === "")){
+    if(!(this.props.conf.Nextra === 0 || this.props.conf.Mextra === 0)){
       areaPiezasExtra = (
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
@@ -94,7 +94,7 @@ export default class Puzzle extends React.Component {
                               darVuelta = {this.props.darVuelta}
                               imagen = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].faceImgPath}
                               imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].reverseImgPath}
-
+                              zoomImage={this.props.zoomImage}
                               lupa={this.props.lupa}
                               extraArea
                             />
@@ -144,38 +144,41 @@ export default class Puzzle extends React.Component {
                       </>
                     );
     let areaPuzzleExtraPrint;
-    areaPuzzleExtraPrint =
-                    (
-                      <>
-                        <h2 className="msgPrint">Área de piezas extra</h2>
-                        <table className={"tablePrint"}>
-                          <tbody>
-                            {rowsE.map((row, ind) => {
-                              return (
-                                <tr key={ind}>
-                                  {columnsE.map((col, indC) => {
-                                    p++;
-                                    return (
-                                      <Fragment key={indC}>
-                                        <td>
-                                          <Piece row={this.props.piezas[p + this.props.conf.N * this.props.conf.M].row}
-                                            column={this.props.piezas[p + this.props.conf.N * this.props.conf.M].column}
-                                            conf={this.props.conf}
-                                            seleccionarPieza={this.props.seleccionarPieza}
-                                            piezasSeleccionadas={this.props.piezasSeleccionadas}
-                                            darVuelta = {this.props.darVuelta}
-                                            imagen = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].faceImgPath}
-                                            imagenRev = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].reverseImgPath}
-                                          />
-                                        </td>
-                                      </Fragment>);
-                                  })}
-                                </tr>);
-                            })}
-                          </tbody>
-                        </table>
-                      </>
-                    );
+    if(this.props.conf.Nextra > 0 || this.props.conf.Mextra > 0){
+      areaPuzzleExtraPrint =
+        (
+          <>
+            <h2 className="msgPrint">Área de piezas extra</h2>
+            <table className={"tablePrint"}>
+              <tbody>
+                {rowsE.map((row, ind) => {
+                  return (
+                    <tr key={ind}>
+                      {columnsE.map((col, indC) => {
+                        p++;
+                        return (
+                          <Fragment key={indC}>
+                            <td>
+                              <Piece row={this.props.piezas[p + this.props.conf.N * this.props.conf.M].row}
+                                column={this.props.piezas[p + this.props.conf.N * this.props.conf.M].column}
+                                conf={this.props.conf}
+                                seleccionarPieza={this.props.seleccionarPieza}
+                                piezasSeleccionadas={this.props.piezasSeleccionadas}
+                                darVuelta = {this.props.darVuelta}
+                                imagen = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].faceImgPath}
+                                imagenRev = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].reverseImgPath}
+                              />
+                            </td>
+                          </Fragment>);
+                      })}
+                    </tr>);
+                })}
+              </tbody>
+            </table>
+          </>
+        );
+    }
+
     let areaPuzzlePrintReverso = "";
     if(this.props.conf.reverseMode){
       areaPuzzlePrintReverso = (
@@ -201,8 +204,7 @@ export default class Puzzle extends React.Component {
                               seleccionarPieza={this.props.seleccionarPieza}
                               piezasSeleccionadas={this.props.piezasSeleccionadas}
                               darVuelta = {this.props.darVuelta}
-                              imagen = {this.props.piezas[m].faceImgPath}
-                              imagenRev = {this.props.piezas[m].reverseImgPath}
+                              imagen = {this.props.piezas[m].reverseImgPath}
 
                             />
                           </td>
@@ -216,7 +218,7 @@ export default class Puzzle extends React.Component {
       );
     }
     let areaPuzzleExtraPrintReverso = "";
-    if(this.props.conf.Nextra > 0 && this.props.conf.reverse){
+    if(this.props.conf.Nextra > 0 && this.props.conf.reverseMode){
       areaPuzzleExtraPrintReverso = (
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
@@ -238,8 +240,7 @@ export default class Puzzle extends React.Component {
                               seleccionarPieza={this.props.seleccionarPieza}
                               piezasSeleccionadas={this.props.piezasSeleccionadas}
                               darVuelta = {this.props.darVuelta}
-                              imagen = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].faceImgPath}
-                              imagenRev = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].reverseImgPath}
+                              imagen = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].reverseImgPath}
 
                             />
                           </td>

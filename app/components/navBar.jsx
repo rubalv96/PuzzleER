@@ -32,23 +32,34 @@ export default class NavBar extends React.Component {
                   </div>
                 );
       let subrayado = "";
+
       if(this.props.lupa){
         subrayado = "underline";
       }
+
+    }
+    let zoom;
+    if(this.props.conf.zoomMode){
+      let textoZoom;
+      this.props.lupaValue ? textoZoom = "Deshacer zoom" : textoZoom = "Hacer zoom";
+      zoom = (
+        <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto", paddingRight:"20px"}} onClick={()=>{this.props.lupa();}}>
+          <span style={{textDecoration:this.props.lupaValue ? "underline" : "none"}}>{textoZoom}</span>
+        </a>
+      );
     }
 
     return (
       <nav className="navbar navbar-light navbar-expand-xl " style={{backgroundColor:"transparent !important", height:"75px !important"}}>
-        <a className="navbar-brand title" href="https://github.com/rubalv96/PuzzleER">
+        <div className="navbar-brand title">
           <img src="../assets/images/intentos.png" width="40px" height="40px"/>
-        </a>
+        </div>
         <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", paddingLeft:"30px", paddingRight:"30px"}} onClick={()=>{
           this.props.mostrarInstrucciones();}}>
                    ¿Cómo jugar?
         </a>
-        <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto", paddingRight:"20px"}} onClick={()=>{this.props.lupa();}}>
-          <span style={{textDecoration:this.props.lupaValue ? "underline" : "none"}}>Hacer zoom</span>
-        </a>
+
+        {zoom}
 
         {darVuelta}
 

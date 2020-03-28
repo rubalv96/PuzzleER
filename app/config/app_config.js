@@ -13,10 +13,10 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   volume:1, // Volumen de 0 a 1
 
   // Dimensiones del puzzle
-  M:8, // numero de columnas del puzzle
-  N:2, // numero de filas del puzzle
-  Mextra:3, // numero de columnas del area de piezas sobrantes
-  Nextra:2, // número de filas del área de piezas sobrantes
+  M:4, // numero de columnas del puzzle
+  N:5, // numero de filas del puzzle
+  Mextra:2, // numero de columnas del area de piezas sobrantes
+  Nextra:3, // número de filas del área de piezas sobrantes
 
   // Reverse mode
   reverseMode:true,
@@ -25,11 +25,12 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   time:"210", // tiempo en segundos para resolver el puzzle
 
   // Cuadro de puzzle
-  heightImg:"", // tamaño altura cuadro de puzzles(tiene valor por defecto si se deja vacío)
-  widthImg:"", // tamaño anchura de cuadro de puzzles(tiene valor por defecto si se deja vacío)
+  heightFrame:"", // tamaño altura cuadro de puzzles(tiene valor por defecto si se deja vacío)
+  widthFrame:"", // tamaño anchura de cuadro de puzzles(tiene valor por defecto si se deja vacío)
 
   // Zoom
-  zoomFactor:1.5,
+  zoomMode:true, // activar modo zoom
+  zoomFactor:4, // factor de ampliación
 
   // Tiempo mínimo exigido para leer instrucciones (en segundos)
   timeToReadInstructions:2,
@@ -42,8 +43,8 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // Mensaje final
   endMessageSuccess:"Has dado con uno de los papiros más importantes del Antiguo Egipto así como el símbolo del Ankh, el símbolo egipcio de la vida. Estamos más cerca de averiguar las grandes incógnitas de Cleopatra. ¡Enhorabuena!", // mensaje de exito
   endMessageFail:"Parece que eso no nos sirve para seguir investigando los misterios de Egipto.", // mensaje de fallo
-  endImageSuccess:"./assets/images/puzzle/egipto_pintura.jpg", // imagen de exito
-  endImageFail:"", // imagen de fallo
+  endImageSuccess:"./assets/images/puzzle/egipto_inicial.svg", // imagen de exito
+  endImageFail:"./assets/images/puzzle/egipto_fallo.png", // imagen de fallo
 
   // Escapp configuraciones
   escapeRoomId:1,

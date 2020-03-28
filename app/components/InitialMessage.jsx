@@ -37,6 +37,13 @@ export default function InitialMessage(props){
       <li>Se puede dar la vuelta a todas las piezas simultáneamente pulsando en la opción <i>Girar todas las piezas</i>.</li>
     </>
   ) : textoVuelta = "";
+
+  let textoZoom;
+  GLOBAL_CONFIG.zoomMode ? textoZoom = (
+    <>
+      <li>Mediante la opción <i>Hacer zoom</i> es posible ampliar las imágenes de las piezas. Si se desea volver al modo normal de juego es necesario hacer click sobre <i>Deshacer zoom</i></li>
+    </>
+  ) : textoZoom = "";
   return (
     <>
       <Modal backdrop="static" keyboard={false} show={show} onHide={handleClose} animation={false} size="lg">
@@ -50,6 +57,7 @@ export default function InitialMessage(props){
             <li>Para intercambiar las piezas se deberá hacer click sobre una de ellas y volver a hacer click sobre la nueva posición.</li>
             {textoExtra}
             {textoVuelta}
+            {textoZoom}
             <li>Cuando se haya completado el puzzle se deberá comprobar que la solución es correcta haciendo click en el botón <i>Comprobar solución</i>.</li>
           </b></ul>
           <p style={{fontSize:"20px", fontFamily:"'Megrim', cursive"}}><b>{GLOBAL_CONFIG.initialMessage}</b></p>

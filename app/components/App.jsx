@@ -9,6 +9,7 @@ import * as I18n from '../vendors/I18n.js';
 import SCORM from './SCORM.jsx';
 import NavBar from "./navBar";
 import Puzzle from './Puzzle';
+import ZoomPiece from "./ZoomPiece";
 
 import {
   iniciarPuzzle,
@@ -33,11 +34,12 @@ export class App extends React.Component {
     this.mostrarMsgFinal = this.mostrarMsgFinal.bind(this);
     this.ocultarMsgFinal = this.ocultarMsgFinal.bind(this);
     this.comprobarCompletado = this.comprobarCompletado.bind(this);
-    // this.compruebaEscapp = this.compruebaEscapp.bind(this);
     this.mostrarInstrucciones = this.mostrarInstrucciones.bind(this);
     this.ocultarInstrucciones = this.ocultarInstrucciones.bind(this);
     this.onStartTime = this.onStartTime.bind(this);
     this.lupa = this.lupa.bind(this);
+    this.zoomImage = this.zoomImage.bind(this);
+    this.zoomOff = this.zoomOff.bind(this);
 
     this.state = {
       mostrarMsgFinal:false,
@@ -46,6 +48,10 @@ export class App extends React.Component {
       temporizador:true,
       timeFinished:false,
       lupa:false,
+      showZoom:false,
+      zoomImgPath:"",
+      widthPiece:0,
+      heightPiece:0,
 
     };
   }
@@ -71,6 +77,7 @@ export class App extends React.Component {
               comprobarCompletado={this.comprobarCompletado}
               dispatch={this.props.dispatch}
               lupa={this.state.lupa}
+              zoomImage={this.zoomImage}
             />
 
             <ReactPlayer
@@ -127,6 +134,13 @@ export class App extends React.Component {
           <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
           {appContent}
           {instrucciones}
+          <ZoomPiece show={this.state.showZoom}
+            srcImg={this.state.zoomImgPath}
+            zoomOff ={this.zoomOff}
+            widthPiece={this.state.widthPiece}
+            heightPiece={this.state.heightPiece}
+
+          />
 
         </div>
       </>
@@ -193,6 +207,14 @@ export class App extends React.Component {
   }
   lupa(){
     this.setState({lupa:!this.state.lupa});
+  }
+
+  zoomImage(img, width, height){
+    this.setState({showZoom:true, zoomImgPath:img, widthPiece:width, heightPiece:height});
+  }
+
+  zoomOff(){
+    this.setState({showZoom:false});
   }
 
   componentDidMount(){
