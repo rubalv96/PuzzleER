@@ -6,23 +6,30 @@ import './../assets/scss/main.scss';
 
 export default function InitialMessage(props){
   const [show, setShow] = useState(true);
-  const [enable, setEnable] = useState(false);
+  const [enable, setEnable] = useState(GLOBAL_CONFIG.timeToReadInstructions === undefined || GLOBAL_CONFIG.timeToReadInstructions < 1);
   const handleClose = () => setShow(false);
+
+  let timeToReadInstructions;
+  (GLOBAL_CONFIG.timeToReadInstructions === undefined || GLOBAL_CONFIG.timeToReadInstructions < 1) ?
+      timeToReadInstructions ="" : timeToReadInstructions= GLOBAL_CONFIG.timeToReadInstructions;
+
   let timer;
-  props.temporizador ? timer = (
+  (props.temporizador && timeToReadInstructions !== "")? timer = (
     <div style={{display:!enable ? 'block' : 'none'}}>
-      <Timer time={GLOBAL_CONFIG.timeToReadInstructions} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
+      <Timer time={timeToReadInstructions} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
     </div>
   ) : timer = "";
 
+
+
   let initialImage;
-  GLOBAL_CONFIG.initialImage === "" ? initialImage = "" : initialImage =
+  (GLOBAL_CONFIG.initialImage === "" || GLOBAL_CONFIG.initialImage === undefined)? initialImage = "" : initialImage =
       (
         <img src={GLOBAL_CONFIG.initialImage} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje inicial."}/>
 
       );
 
-  let piezasExtra = (GLOBAL_CONFIG.Nextra !== 0 && GLOBAL_CONFIG.Mextra !== 0);
+  let piezasExtra = (GLOBAL_CONFIG.Nextra > 0 && GLOBAL_CONFIG.Mextra > 0);
   let textoExtra;
   piezasExtra ? textoExtra = (
     <li>Hay más piezas que las correspondientes a la solución del puzzle, las piezas sobrantes se deberán colocar en el espacio reservado para ello situado en la parte derecha del área de puzzle.</li>
@@ -44,11 +51,16 @@ export default function InitialMessage(props){
       <li>Mediante la opción <i>Hacer zoom</i> es posible ampliar las imágenes de las piezas. Si se desea volver al modo normal de juego es necesario hacer click sobre <i>Deshacer zoom</i></li>
     </>
   ) : textoZoom = "";
+
+  let titulo="";
+  if (GLOBAL_CONFIG.title !== undefined){
+    titulo=GLOBAL_CONFIG.title;
+  }
   return (
     <>
       <Modal backdrop="static" keyboard={false} show={show} onHide={handleClose} animation={false} size="lg">
         <Modal.Header>
-          <Modal.Title style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{GLOBAL_CONFIG.title}</Modal.Title>
+          <Modal.Title style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{titulo}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <p style={{fontSize:"25px", fontFamily:"'Megrim', cursive"}}><b>Instrucciones</b></p>

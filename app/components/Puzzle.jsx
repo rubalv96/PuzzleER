@@ -72,7 +72,7 @@ export default class Puzzle extends React.Component {
                       </table>
                     </>);
     let areaPiezasExtra = "";
-    if(!(this.props.conf.Nextra === 0 || this.props.conf.Mextra === 0)){
+    if((GLOBAL_CONFIG.Nextra > 0 && GLOBAL_CONFIG.Mextra > 0)){
       areaPiezasExtra = (
         <>
           <h2 className="msgPrint">Área de piezas extra</h2>
@@ -144,7 +144,7 @@ export default class Puzzle extends React.Component {
                       </>
                     );
     let areaPuzzleExtraPrint;
-    if(this.props.conf.Nextra > 0 || this.props.conf.Mextra > 0){
+    if(this.props.conf.Nextra > 0 && this.props.conf.Mextra > 0){
       areaPuzzleExtraPrint =
         (
           <>
@@ -256,7 +256,7 @@ export default class Puzzle extends React.Component {
     return (
       <>
 
-        <div className={"puzzleArea"} style={{display:"flex", alignItems:"center", justifyContent:"center"}}>
+        <div className={"puzzleArea"} style={{display:"flex", alignItems:"center", justifyContent:"center", maxWidth:"100%"}}>
           {/* Componente de área de juego del puzzle*/}
           {areaPuzzle}
           {/* Componente de área de piezas extra*/}

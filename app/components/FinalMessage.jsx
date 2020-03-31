@@ -29,14 +29,14 @@ export default class FinalMessage extends React.Component
 
     let endImage;
     if(this.props.puzzleCompleto){
-      GLOBAL_CONFIG.endImageSuccess === "" ? endImage = "" : endImage =
+      (GLOBAL_CONFIG.endImageSuccess === "" || GLOBAL_CONFIG.endImageSuccess === undefined )?endImage = "" : endImage =
           (
             <img src={GLOBAL_CONFIG.endImageSuccess} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
 
           );
     }
     else {
-      GLOBAL_CONFIG.endImageFail === "" ? endImage = "" : endImage =
+      ( GLOBAL_CONFIG.endImageFail === ""|| GLOBAL_CONFIG.endImageFail === undefined) ? endImage = "" : endImage =
           (
             <img src={GLOBAL_CONFIG.endImageFail} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
 

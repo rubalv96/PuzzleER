@@ -4,17 +4,20 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactCardFlip from 'react-card-flip';
 import {OverlayTrigger, Tooltip} from "react-bootstrap";
 
+
 export default class Piece extends React.Component {
-  constructor(){
+
+    constructor(){
     super();
     this.state = {
       isFlipped:false,
       backToFront:"1.5",
       frontToBack:"1.5",
+        anchoVentana:window.innerWidth,
     };
     this.handleClick = this.handleClick.bind(this);
+    this.updateDimensions = this.updateDimensions.bind(this);
   }
-
   handleClick(e){
     e.preventDefault();
     if(this.props.conf.reverseMode === true){
@@ -36,11 +39,21 @@ export default class Piece extends React.Component {
   render(){
 
     // Dimensiones del puzzle
-    let altoImg;
-    let anchoImg;
 
-    this.props.conf.heightFrame === "" ? altoImg = 430 : altoImg = parseInt(this.props.conf.heightFrame, 10);
-    this.props.conf.widthFrame === "" ? anchoImg = 700 : anchoImg = parseInt(this.props.conf.widthFrame, 10);
+      let altoImg, anchoImg;
+      const relacion = 430/700; //Relacion entre ancho y alto de la imagen
+
+      if(this.props.conf.heightFrame === undefined || this.props.conf.widthFrame === undefined
+        || this.props.conf.heightFrame === "" || this.props.conf.widthFrame === ""){
+          anchoImg = 0.9 * (this.state.anchoVentana /2);
+          altoImg = anchoImg * relacion;
+      }
+      else {
+          altoImg = this.props.conf.heightFrame;
+          anchoImg = this.props.conf.widthFrame;
+      }
+
+
 
     // Tamaño del contenedor
     let anchoContenedor = anchoImg / (this.props.conf.M);
@@ -189,4 +202,14 @@ export default class Piece extends React.Component {
     return <Tooltip style={{display:"none"}}>{imagen} </Tooltip>;
 
   }
+    updateDimensions() {
+        this.setState({ anchoVentana: window.innerWidth});
+    };
+    componentDidMount() {
+        window.addEventListener('resize', this.updateDimensions);
+    }
+    componentWillUnmount() {
+        window.removeEventListener('resize', this.updateDimensions);
+    }
+
 }

@@ -52,6 +52,8 @@ export class App extends React.Component {
       zoomImgPath:"",
       widthPiece:0,
       heightPiece:0,
+      playing_music: false,
+
 
     };
   }
@@ -85,7 +87,7 @@ export class App extends React.Component {
               url={GLOBAL_CONFIG.backgroundMusic}
               volume = {GLOBAL_CONFIG.volume}
               loop
-              playing
+              playing = {this.state.playing_music}
             />
 
           </>
@@ -102,8 +104,10 @@ export class App extends React.Component {
     if(GLOBAL_CONFIG.initialMessage !== ""){
       appInitialMsg = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
+    let opacity;
+    GLOBAL_CONFIG.opacityBackground ==="" ? opacity="0" : opacity= GLOBAL_CONFIG.opacityBackground;
     let styleBackground = {
-      "background":"linear-gradient(rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + "), rgba(255,255,255," + GLOBAL_CONFIG.opacityBackground + ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
+      "background":"linear-gradient(rgba(255,255,255," + opacity + "), rgba(255,255,255," + opacity + ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
       "backgroundPosition":"center center",
       "backgroundRepeat":"no-repeat",
       "backgroundSize":"cover",
@@ -200,6 +204,8 @@ export class App extends React.Component {
 
   ocultarInstrucciones(){
     this.setState({mostrarMsgInicial:false});
+    this.setState({playing_music:true});
+
   }
 
   onStartTime(){

@@ -3,6 +3,7 @@ import '../assets/scss/main.scss';
 import {OverlayTrigger} from "react-bootstrap";
 import {Tooltip} from "react-bootstrap";
 import Timer from "./Timer";
+import  {Navbar, Nav} from "react-bootstrap";
 
 export default class NavBar extends React.Component {
   constructor(props){
@@ -11,65 +12,150 @@ export default class NavBar extends React.Component {
   }
   render(){
 
+      //Timer countdown
     let timer = "";
-    if(this.props.conf.time !== ""){
+    if(this.props.conf.time >0){
       timer = (
-        <Timer showMinutes time={this.props.conf.time} onFinishTime={this.onFinish} onStartTime={this.props.onStartTime}/>
+          <Nav className="mr-auto">
+
+          <Nav.Item style={{ margin:"auto",marginRight:"30%", minWidth:"100%", textAlign:"right"}}>
+              <Timer showMinutes  style={{width: "100%"}}   time={this.props.conf.time} onFinishTime={this.onFinish} onStartTime={this.props.onStartTime}/>
+
+          </Nav.Item>
+          </Nav>
+
       );
     }
 
+    //Flip icon
     let darVuelta = "";
     if(this.props.conf.reverseMode){
       darVuelta =
                 (
-                  <div>
-                    <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto", paddingRight:"20px"}}
-                      onClick={()=>{this.props.toggle();}}
-                    >
-                            Girar las piezas
-                    </a>
+                    <Nav.Item style={{ marginRight:"30%"}}>
+                        <img width="50"
+                             height="50"
+                             className="d-inline-block align-top"
+                             src="./assets/icons/flip.svg"
+                             title="Dar vuelta"
+                             style={{cursor:"pointer"}}
+                             onClick={()=>{this.props.toggle();}}
 
-                  </div>
+                        />
+                    </Nav.Item>
                 );
-      let subrayado = "";
 
-      if(this.props.lupa){
-        subrayado = "underline";
-      }
 
     }
+
+    //Zoom icon
     let zoom;
     if(this.props.conf.zoomMode){
-      let textoZoom;
-      this.props.lupaValue ? textoZoom = "Desactivar zoom" : textoZoom = "Activar zoom";
+
       zoom = (
-        <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto", paddingRight:"20px"}} onClick={()=>{this.props.lupa();}}>
-          <span style={{textDecoration:this.props.lupaValue ? "underline" : "none"}}>{textoZoom}</span>
-        </a>
+          <Nav.Item style={{ marginRight:"30%"}}>
+              <img width="50"
+                   height="50"
+                   className="d-inline-block align-top"
+                   src="./assets/icons/zoom-in.svg"
+                   title={this.props.lupaValue?"Desactivar zoom":"Activar zoom"}
+                   style={{cursor:"pointer", filter: this.props.lupaValue ? "":"grayscale(100%)"}}
+                   onClick={()=>{this.props.lupa();}}
+
+              />
+          </Nav.Item>
+
+
       );
     }
 
     return (
-      <nav className="navbar navbar-light navbar-expand-xl " style={{backgroundColor:"transparent !important", height:"75px !important"}}>
-        <div className="navbar-brand title">
-          <img src="../assets/images/intentos.png" width="40px" height="40px"/>
-        </div>
-        <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", paddingLeft:"30px", paddingRight:"30px"}} onClick={()=>{
-          this.props.mostrarInstrucciones();}}>
-                   ¿Cómo jugar?
-        </a>
+        <>
+        <Navbar bg="transparent" expand="lg" style={{width:"100%"}}>
+            <Navbar.Brand  style={{marginRight: "5%"}}>
+                <img width="50"
+                     height="50"
+                     className="d-inline-block align-top"
+                     src="./assets/icons/logo.svg"
+                     title="PuzzleER"/>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="basic-navbar-nav" />
+            <Navbar.Collapse id="basic-navbar-nav">
+                <Nav className="mr-auto">
+                    <Nav.Item style={{marginRight:"30%"}}>
+                        <img width="50"
+                             height="50"
+                             className="d-inline-block align-top"
+                             src="./assets/icons/instructions.svg"
+                             title="¿Cómo jugar?"
+                             style={{cursor:"pointer"}}
+                             onClick={()=>{this.props.mostrarInstrucciones();}}
 
-        {zoom}
+                        />
+                    </Nav.Item>
+                    {darVuelta}
+                    {zoom}
+                    <Nav.Item style={{ marginRight:"30%"}}>
+                        <img width="50"
+                             height="50"
+                             className="d-inline-block align-top"
+                             src="./assets/icons/solution.svg"
+                             title="Comprobar solución"
+                             style={{cursor:"pointer"}}
+                             onClick={()=>{this.props.comprobarCompletado();}}
 
-        {darVuelta}
+                        />
+                    </Nav.Item>
 
-        <a className="navbar-brand title" style={{color:"dark", cursor:"pointer", padding:"auto"}} onClick={()=>{this.props.comprobarCompletado();}}>
-                    Comprobar solución
-        </a>
+                </Nav>
 
-        {timer}
+            </Navbar.Collapse>
 
-      </nav>
+            <div>
+                {timer}
+
+            </div>
+        </Navbar>
+
+      </>
+
+        // <nav className="navbar navbar-expand-lg navbar-light" style={{backgroundColor:"transparent !important", height:"75px !important", margin:"auto"}}>
+        //     <img width="7%" height="auto" src="./assets/icons/logo.svg" className="navbar-brand" title="PuzzleER"/>
+        //     <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        //             aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        //         <span className="navbar-toggler-icon"></span>
+        //     </button>
+        //
+        //     <div className="collapse navbar-collapse" id="navbarNav">
+        //         <ul className="navbar-nav" style={{width:"100%"}}>
+        //             <li className="nav-item" style={{marginRight:"5%", marginLeft:"7%"}}>
+        //                 <img style={{maxWidth:"70px", maxHeight:"70px", cursor:"pointer"}}
+        //                      src="./assets/icons/instructions.svg"
+        //                      className="nav-link"
+        //                      title="¿Cómo jugar?"
+        //                      onClick={()=>{this.props.mostrarInstrucciones();}}
+        //                 />
+        //             </li>
+        //
+        //
+        //             {zoom}
+        //
+        //             {darVuelta}
+        //
+        //             <li className="nav-item" style={{ marginRight:"5%"}}>
+        //                 <img style={{maxWidth:"70px", maxHeight:"70px", cursor:"pointer"}}
+        //                      src="./assets/icons/solution.svg"
+        //                      className="nav-link"
+        //                      title= "Comprobar solución"
+        //                      onClick={()=>{this.props.comprobarCompletado();}}
+        //                 />
+        //             </li>
+        //
+        //             {timer}
+        //
+        //         </ul>
+        //     </div>
+        // </nav>
     );
   }
 
@@ -77,11 +163,5 @@ export default class NavBar extends React.Component {
     this.props.onFinishTime("gameover");
   }
 
-  comprobacionTooltip(){
-    return (<Tooltip>Intentos de comprobación</Tooltip>);
-  }
 
-  pistasTooltip(){
-    return (<Tooltip>Intentos de pistas</Tooltip>);
-  }
 }

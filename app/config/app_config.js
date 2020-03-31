@@ -4,25 +4,25 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   title:"El misterio de Cleopatra",
   // Imagen de fondo
   imageBackground:"./assets/images/puzzle/egipto_fondo.jpg", // imagen de fondo
-  opacityBackground:".3", // opacidad de la imagen
+  opacityBackground:"0.3", // opacidad de la imagen (por defecto sin opacidad)
 
-  // Sonidos
+  // Sonidos (por defecto, no hay música)
   backgroundMusic:"./assets/sounds/backgroundMusic.mp3", // https://www.fesliyanstudios.com/royalty-free-music/downloads-c/mysterious-music/7
   successMusic:"./assets/sounds/successMusic.mp3", // http://soundbible.com/1003-Ta-Da.html
   failureMusic:"./assets/sounds/failureMusic.mp3", // http://soundbible.com/1830-Sad-Trombone.html
-  volume:1, // Volumen de 0 a 1
+  volume:1, // Volumen de 0 a 1 (defecto 1)
 
   // Dimensiones del puzzle
-  M:4, // numero de columnas del puzzle
-  N:5, // numero de filas del puzzle
-  Mextra:2, // numero de columnas del area de piezas sobrantes
-  Nextra:3, // número de filas del área de piezas sobrantes
+  M:6, // numero de columnas del puzzle (requerido)
+  N:2, // numero de filas del puzzle (requerido)
+  // Mextra:4, // numero de columnas del area de piezas sobrantes (defecto 0)
+  // Nextra:2, // número de filas del área de piezas sobrantes (defecto 0)
 
-  // Reverse mode
+  // Reverse mode (defecto -> false)
   reverseMode:true,
 
   // Timer
-  time:"210", // tiempo en segundos para resolver el puzzle
+  time:"220", // tiempo en segundos para resolver el puzzle
 
   // Cuadro de puzzle
   heightFrame:"", // tamaño altura cuadro de puzzles(tiene valor por defecto si se deja vacío)
@@ -30,10 +30,10 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
 
   // Zoom
   zoomMode:true, // activar modo zoom
-  zoomFactor:25, // factor de ampliación
+  zoomFactor:2, // factor de ampliación
 
   // Tiempo mínimo exigido para leer instrucciones (en segundos)
-  timeToReadInstructions:2,
+  timeToReadInstructions:1,
 
   // Mensaje inicial
   initialMessage:"El Antiguo Egipto está repleto de misterios. Las actividades cotidianas, las creencias, las leyendas y las vivencias son reflejados en el arte egipcio y esconde grandes incógnitas. Nos hemos adentrado en la residencia de Cleopatra y hemos encontrado un conjunto de piezas que pueden esconder un gran secreto. Los soldados han ido a buscar agua al Nilo para el baño diario de la faraona y tenemos 3 minutos y medio antes de que lleguen a los aposentos de Cleopatra. ¿Nos ayudas a resolverlo?", // mensaje inicial de bienvenida
