@@ -15,14 +15,14 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // Dimensiones del puzzle
   M:6, // numero de columnas del puzzle (requerido)
   N:2, // numero de filas del puzzle (requerido)
-  // Mextra:4, // numero de columnas del area de piezas sobrantes (defecto 0)
-  // Nextra:2, // número de filas del área de piezas sobrantes (defecto 0)
+  Mextra:4, // numero de columnas del area de piezas sobrantes (defecto 0)
+  Nextra:2, // número de filas del área de piezas sobrantes (defecto 0)
 
   // Reverse mode (defecto -> false)
   reverseMode:true,
 
   // Timer
-  time:"220", // tiempo en segundos para resolver el puzzle
+  time:"210", // tiempo en segundos para resolver el puzzle
 
   // Cuadro de puzzle
   heightFrame:"", // tamaño altura cuadro de puzzles(tiene valor por defecto si se deja vacío)

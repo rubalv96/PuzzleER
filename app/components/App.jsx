@@ -52,8 +52,7 @@ export class App extends React.Component {
       zoomImgPath:"",
       widthPiece:0,
       heightPiece:0,
-      playing_music: false,
-
+      playing_music:false,
 
     };
   }
@@ -105,7 +104,7 @@ export class App extends React.Component {
       appInitialMsg = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
     let opacity;
-    GLOBAL_CONFIG.opacityBackground ==="" ? opacity="0" : opacity= GLOBAL_CONFIG.opacityBackground;
+    GLOBAL_CONFIG.opacityBackground === "" ? opacity = "0" : opacity = GLOBAL_CONFIG.opacityBackground;
     let styleBackground = {
       "background":"linear-gradient(rgba(255,255,255," + opacity + "), rgba(255,255,255," + opacity + ")),url(" + GLOBAL_CONFIG.imageBackground + ")",
       "backgroundPosition":"center center",

@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 let GLOBAL_CONFIG = require('../config/config.js');
-import {Modal, Button} from 'react-bootstrap';
+import {Modal, Button, CardGroup, Card, Tab, Tabs, Sonnet} from 'react-bootstrap';
 import Timer from "./Timer";
 import './../assets/scss/main.scss';
 
@@ -11,69 +11,174 @@ export default function InitialMessage(props){
 
   let timeToReadInstructions;
   (GLOBAL_CONFIG.timeToReadInstructions === undefined || GLOBAL_CONFIG.timeToReadInstructions < 1) ?
-      timeToReadInstructions ="" : timeToReadInstructions= GLOBAL_CONFIG.timeToReadInstructions;
+    timeToReadInstructions = "" : timeToReadInstructions = GLOBAL_CONFIG.timeToReadInstructions;
 
   let timer;
-  (props.temporizador && timeToReadInstructions !== "")? timer = (
+  (props.temporizador && timeToReadInstructions !== "") ? timer = (
     <div style={{display:!enable ? 'block' : 'none'}}>
       <Timer time={timeToReadInstructions} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
     </div>
   ) : timer = "";
 
-
-
   let initialImage;
-  (GLOBAL_CONFIG.initialImage === "" || GLOBAL_CONFIG.initialImage === undefined)? initialImage = "" : initialImage =
+  (GLOBAL_CONFIG.initialImage === "" || GLOBAL_CONFIG.initialImage === undefined) ? initialImage = "" : initialImage =
       (
         <img src={GLOBAL_CONFIG.initialImage} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje inicial."}/>
 
       );
 
-  let piezasExtra = (GLOBAL_CONFIG.Nextra > 0 && GLOBAL_CONFIG.Mextra > 0);
-  let textoExtra;
-  piezasExtra ? textoExtra = (
-    <li>Hay más piezas que las correspondientes a la solución del puzzle, las piezas sobrantes se deberán colocar en el espacio reservado para ello situado en la parte derecha del área de puzzle.</li>
-  ) : textoExtra = "";
+ 
 
-  let textoVuelta;
-  let piezasVuelta;
-  piezasVuelta = (GLOBAL_CONFIG.reverseMode);
-  piezasVuelta ? textoVuelta = (
-    <>
-      <li>Las piezas contienen doble cara y se puede ver el reverso haciendo doble click sobre ella.</li>
-      <li>Se puede dar la vuelta a todas las piezas simultáneamente pulsando en la opción <i>Girar todas las piezas</i>.</li>
-    </>
-  ) : textoVuelta = "";
-
-  let textoZoom;
-  GLOBAL_CONFIG.zoomMode ? textoZoom = (
-    <>
-      <li>Mediante la opción <i>Hacer zoom</i> es posible ampliar las imágenes de las piezas. Si se desea volver al modo normal de juego es necesario hacer click sobre <i>Deshacer zoom</i></li>
-    </>
-  ) : textoZoom = "";
-
-  let titulo="";
-  if (GLOBAL_CONFIG.title !== undefined){
-    titulo=GLOBAL_CONFIG.title;
+  let titulo = "";
+  if(GLOBAL_CONFIG.title !== undefined){
+    titulo = GLOBAL_CONFIG.title;
   }
+
+  let goalCard = "";
+  goalCard = (
+    <Card>
+      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/goal.svg"/>
+      <Card.Body>
+        <Card.Title><b>Objetivo</b></Card.Title>
+        <Card.Text >
+            Ordenar las piezas para dar con la solución.
+        </Card.Text>
+      </Card.Body>
+
+    </Card>
+  );
+
+  let flipPieceCard = "";
+
+  GLOBAL_CONFIG.reverseMode ? flipPieceCard = (
+    <Card>
+      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/flip_piece.svg"/>
+      <Card.Body>
+        <Card.Title><b>Darle la vuelta</b></Card.Title>
+        <Card.Text>
+            Para darle la vuelta a una pieza se debe hacer doble click sobre ella.
+        </Card.Text>
+      </Card.Body>
+
+    </Card>
+  ) : flipPieceCard = "";
+
+  let interchangeCard = "";
+  interchangeCard = (
+    <Card>
+      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/interchange.svg"/>
+      <Card.Body>
+        <Card.Title><b>Intercambiar piezas</b></Card.Title>
+        <Card.Text>
+       Para intercambiar dos piezas es necesario hacer click sobre la pieza que se desee mover y otro click en la posición de destino.
+        </Card.Text>
+      </Card.Body>
+
+    </Card>
+  );
+
+  let extraCard = "";
+  (GLOBAL_CONFIG.Nextra > 0) ? extraCard = (
+    <Card>
+      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/extra.svg"/>
+      <Card.Body>
+        <Card.Title><b>Piezas señuelo</b></Card.Title>
+        <Card.Text>
+       En el puzzle habrá más piezas que las necesarias para la solución. Deben colocarse todas ellas en el área reservada para ello en la parte derecha.
+        </Card.Text>
+      </Card.Body>
+
+    </Card>
+  ) : extraCard = "";
+
+  let flipCard = "";
+  GLOBAL_CONFIG.reverseMode ? flipCard = (
+    <Card>
+      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/flip.svg"/>
+      <Card.Body>
+        <Card.Title><b>Girar piezas</b></Card.Title>
+        <Card.Text>
+            Dar la vuelta a todas las piezas simultáneamente.
+        </Card.Text>
+      </Card.Body>
+
+    </Card>
+  ) : flipCard = "";
+
+  let zoomCard = "";
+  GLOBAL_CONFIG.zoomMode ? zoomCard = (
+    <Card>
+      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/zoom-in.svg"/>
+      <Card.Body>
+        <Card.Title><b>Zoom</b></Card.Title>
+        <Card.Text>
+            Activar y desactivar la opción de Zoom sobre las piezas.
+        </Card.Text>
+      </Card.Body>
+
+    </Card>
+  ) : zoomCard = "";
+
+  let iconCards = "";
+  iconCards = (
+    <CardGroup>
+      <Card>
+        <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/instructions.svg"/>
+        <Card.Body>
+          <Card.Title><b>¿Cómo jugar?</b></Card.Title>
+          <Card.Text>
+       Volver a leer las instrucciones de juego
+          </Card.Text>
+        </Card.Body>
+
+      </Card>
+      {flipCard}
+      {zoomCard}
+
+      <Card>
+        <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/solution.svg"/>
+        <Card.Body>
+          <Card.Title><b>Comprobar solución</b></Card.Title>
+          <Card.Text>
+        Comprobar la solución actual del puzzle.
+          </Card.Text>
+        </Card.Body>
+
+      </Card>
+    </CardGroup>
+  );
   return (
     <>
       <Modal backdrop="static" keyboard={false} show={show} onHide={handleClose} animation={false} size="lg">
         <Modal.Header>
           <Modal.Title style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{titulo}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          <p style={{fontSize:"25px", fontFamily:"'Megrim', cursive"}}><b>Instrucciones</b></p>
-          <ul style={{fontSize:"15px", fontFamily:"'Megrim', cursive"}}><b>
-            <li>El objetivo del puzzle es ordenar las piezas hasta conseguir ver la imagen correcta.</li>
-            <li>Para intercambiar las piezas se deberá hacer click sobre una de ellas y volver a hacer click sobre la nueva posición.</li>
-            {textoExtra}
-            {textoVuelta}
-            {textoZoom}
-            <li>Cuando se haya completado el puzzle se deberá comprobar que la solución es correcta haciendo click en el botón <i>Comprobar solución</i>.</li>
-          </b></ul>
-          <p style={{fontSize:"20px", fontFamily:"'Megrim', cursive"}}><b>{GLOBAL_CONFIG.initialMessage}</b></p>
-          {initialImage}
+        <Modal.Body className="tab">
+          <Tabs defaultActiveKey="instructions" id="uncontrolled-tab-example" >
+
+            <Tab eventKey="instructions" title="Cómo jugar" >
+              <p style={{fontSize:"25px", fontFamily:"'Delius', cursive", margin:"15px"}}><b>Instrucciones</b></p>
+              <CardGroup>
+                {goalCard}
+                {interchangeCard}
+                {flipPieceCard}
+                {extraCard}
+
+              </CardGroup>
+
+              
+              <p style={{fontSize:"25px", fontFamily:"'Delius', cursive", margin:"15px"}}><b>Iconos</b></p>
+
+              {iconCards}
+
+            </Tab>
+            <Tab eventKey="story" title="Historia">
+              <p style={{fontSize:"20px", fontFamily:"'Delius', cursive", marginTop:"15px"}}><b>{GLOBAL_CONFIG.initialMessage}</b></p>
+              {initialImage}
+            </Tab>
+
+          </Tabs>
+
         </Modal.Body>
         <Modal.Footer>
           <Button className={"btn btn-dark"}style={{width:"50%", margin:"auto"}} variant="primary" disabled={!enable && props.temporizador} onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime();}}>

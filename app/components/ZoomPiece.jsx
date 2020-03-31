@@ -8,7 +8,7 @@ export default function ZoomPiece(props){
 
   const [show, setShow] = useState(true);
   let zoomWidth, zoomHeight, zoomFactor;
-  GLOBAL_CONFIG.zoomFactor < 1 ? zoomFactor=1:zoomFactor=GLOBAL_CONFIG.zoomFactor;
+  GLOBAL_CONFIG.zoomFactor < 1 ? zoomFactor = 1 : zoomFactor = GLOBAL_CONFIG.zoomFactor;
   zoomWidth = Math.min(props.widthPiece * zoomFactor, window.innerWidth * 0.8);
   zoomHeight = Math.min(props.heightPiece * zoomFactor, window.innerHeight * 0.6);
 
