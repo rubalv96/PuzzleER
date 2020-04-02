@@ -70,7 +70,7 @@ export default class NavBar extends React.Component {
     return (
       <>
         <Navbar bg="transparent" expand="lg" style={{width:"100%"}}>
-          
+
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
             <Nav className="mr-auto">
@@ -98,10 +98,10 @@ export default class NavBar extends React.Component {
 
                 />
               </Nav.Item>
-              
+
 
             </Nav>
-            
+
           </Navbar.Collapse>
           <span style={{fontFamily:"Megrim", textAlign:"center",width:"50%", fontSize:"3.5vw"}}>
             {this.props.conf.title}
@@ -111,7 +111,7 @@ export default class NavBar extends React.Component {
             {timer}
           </span>
 
-      
+
         </Navbar>
 
       </>

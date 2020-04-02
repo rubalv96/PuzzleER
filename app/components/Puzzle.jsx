@@ -121,28 +121,28 @@ export default class Puzzle extends React.Component {
     console.log("Piezas Area Extra:" + JSON.stringify(piezasAreaExtra));
 
 
-   
 
-    
+
+
     let style={display:'flex',
                 flexDirection:"column",
-                justifyItems:"flex-start", 
+                justifyItems:"flex-start",
                 justifyContent: "flex-start",
                 flexWrap: "wrap",
                 width: "35vw",
-                height: "38vw",
+                height: "28vw",
                 // height: "46vh",
                 backgroundColor:"",
                 marginBottom:"300px",
                 marginRight: "auto",
-                marginLeft: "auto", 
+                marginLeft: "auto",
               };
     fakeArea=(
       <div id="contenedorExtra"  style={style}>
         {piezasAreaExtra.map((pieza,ind)=>{
 
             return(
-              
+
               <>
               <div style={{margin:"auto"}} className="extraPiece">
               <Piece key={ind}
@@ -159,7 +159,7 @@ export default class Puzzle extends React.Component {
                 extraArea
               />
               </div>
-              
+
               </>
             );
         })}

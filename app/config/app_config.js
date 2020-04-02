@@ -14,9 +14,9 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
 
   // Dimensiones del puzzle
   M:6, // numero de columnas del puzzle (requerido)
-  N:2, // numero de filas del puzzle (requerido)
+  N:5, // numero de filas del puzzle (requerido)
   Mextra:1, // numero de columnas del area de piezas sobrantes (defecto 0)
-  Nextra:6, // número de filas del área de piezas sobrantes (defecto 0)
+  Nextra:30, // número de filas del área de piezas sobrantes (defecto 0)
 
   // Reverse mode (defecto -> false)
   reverseMode:true,
@@ -30,7 +30,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
 
   // Zoom
   zoomMode:true, // activar modo zoom
-  zoomFactor:2, // factor de ampliación
+  zoomFactor:8, // factor de ampliación
 
   // Tiempo mínimo exigido para leer instrucciones (en segundos)
   timeToReadInstructions:1,

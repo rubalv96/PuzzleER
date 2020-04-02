@@ -44,7 +44,7 @@ export default class Piece extends React.Component {
 
     if(this.props.conf.heightFrame === undefined || this.props.conf.widthFrame === undefined
         || this.props.conf.heightFrame === "" || this.props.conf.widthFrame === ""){
-      this.props.extraArea? anchoImg= 0.4*(this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
+      this.props.extraArea? anchoImg= 0.35*(this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
       altoImg = anchoImg * relacion;
     }
     else {
@@ -94,7 +94,7 @@ export default class Piece extends React.Component {
         src={this.props.imagen}
         onClick={()=>{
           if(this.props.lupa){
-            this.props.zoomImage(this.props.imagen, anchoContenedor, altoContenedor);
+            this.props.zoomImage(this.props.imagen, anchoContenedor, altoContenedor, this.props.extraArea);
           }
           else {
             this.props.seleccionarPieza(this.props.row, this.props.column);

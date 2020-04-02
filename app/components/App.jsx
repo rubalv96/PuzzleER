@@ -41,6 +41,7 @@ export class App extends React.Component {
     this.zoomImage = this.zoomImage.bind(this);
     this.zoomOff = this.zoomOff.bind(this);
 
+
     this.state = {
       mostrarMsgFinal:false,
       mostrarMsgInicial:false,
@@ -53,7 +54,7 @@ export class App extends React.Component {
       widthPiece:0,
       heightPiece:0,
       playing_music:false,
-
+      isExtraPiece: false,
     };
   }
 
@@ -142,7 +143,7 @@ export class App extends React.Component {
             zoomOff ={this.zoomOff}
             widthPiece={this.state.widthPiece}
             heightPiece={this.state.heightPiece}
-
+           isExtraPiece={this.state.isExtraPiece}
           />
 
         </div>
@@ -214,8 +215,8 @@ export class App extends React.Component {
     this.setState({lupa:!this.state.lupa});
   }
 
-  zoomImage(img, width, height){
-    this.setState({showZoom:true, zoomImgPath:img, widthPiece:width, heightPiece:height});
+  zoomImage(img, width, height, isExtraPiece){
+    this.setState({showZoom:true, zoomImgPath:img, widthPiece:width, heightPiece:height, isExtraPiece: isExtraPiece});
   }
 
   zoomOff(){

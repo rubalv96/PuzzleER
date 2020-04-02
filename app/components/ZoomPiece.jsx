@@ -7,10 +7,11 @@ import './../assets/scss/main.scss';
 export default function ZoomPiece(props){
 
   const [show, setShow] = useState(true);
-  let zoomWidth, zoomHeight, zoomFactor;
+  let zoomWidthStandard, zoomWidth, zoomHeight, zoomFactor;
   GLOBAL_CONFIG.zoomFactor < 1 ? zoomFactor = 1 : zoomFactor = GLOBAL_CONFIG.zoomFactor;
-  zoomWidth = Math.min(props.widthPiece * zoomFactor, window.innerWidth * 0.8);
-  zoomHeight = Math.min(props.heightPiece * zoomFactor, window.innerHeight * 0.6);
+  zoomWidthStandard = Math.min(props.widthPiece * zoomFactor, window.innerWidth * 0.8)
+  props.isExtraPiece? zoomWidth = zoomWidthStandard * 1.65 : zoomWidth=zoomWidthStandard;
+  zoomHeight = Math.min(props.heightPiece * zoomFactor *1.65, window.innerHeight * 0.6);
 
   return (
     <>
