@@ -34,10 +34,12 @@ export default function InitialMessage(props){
     titulo = GLOBAL_CONFIG.title;
   }
 
+  let styleCards={maxWidth:"70px", margin:"auto", marginTop:"10px"};
+
   let goalCard = "";
   goalCard = (
     <Card>
-      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/goal.svg"/>
+      <Card.Img style={styleCards} src="./assets/icons/goal.svg"/>
       <Card.Body>
         <Card.Title><b>Objetivo</b></Card.Title>
         <Card.Text >
@@ -52,7 +54,7 @@ export default function InitialMessage(props){
 
   GLOBAL_CONFIG.reverseMode ? flipPieceCard = (
     <Card>
-      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/flip_piece.svg"/>
+      <Card.Img style={styleCards} src="./assets/icons/flip_piece.svg"/>
       <Card.Body>
         <Card.Title><b>Darle la vuelta</b></Card.Title>
         <Card.Text>
@@ -66,7 +68,7 @@ export default function InitialMessage(props){
   let interchangeCard = "";
   interchangeCard = (
     <Card>
-      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/interchange.svg"/>
+      <Card.Img style={styleCards} src="./assets/icons/interchange.svg"/>
       <Card.Body>
         <Card.Title><b>Intercambiar piezas</b></Card.Title>
         <Card.Text>
@@ -80,7 +82,7 @@ export default function InitialMessage(props){
   let extraCard = "";
   (GLOBAL_CONFIG.Nextra > 0) ? extraCard = (
     <Card>
-      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/extra.svg"/>
+      <Card.Img style={styleCards} src="./assets/icons/extra.svg"/>
       <Card.Body>
         <Card.Title><b>Piezas señuelo</b></Card.Title>
         <Card.Text>
@@ -94,7 +96,7 @@ export default function InitialMessage(props){
   let flipCard = "";
   GLOBAL_CONFIG.reverseMode ? flipCard = (
     <Card>
-      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/flip.svg"/>
+      <Card.Img style={styleCards} src="./assets/icons/flip.svg"/>
       <Card.Body>
         <Card.Title><b>Girar piezas</b></Card.Title>
         <Card.Text>
@@ -108,7 +110,7 @@ export default function InitialMessage(props){
   let zoomCard = "";
   GLOBAL_CONFIG.zoomMode ? zoomCard = (
     <Card>
-      <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/zoom-in.svg"/>
+      <Card.Img style={styleCards} src="./assets/icons/zoom-in.svg"/>
       <Card.Body>
         <Card.Title><b>Zoom</b></Card.Title>
         <Card.Text>
@@ -123,7 +125,7 @@ export default function InitialMessage(props){
   iconCards = (
     <CardGroup>
       <Card>
-        <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/instructions.svg"/>
+        <Card.Img style={styleCards} src="./assets/icons/instructions.svg"/>
         <Card.Body>
           <Card.Title><b>¿Cómo jugar?</b></Card.Title>
           <Card.Text>
@@ -136,7 +138,7 @@ export default function InitialMessage(props){
       {zoomCard}
 
       <Card>
-        <Card.Img style={{maxWidth:"150px", margin:"auto"}} src="./assets/icons/solution.svg"/>
+        <Card.Img style={styleCards} src="./assets/icons/solution.svg"/>
         <Card.Body>
           <Card.Title><b>Comprobar solución</b></Card.Title>
           <Card.Text>

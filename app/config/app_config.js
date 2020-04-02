@@ -4,7 +4,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   title:"El misterio de Cleopatra",
   // Imagen de fondo
   imageBackground:"./assets/images/puzzle/egipto_fondo.jpg", // imagen de fondo
-  opacityBackground:"0.3", // opacidad de la imagen (por defecto sin opacidad)
+  opacityBackground:"0.5", // opacidad de la imagen (por defecto sin opacidad)
 
   // Sonidos (por defecto, no hay música)
   backgroundMusic:"./assets/sounds/backgroundMusic.mp3", // https://www.fesliyanstudios.com/royalty-free-music/downloads-c/mysterious-music/7
@@ -15,8 +15,8 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // Dimensiones del puzzle
   M:6, // numero de columnas del puzzle (requerido)
   N:2, // numero de filas del puzzle (requerido)
-  Mextra:4, // numero de columnas del area de piezas sobrantes (defecto 0)
-  Nextra:2, // número de filas del área de piezas sobrantes (defecto 0)
+  Mextra:1, // numero de columnas del area de piezas sobrantes (defecto 0)
+  Nextra:6, // número de filas del área de piezas sobrantes (defecto 0)
 
   // Reverse mode (defecto -> false)
   reverseMode:true,

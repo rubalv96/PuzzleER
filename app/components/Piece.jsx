@@ -44,7 +44,7 @@ export default class Piece extends React.Component {
 
     if(this.props.conf.heightFrame === undefined || this.props.conf.widthFrame === undefined
         || this.props.conf.heightFrame === "" || this.props.conf.widthFrame === ""){
-      anchoImg = 0.9 * (this.state.anchoVentana / 2);
+      this.props.extraArea? anchoImg= 0.4*(this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
       altoImg = anchoImg * relacion;
     }
     else {

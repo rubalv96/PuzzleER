@@ -131,7 +131,7 @@ export class App extends React.Component {
             lupaValue={this.state.lupa}
           />
           <Instructions/>
-          <h1 className="title">{GLOBAL_CONFIG.title}</h1>
+          {/* <h1 className="title">{GLOBAL_CONFIG.title}</h1> */}
           {appInitialMsg}
           {appEndMsg}
           <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>

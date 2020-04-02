@@ -108,6 +108,63 @@ export default class Puzzle extends React.Component {
         </>
       );
     }
+
+    let fakeArea="";
+    let piezasAreaExtra=[];
+    this.props.piezas.forEach(pieza => {
+      if(this.props.piezas.indexOf(pieza)> (GLOBAL_CONFIG.N*GLOBAL_CONFIG.M -1)){
+        piezasAreaExtra.push(pieza);
+      }
+    });
+
+
+    console.log("Piezas Area Extra:" + JSON.stringify(piezasAreaExtra));
+
+
+   
+
+    
+    let style={display:'flex',
+                flexDirection:"column",
+                justifyItems:"flex-start", 
+                justifyContent: "flex-start",
+                flexWrap: "wrap",
+                width: "35vw",
+                height: "38vw",
+                // height: "46vh",
+                backgroundColor:"",
+                marginBottom:"300px",
+                marginRight: "auto",
+                marginLeft: "auto", 
+              };
+    fakeArea=(
+      <div id="contenedorExtra"  style={style}>
+        {piezasAreaExtra.map((pieza,ind)=>{
+
+            return(
+              
+              <>
+              <div style={{margin:"auto"}} className="extraPiece">
+              <Piece key={ind}
+                row={pieza.row}
+                column={pieza.column}
+                conf={this.props.conf}
+                seleccionarPieza={this.props.seleccionarPieza}
+                piezasSeleccionadas={this.props.piezasSeleccionadas}
+                darVuelta = {this.props.darVuelta}
+                imagen = {pieza.faceImgPath}
+                imagenRev = {pieza.reverseImgPath}
+                zoomImage={this.props.zoomImage}
+                lupa={this.props.lupa}
+                extraArea
+              />
+              </div>
+              
+              </>
+            );
+        })}
+      </div>
+    )
     let areaPuzzlePrint;
     areaPuzzlePrint =
                     (
@@ -256,13 +313,14 @@ export default class Puzzle extends React.Component {
     return (
       <>
 
-        <div className={"puzzleArea"} style={{display:"flex", alignItems:"center", justifyContent:"center", maxWidth:"100%"}}>
+        <div className={"puzzleArea"} style={{display:"flex", alignItems:"center", justifyContent:"center", maxWidth:"100%", marginTop:"2vw"}}>
           {/* Componente de área de juego del puzzle*/}
           {areaPuzzle}
           {/* Componente de área de piezas extra*/}
-          {areaPiezasExtra}
-        </div>
+          {/* {areaPiezasExtra} */}
+          {fakeArea}
 
+        </div>
         {/* Componentes visibles solo en versión de impresión en papel*/}
         {areaPuzzlePrint}
         {areaPuzzleExtraPrint}
