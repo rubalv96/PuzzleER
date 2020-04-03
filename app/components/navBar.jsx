@@ -99,18 +99,16 @@ export default class NavBar extends React.Component {
                 />
               </Nav.Item>
 
-
             </Nav>
 
           </Navbar.Collapse>
-          <span style={{fontFamily:"Megrim", textAlign:"center",width:"50%", fontSize:"3.5vw"}}>
+          <span style={{fontFamily:"Megrim", textAlign:"center", width:"50%", fontSize:"3.5vw"}}>
             {this.props.conf.title}
           </span>
 
           <span style={{width:"10%"}}>
             {timer}
           </span>
-
 
         </Navbar>
 

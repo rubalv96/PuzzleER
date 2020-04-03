@@ -27,6 +27,13 @@ export function objectiveAccomplished(objectiveId, accomplishedScore = null){
   };
 }
 
+export function loaded(is_loaded = true){
+  return {
+    type:'LOADED',
+    loaded:is_loaded,
+  };
+}
+
 export function iniciarPuzzle(){
   return {
     type:'INICIAR_PUZZLE',
@@ -72,13 +79,9 @@ export function darVueltaTodas(){
   };
 }
 
-export function comprobarCompletado(piezas, N, M){
+export function comprobarCompletado(completado){
   return {
     type:'COMPROBAR_COMPLETADO',
-    payload:{
-      piezas:piezas,
-      N:N,
-      M:M,
-    },
+    completado: completado,
   };
 }

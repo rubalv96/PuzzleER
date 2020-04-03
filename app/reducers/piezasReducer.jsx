@@ -41,7 +41,7 @@ function piezasReducer(state = [], action){
     r = 1; c = 1;
     for(let p in piezasExtra){
       let pieza = piezasExtra[p];
-      
+
       puzzle.push(
         {
           "row":"E" + c,

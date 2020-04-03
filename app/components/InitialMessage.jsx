@@ -27,14 +27,12 @@ export default function InitialMessage(props){
 
       );
 
- 
-
   let titulo = "";
   if(GLOBAL_CONFIG.title !== undefined){
     titulo = GLOBAL_CONFIG.title;
   }
 
-  let styleCards={maxWidth:"70px", margin:"auto", marginTop:"10px"};
+  let styleCards = {maxWidth:"70px", margin:"auto", marginTop:"10px"};
 
   let goalCard = "";
   goalCard = (
@@ -168,7 +166,6 @@ export default function InitialMessage(props){
 
               </CardGroup>
 
-              
               <p style={{fontSize:"25px", fontFamily:"'Delius', cursive", margin:"15px"}}><b>Iconos</b></p>
 
               {iconCards}
@@ -176,12 +173,12 @@ export default function InitialMessage(props){
             </Tab>
             <Tab eventKey="story" title="Historia">
               <p
-               style={{fontSize:"20px", fontFamily:"'Delius', cursive", marginTop:"15px"}}
-               >
+                style={{fontSize:"20px", fontFamily:"'Delius', cursive", marginTop:"15px"}}
+              >
                 <b>{GLOBAL_CONFIG.initialMessage}</b>
                 {initialImage}
 
-               </p>
+              </p>
 
             </Tab>
 

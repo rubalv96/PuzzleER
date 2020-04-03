@@ -1,4 +1,5 @@
 export const INITIAL_STATE = {
+  loading:true,
   tracking:{
     progress_measure:0,
     score:0,

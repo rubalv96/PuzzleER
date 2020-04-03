@@ -10,8 +10,8 @@ import SCORM from './SCORM.jsx';
 import NavBar from "./navBar";
 import Puzzle from './Puzzle';
 import ZoomPiece from "./ZoomPiece";
-
 import {
+  loaded,
   iniciarPuzzle,
   seleccionarPieza,
   intercambiarPiezas,
@@ -22,6 +22,8 @@ import {
 import InitialMessage from './InitialMessage';
 import FinalMessage from "./FinalMessage";
 import Instructions from "./Instructions";
+
+let escapp;
 
 export class App extends React.Component {
   constructor(props){
@@ -40,7 +42,7 @@ export class App extends React.Component {
     this.lupa = this.lupa.bind(this);
     this.zoomImage = this.zoomImage.bind(this);
     this.zoomOff = this.zoomOff.bind(this);
-
+    this.restoreState = this.restoreState.bind(this);
 
     this.state = {
       mostrarMsgFinal:false,
@@ -54,8 +56,30 @@ export class App extends React.Component {
       widthPiece:0,
       heightPiece:0,
       playing_music:false,
-      isExtraPiece: false,
+      isExtraPiece:false,
     };
+  }
+  componentDidMount(){
+    escapp = new ESCAPP(GLOBAL_CONFIG.escapp);
+    // escapp.reset(); //Uncomment for removing local data storage
+    escapp.validate(function(success, er_state){
+      if(success){
+        this.restoreState(er_state);
+      }
+    }.bind(this));
+  }
+  restoreState(er_state){
+    if(er_state.puzzlesSolved.length > 0){
+      let puzzleId = GLOBAL_CONFIG.escapp.appPuzzleIds[0];
+      if(er_state.puzzlesSolved.indexOf(puzzleId) !== -1){
+        // Puzzle already solved
+        this.props.dispatch(comprobarCompletado(true));
+        this.setState({"mostrarMsgInicial":false, "mostrarMsgFinal":true});
+        this.mostrarMsgFinal();
+      }
+    }
+    this.iniciarPuzzle();
+    // this.props.dispatch(loaded(true)); //'iniciarPuzzle()'' will change loading to false.
   }
 
   render(){
@@ -63,36 +87,35 @@ export class App extends React.Component {
     // Variable para mostrar mensaje final si se ha completado
     let appEndMsg = "";
 
-    if((this.props.tracking.finished !== true) || (GLOBAL_CONFIG.finish_screen === false)){
+    if(this.props.loading === true){
+      // Wait for loading
+      return null;
+    }
 
-      if(this.props.wait_for_user_profile !== true){
-        appContent = (
-          <>
-
-            <Puzzle
-              piezasSeleccionadas={this.props.piezasSeleccionadas}
-              piezas={this.props.piezas}
-              conf={GLOBAL_CONFIG}
-              seleccionarPieza={this.seleccionarPieza}
-              darVuelta = {this.darVuelta}
-              toggle = {this.toggle}
-              comprobarCompletado={this.comprobarCompletado}
-              dispatch={this.props.dispatch}
-              lupa={this.state.lupa}
-              zoomImage={this.zoomImage}
-            />
-
-            <ReactPlayer
-              style={{display:"none"}}
-              url={GLOBAL_CONFIG.backgroundMusic}
-              volume = {GLOBAL_CONFIG.volume}
-              loop
-              playing = {this.state.playing_music}
-            />
-
-          </>
-        );
-      }
+    if((this.props.tracking.finished !== true)||(this.props.wait_for_user_profile !== true)){
+      appContent = (
+        <React.Fragment>
+          <Puzzle
+            piezasSeleccionadas={this.props.piezasSeleccionadas}
+            piezas={this.props.piezas}
+            conf={GLOBAL_CONFIG}
+            seleccionarPieza={this.seleccionarPieza}
+            darVuelta = {this.darVuelta}
+            toggle = {this.toggle}
+            comprobarCompletado={this.comprobarCompletado}
+            dispatch={this.props.dispatch}
+            lupa={this.state.lupa}
+            zoomImage={this.zoomImage}
+          />
+          <ReactPlayer
+            style={{display:"none"}}
+            url={GLOBAL_CONFIG.backgroundMusic}
+            volume = {GLOBAL_CONFIG.volume}
+            loop
+            playing = {this.state.playing_music}
+          />
+        </React.Fragment>
+      );
     }
 
     if(this.state.mostrarMsgFinal){
@@ -101,7 +124,7 @@ export class App extends React.Component {
       }
     }
     let appInitialMsg;
-    if(GLOBAL_CONFIG.initialMessage !== ""){
+    if((GLOBAL_CONFIG.initialMessage !== "")&&(this.props.puzzleCompleto!==true)){
       appInitialMsg = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
     let opacity;
@@ -114,12 +137,12 @@ export class App extends React.Component {
     };
 
     let instrucciones = "";
-    if(this.state.mostrarMsgInicial){
+    if((this.state.mostrarMsgInicial)&&(this.props.puzzleCompleto!==true)){
       instrucciones = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
 
     return (
-      <>
+      <React.Fragment>
         <div id="container" style={styleBackground}>
           <NavBar mostrarInstrucciones={this.mostrarInstrucciones}
             dispatch = {this.props.dispatch}
@@ -132,10 +155,8 @@ export class App extends React.Component {
             lupaValue={this.state.lupa}
           />
           <Instructions/>
-          {/* <h1 className="title">{GLOBAL_CONFIG.title}</h1> */}
           {appInitialMsg}
           {appEndMsg}
-          <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
           {appContent}
           {instrucciones}
           <ZoomPiece show={this.state.showZoom}
@@ -143,11 +164,11 @@ export class App extends React.Component {
             zoomOff ={this.zoomOff}
             widthPiece={this.state.widthPiece}
             heightPiece={this.state.heightPiece}
-           isExtraPiece={this.state.isExtraPiece}
+            isExtraPiece={this.state.isExtraPiece}
           />
-
+          <SCORM dispatch={this.props.dispatch} tracking={this.props.tracking} config={GLOBAL_CONFIG}/>
         </div>
-      </>
+      </React.Fragment>
     );
   }
 
@@ -193,8 +214,24 @@ export class App extends React.Component {
     if(flag === "gameover"){
       this.setState({timeFinished:true});
     }
-    this.props.dispatch(comprobarCompletado(this.props.piezas, GLOBAL_CONFIG.N, GLOBAL_CONFIG.M));
-    this.mostrarMsgFinal();
+
+    // Comprueba si se ha completado el puzzle
+    let solution = "";
+    for(let row = 1; row <= GLOBAL_CONFIG.N; row++){
+      for(let col = 1; col <= GLOBAL_CONFIG.M; col++){
+        for(let p in this.props.piezas){
+          let pieza = this.props.piezas[p];
+          if(pieza.row === row && pieza.column === col){
+            solution = solution + pieza.faceImgId;
+            break;
+          }
+        }
+      }
+    }
+    escapp.submitPuzzle(GLOBAL_CONFIG.escapp.appPuzzleIds[0], solution, {}, function(success, er_state){
+      this.props.dispatch(comprobarCompletado(success));
+      this.mostrarMsgFinal();
+    }.bind(this));
   }
 
   mostrarInstrucciones(){
@@ -204,7 +241,6 @@ export class App extends React.Component {
   ocultarInstrucciones(){
     this.setState({mostrarMsgInicial:false});
     this.setState({playing_music:true});
-
   }
 
   onStartTime(){
@@ -215,7 +251,7 @@ export class App extends React.Component {
   }
 
   zoomImage(img, width, height, isExtraPiece){
-    this.setState({showZoom:true, zoomImgPath:img, widthPiece:width, heightPiece:height, isExtraPiece: isExtraPiece});
+    this.setState({showZoom:true, zoomImgPath:img, widthPiece:width, heightPiece:height, isExtraPiece:isExtraPiece});
   }
 
   zoomOff(){
@@ -226,11 +262,8 @@ export class App extends React.Component {
     let fake_pieces = GLOBAL_CONFIG.fake_pieces;
 
   }
-
-  componentDidMount(){
-    this.iniciarPuzzle();
-  }
 }
+
 function mapStateToProps(state){
   return state;
 }

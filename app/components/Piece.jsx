@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactCardFlip from 'react-card-flip';
-import { Tooltip} from "react-bootstrap";
+import {Tooltip} from "react-bootstrap";
 
 export default class Piece extends React.Component {
 
@@ -43,10 +43,8 @@ export default class Piece extends React.Component {
     let altoImg, anchoImg;
     const relacion = 430 / 700; // Relacion entre ancho y alto de la imagen
 
-
-  this.props.extraArea && !this.props.print ? anchoImg = 0.35 * (this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
-  altoImg = anchoImg * relacion;
-
+    this.props.extraArea && !this.props.print ? anchoImg = 0.35 * (this.state.anchoVentana) : anchoImg = 0.6 * (this.state.anchoVentana);
+    altoImg = anchoImg * relacion;
 
     // Tamaño del contenedor
     let anchoContenedor = anchoImg / (this.props.conf.M);
@@ -175,7 +173,6 @@ export default class Piece extends React.Component {
 
     );
   }
-
 
   updateDimensions(){
     this.setState({anchoVentana:window.innerWidth});

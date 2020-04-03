@@ -13,9 +13,9 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   volume:1, // Volumen de 0 a 1 (defecto 1)
 
   // Dimensiones del puzzle
-  M:6, // numero de columnas del puzzle (requerido)
-  N:5, // numero de filas del puzzle (requerido)
-  fake_pieces:30,
+  M:3, // numero de columnas del puzzle (requerido)
+  N:2, // numero de filas del puzzle (requerido)
+  fake_pieces:6,
 
   // Reverse mode (defecto -> false)
   reverseMode:true,
@@ -42,8 +42,18 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   endImageFail:"./assets/images/puzzle/egipto_fallo.png", // imagen de fallo
 
   // Escapp configuraciones
-  escapeRoomId:1,
-  puzzleId:5,
+  escapp:{
+    endpoint:"https://escapp.dit.upm.es/api/escapeRooms/2",
+    localStorageKey:"ESCAPP_Puzzle",
+    imagesPath:"assets/images/",
+    I18n:{
+      availableLocales:["es", "en"],
+      locale:"es",
+      defaultLocale:"es",
+    },
+    appPuzzleIds:[5],
+    forceValidation: false,
+  },
 
   // No tocar
   debug:true,
