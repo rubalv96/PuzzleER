@@ -73,9 +73,17 @@ export class App extends React.Component {
       let puzzleId = GLOBAL_CONFIG.escapp.appPuzzleIds[0];
       if(er_state.puzzlesSolved.indexOf(puzzleId) !== -1){
         // Puzzle already solved
-        this.props.dispatch(comprobarCompletado(true));
-        this.setState({"mostrarMsgInicial":false, "mostrarMsgFinal":true});
-        this.mostrarMsgFinal();
+        if((typeof er_state.puzzleData === "object")&&(typeof er_state.puzzleData[puzzleId] === "object")){
+          let puzzleData = er_state.puzzleData[puzzleId];
+          let message = puzzleData.msg;
+          if((typeof message === "string")&&(message.trim()!="")){
+            GLOBAL_CONFIG.endMessageSuccess = message;
+            //Finish app
+            this.props.dispatch(comprobarCompletado(true));
+            this.setState({"mostrarMsgInicial":false, "mostrarMsgFinal":true});
+            this.mostrarMsgFinal();
+          }
+        }
       }
     }
     this.iniciarPuzzle();
@@ -228,8 +236,14 @@ export class App extends React.Component {
         }
       }
     }
-    escapp.submitPuzzle(GLOBAL_CONFIG.escapp.appPuzzleIds[0], solution, {}, function(success, er_state){
+    escapp.submitPuzzle(GLOBAL_CONFIG.escapp.appPuzzleIds[0], solution, {}, function(success, res){
       this.props.dispatch(comprobarCompletado(success));
+      if(success){
+        let message = res.msg;
+        if((typeof message === "string")&&(message.trim()!="")){
+          GLOBAL_CONFIG.endMessageSuccess = message;
+        }
+      }
       this.mostrarMsgFinal();
     }.bind(this));
   }
