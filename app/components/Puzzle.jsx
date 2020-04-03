@@ -4,14 +4,12 @@ import Piece from "./Piece";
 import '../assets/scss/main.scss';
 import * as Utils from '../vendors/Utils';
 import {addObjectives} from "../reducers/actions";
-import {Tooltip} from "react-bootstrap";
 let GLOBAL_CONFIG = require('../config/config.js');
 
 export default class Puzzle extends React.Component {
 
   constructor(props){
     super(props);
-    this.mostrarTooltip = this.mostrarTooltip.bind(this);
   }
 
   render(){
@@ -24,16 +22,7 @@ export default class Puzzle extends React.Component {
       columns.push(i);
     }
 
-    let rowsE = []; // rows=[1,2,3,4,5,...,Nextra]
-    for(let i = 1; i <= this.props.conf.Nextra; i++){
-      rowsE.push(i);
-    }
-    let columnsE = []; // rows=[1,2,3,4,5,...,Mextra]
-    for(let i = 1; i <= this.props.conf.Mextra; i++){
-      columnsE.push(i);
-    }
-
-    let l = -1, k = -1, m = -1, n = -1, o = -1, p = -1;
+    let l = -1, m = -1,  o = -1;
 
     let areaPuzzle;
     areaPuzzle =
@@ -71,43 +60,8 @@ export default class Puzzle extends React.Component {
                         </tbody>
                       </table>
                     </>);
-    let areaPiezasExtra = "";
-    if((GLOBAL_CONFIG.Nextra > 0 && GLOBAL_CONFIG.Mextra > 0)){
-      areaPiezasExtra = (
-        <>
-          <h2 className="msgPrint">Área de piezas extra</h2>
-          <table className={"tablePuzzle extra"}>
-            <tbody>
-              {rowsE.map((row, ind) => {
-                return (
-                  <tr key={ind}>
-                    {columnsE.map((col, indC) => {
-                      k++;
-                      return (
-                        <Fragment key={indC}>
-                          <td>
-                            <Piece row={this.props.piezas[k + this.props.conf.N * this.props.conf.M].row}
-                              column={this.props.piezas[k + this.props.conf.N * this.props.conf.M].column}
-                              conf={this.props.conf}
-                              seleccionarPieza={this.props.seleccionarPieza}
-                              piezasSeleccionadas={this.props.piezasSeleccionadas}
-                              darVuelta = {this.props.darVuelta}
-                              imagen = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].faceImgPath}
-                              imagenRev = {this.props.piezas[k + this.props.conf.N * this.props.conf.M].reverseImgPath}
-                              zoomImage={this.props.zoomImage}
-                              lupa={this.props.lupa}
-                              extraArea
-                            />
-                          </td>
-                        </Fragment>);
-                    })}
-                  </tr>);
-              })}
-            </tbody>
-          </table>
-        </>
-      );
-    }
+
+
 
     let fakeArea="";
     let piezasAreaExtra=[];
@@ -117,34 +71,28 @@ export default class Puzzle extends React.Component {
       }
     });
 
-
-    console.log("Piezas Area Extra:" + JSON.stringify(piezasAreaExtra));
-
-
-
-
-
     let style={display:'flex',
                 flexDirection:"column",
-                justifyItems:"flex-start",
-                justifyContent: "flex-start",
+                alignItems:"center",
+                justifyContent: "center",
+                alignContent: "center",
                 flexWrap: "wrap",
                 width: "35vw",
                 height: "28vw",
-                // height: "46vh",
-                backgroundColor:"",
                 marginBottom:"300px",
                 marginRight: "auto",
                 marginLeft: "auto",
+                
               };
-    fakeArea=(
+
+    (GLOBAL_CONFIG.fake_pieces>0) ? fakeArea=(
       <div id="contenedorExtra"  style={style}>
         {piezasAreaExtra.map((pieza,ind)=>{
 
             return(
 
               <>
-              <div style={{margin:"auto"}} className="extraPiece">
+              <div style={{margin:"0.15vw", width:"auto"}} className="extraPiece">
               <Piece key={ind}
                 row={pieza.row}
                 column={pieza.column}
@@ -164,7 +112,86 @@ export default class Puzzle extends React.Component {
             );
         })}
       </div>
-    )
+    ) : fakeArea="";
+
+    let printStyle={
+      display:'flex',
+      flexDirection:"row",
+      alignItems:"center",
+      justifyContent: "center",
+      alignContent: "center",
+      flexWrap: "wrap",
+      width: "80%",
+      height: "80%",
+      marginRight: "auto",
+      marginLeft: "auto",
+      border: "5px dashed green",
+    };
+
+    let fakeAreaPrint="";
+    GLOBAL_CONFIG.reverseMode? fakeAreaPrint = (
+<div className="contenedorExtra"  style={printStyle}>
+        {piezasAreaExtra.map((pieza,ind)=>{
+
+            return(
+
+              <>
+              <div style={{margin:"10px", width:"auto",margin: "15px", padding: "5px", border: "2px dashed green"}} className="extraPiece">
+              <Piece key={ind}
+                row={pieza.row}
+                column={pieza.column}
+                conf={this.props.conf}
+                seleccionarPieza={this.props.seleccionarPieza}
+                piezasSeleccionadas={this.props.piezasSeleccionadas}
+                darVuelta = {this.props.darVuelta}
+                imagen = {pieza.faceImgPath}
+                imagenRev = {pieza.reverseImgPath}
+                zoomImage={this.props.zoomImage}
+                lupa={this.props.lupa}
+                extraArea
+                print
+              />
+              </div>
+
+              </>
+            );
+        })}
+      </div>
+    ): fakeAreaPrint="";
+
+    
+
+    let fakeReverseAreaPrint="";
+    fakeReverseAreaPrint = (
+<div id="contenedorExtra"  style={printStyle}>
+        {piezasAreaExtra.map((pieza,ind)=>{
+
+            return(
+
+              <>
+              <div style={{margin:"10px", width:"auto",  margin: "15px", padding: "5px", border: "2px dashed green"}} className="extraPiece">
+              <Piece key={ind}
+                row={pieza.row}
+                column={pieza.column}
+                conf={this.props.conf}
+                seleccionarPieza={this.props.seleccionarPieza}
+                piezasSeleccionadas={this.props.piezasSeleccionadas}
+                darVuelta = {this.props.darVuelta}
+                imagen = {pieza.reverseImgPath}
+                imagenRev = {pieza.faceImgPath}
+                zoomImage={this.props.zoomImage}
+                lupa={this.props.lupa}
+                extraArea
+                print
+              />
+              </div>
+
+              </>
+            );
+        })}
+      </div>
+    );
+
     let areaPuzzlePrint;
     areaPuzzlePrint =
                     (
@@ -201,37 +228,15 @@ export default class Puzzle extends React.Component {
                       </>
                     );
     let areaPuzzleExtraPrint;
-    if(this.props.conf.Nextra > 0 && this.props.conf.Mextra > 0){
+    if(GLOBAL_CONFIG.fake_pieces > 0){
       areaPuzzleExtraPrint =
         (
-          <>
+          
+            <>
+            <div className="pagebreak" />
+
             <h2 className="msgPrint">Área de piezas extra</h2>
-            <table className={"tablePrint"}>
-              <tbody>
-                {rowsE.map((row, ind) => {
-                  return (
-                    <tr key={ind}>
-                      {columnsE.map((col, indC) => {
-                        p++;
-                        return (
-                          <Fragment key={indC}>
-                            <td>
-                              <Piece row={this.props.piezas[p + this.props.conf.N * this.props.conf.M].row}
-                                column={this.props.piezas[p + this.props.conf.N * this.props.conf.M].column}
-                                conf={this.props.conf}
-                                seleccionarPieza={this.props.seleccionarPieza}
-                                piezasSeleccionadas={this.props.piezasSeleccionadas}
-                                darVuelta = {this.props.darVuelta}
-                                imagen = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].faceImgPath}
-                                imagenRev = {this.props.piezas[p + this.props.conf.N * this.props.conf.M].reverseImgPath}
-                              />
-                            </td>
-                          </Fragment>);
-                      })}
-                    </tr>);
-                })}
-              </tbody>
-            </table>
+            {fakeAreaPrint}
           </>
         );
     }
@@ -242,7 +247,7 @@ export default class Puzzle extends React.Component {
         <>
           <div className="pagebreak" />
           <h1 className="title titlePrint">{this.props.conf.title}</h1>
-          <h2 className="msgPrint">Área de puzzle</h2>
+          <h2 className="msgPrint">Área de puzzle (reverso)</h2>
           <table className="tablePrint">
             <tbody>
               {rows.map((row, ind) => {
@@ -262,7 +267,6 @@ export default class Puzzle extends React.Component {
                               piezasSeleccionadas={this.props.piezasSeleccionadas}
                               darVuelta = {this.props.darVuelta}
                               imagen = {this.props.piezas[m].reverseImgPath}
-
                             />
                           </td>
                         </Fragment>);
@@ -275,38 +279,14 @@ export default class Puzzle extends React.Component {
       );
     }
     let areaPuzzleExtraPrintReverso = "";
-    if(this.props.conf.Nextra > 0 && this.props.conf.reverseMode){
+    if(GLOBAL_CONFIG.fake_pieces>0){
       areaPuzzleExtraPrintReverso = (
-        <>
-          <h2 className="msgPrint">Área de piezas extra</h2>
-          <table className={"tablePrint"}>
-            <tbody>
-              {rowsE.map((row, ind) => {
-                return (
-                  <tr key={ind}>
-                    {columnsE.map((col, indC) => {
-                      n++;
-                      let numP2;
-                      this.props.piezas[n + this.props.conf.N * this.props.conf.M].numPuzzle === 1 ? numP2 = 2 : numP2 = 1;
-                      return (
-                        <Fragment key={indC}>
-                          <td>
-                            <Piece row={this.props.piezas[n + this.props.conf.N * this.props.conf.M].row}
-                              column={this.props.piezas[n + this.props.conf.N * this.props.conf.M].column}
-                              conf={this.props.conf}
-                              seleccionarPieza={this.props.seleccionarPieza}
-                              piezasSeleccionadas={this.props.piezasSeleccionadas}
-                              darVuelta = {this.props.darVuelta}
-                              imagen = {this.props.piezas[n + this.props.conf.N * this.props.conf.M].reverseImgPath}
+          
+          <>
+          <div className="pagebreak" />
 
-                            />
-                          </td>
-                        </Fragment>);
-                    })}
-                  </tr>);
-              })}
-            </tbody>
-          </table>
+          <h2 className="msgPrint">Área de piezas extra (reverso)</h2>
+          {fakeReverseAreaPrint}
         </>
       );
     }
@@ -317,7 +297,6 @@ export default class Puzzle extends React.Component {
           {/* Componente de área de juego del puzzle*/}
           {areaPuzzle}
           {/* Componente de área de piezas extra*/}
-          {/* {areaPiezasExtra} */}
           {fakeArea}
 
         </div>
@@ -330,21 +309,7 @@ export default class Puzzle extends React.Component {
       </>
     );
   }
-  mostrarTooltip(imagen, factorZoom){
-    let anchoImg = 700;
-    let altoImg = 430;
-    let anchoPieza = 700 / GLOBAL_CONFIG.M;
-    let altoPieza = 430 / GLOBAL_CONFIG.N;
-
-    let anchoPiezaZoom = anchoPieza * factorZoom;
-    let altoPiezaZoom = altoPieza * factorZoom;
-
-    let width = anchoPiezaZoom.toString() + "px";
-    let height = altoPiezaZoom.toString() + "px";
-
-    return <Tooltip ><img src={imagen} style={{width:width, height:height}}/></Tooltip>;
-
-  }
+  
   componentDidMount(){
     let objectives = [];
     objectives.push(new Utils.Objective({id:(1), progress_measure:(1), score:(1)}));

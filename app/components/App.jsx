@@ -153,12 +153,11 @@ export class App extends React.Component {
 
   // Carga el inicio del puzzle
   iniciarPuzzle(){
-    let numPiezasExtra = GLOBAL_CONFIG.Nextra * GLOBAL_CONFIG.Mextra;
+    let numPiezasExtra = GLOBAL_CONFIG.fake_pieces;
     let numPiezasNoExtra = GLOBAL_CONFIG.N * GLOBAL_CONFIG.M;
     if(numPiezasExtra > numPiezasNoExtra){
       alert("Por favor, seleccione un numero de piezas falsas inferior o igual al número de piezas del puzzle. En su defecto el puzzle tomará el máximo de piezas falsas.");
-      GLOBAL_CONFIG.Nextra = GLOBAL_CONFIG.N;
-      GLOBAL_CONFIG.Mextra = GLOBAL_CONFIG.M;
+      GLOBAL_CONFIG.fake_pieces = numPiezasNoExtra;
     }
     this.props.dispatch(iniciarPuzzle());
   }
@@ -221,6 +220,11 @@ export class App extends React.Component {
 
   zoomOff(){
     this.setState({showZoom:false});
+  }
+
+  dimensionsExtraAreaPrint(){
+    let fake_pieces = GLOBAL_CONFIG.fake_pieces;
+
   }
 
   componentDidMount(){

@@ -166,8 +166,11 @@ div.header_wrapper img {
   color: gray;
   margin: 8px;
 }
-
+.contenedorExtra{
+  display:none;
+}
 .tablePuzzle{
+  padding: 1px;
   border-spacing: 0;
   border-collapse: separate;
   border:3px black solid;

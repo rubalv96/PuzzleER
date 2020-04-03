@@ -56,9 +56,9 @@ export default function InitialMessage(props){
     <Card>
       <Card.Img style={styleCards} src="./assets/icons/flip_piece.svg"/>
       <Card.Body>
-        <Card.Title><b>Darle la vuelta</b></Card.Title>
+        <Card.Title><b>Piezas reversibles</b></Card.Title>
         <Card.Text>
-            Para darle la vuelta a una pieza se debe hacer doble click sobre ella.
+            Para dar la vuelta a una pieza se debe hacer doble click sobre ella.
         </Card.Text>
       </Card.Body>
 
@@ -70,9 +70,9 @@ export default function InitialMessage(props){
     <Card>
       <Card.Img style={styleCards} src="./assets/icons/interchange.svg"/>
       <Card.Body>
-        <Card.Title><b>Intercambiar piezas</b></Card.Title>
+        <Card.Title><b>Intercambio de piezas</b></Card.Title>
         <Card.Text>
-       Para intercambiar dos piezas es necesario hacer click sobre la pieza que se desee mover y otro click en la posición de destino.
+          Mediante un click se selecciona la pieza y se deposita con otro click en el lugar de destino.
         </Card.Text>
       </Card.Body>
 
@@ -86,7 +86,7 @@ export default function InitialMessage(props){
       <Card.Body>
         <Card.Title><b>Piezas señuelo</b></Card.Title>
         <Card.Text>
-       En el puzzle habrá más piezas que las necesarias para la solución. Deben colocarse todas ellas en el área reservada para ello en la parte derecha.
+       Las piezas que no pertenezcan al puzzle se depositarán en la parte derecha.
         </Card.Text>
       </Card.Body>
 
@@ -98,7 +98,7 @@ export default function InitialMessage(props){
     <Card>
       <Card.Img style={styleCards} src="./assets/icons/flip.svg"/>
       <Card.Body>
-        <Card.Title><b>Girar piezas</b></Card.Title>
+        <Card.Title><b>Revertir piezas</b></Card.Title>
         <Card.Text>
             Dar la vuelta a todas las piezas simultáneamente.
         </Card.Text>
@@ -175,8 +175,14 @@ export default function InitialMessage(props){
 
             </Tab>
             <Tab eventKey="story" title="Historia">
-              <p style={{fontSize:"20px", fontFamily:"'Delius', cursive", marginTop:"15px"}}><b>{GLOBAL_CONFIG.initialMessage}</b></p>
-              {initialImage}
+              <p
+               style={{fontSize:"20px", fontFamily:"'Delius', cursive", marginTop:"15px"}}
+               >
+                <b>{GLOBAL_CONFIG.initialMessage}</b>
+                {initialImage}
+
+               </p>
+
             </Tab>
 
           </Tabs>

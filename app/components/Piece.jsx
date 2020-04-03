@@ -2,7 +2,7 @@ import React, {Fragment} from 'react';
 import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactCardFlip from 'react-card-flip';
-import {OverlayTrigger, Tooltip} from "react-bootstrap";
+import { Tooltip} from "react-bootstrap";
 
 export default class Piece extends React.Component {
 
@@ -17,6 +17,7 @@ export default class Piece extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
   }
+  
   handleClick(e){
     e.preventDefault();
     if(this.props.conf.reverseMode === true){
@@ -44,7 +45,7 @@ export default class Piece extends React.Component {
 
     if(this.props.conf.heightFrame === undefined || this.props.conf.widthFrame === undefined
         || this.props.conf.heightFrame === "" || this.props.conf.widthFrame === ""){
-      this.props.extraArea? anchoImg= 0.35*(this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
+      this.props.extraArea && !this.props.print? anchoImg= 0.35*(this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
       altoImg = anchoImg * relacion;
     }
     else {
@@ -180,25 +181,7 @@ export default class Piece extends React.Component {
     );
   }
 
-  mostrarTooltip(imagen, factorZoom, anchoContenedor, altoContenedor, lupa){
-    if(lupa){
-      return <Tooltip>
-        <img
-          style={{
-            overflow:"hidden",
-            margin:"auto",
-            width:anchoContenedor * factorZoom,
-            height:altoContenedor * factorZoom,
-          }}
-          src={imagen}
-          alt={"Imagen de pieza"}/>
-
-      </Tooltip>;
-    }
-
-    return <Tooltip style={{display:"none"}}>{imagen} </Tooltip>;
-
-  }
+  
   updateDimensions(){
     this.setState({anchoVentana:window.innerWidth});
   }

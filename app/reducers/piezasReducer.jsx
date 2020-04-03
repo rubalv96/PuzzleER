@@ -15,7 +15,7 @@ function piezasReducer(state = [], action){
 
     puzzle = [];
     piezas = GLOBAL_CONFIG.pieces.slice(0, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N);
-    piezasExtra = GLOBAL_CONFIG.pieces.slice(GLOBAL_CONFIG.M * GLOBAL_CONFIG.N, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra);
+    piezasExtra = GLOBAL_CONFIG.pieces.slice(GLOBAL_CONFIG.M * GLOBAL_CONFIG.N, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.fake_pieces);
     r = 1;
     c = 1;
 
@@ -41,13 +41,10 @@ function piezasReducer(state = [], action){
     r = 1; c = 1;
     for(let p in piezasExtra){
       let pieza = piezasExtra[p];
-      if(c === GLOBAL_CONFIG.Mextra + 1){
-        r++;
-        c = 1;
-      }
+      
       puzzle.push(
         {
-          "row":"E" + r,
+          "row":"E" + c,
           "column":"E" + c,
           "faceImgId":pieza.face.id,
           "reverseImgId":pieza.reverse.id,

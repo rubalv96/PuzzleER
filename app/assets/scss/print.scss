@@ -1,13 +1,14 @@
 @media print {
+   
+    html, body, #root, #root > div {
+        height: auto;
+        overflow: auto;
+      }
 
     .header_wrapper{
         display: none;
     }
 
-    .tablePuzzle{
-
-
-    }
     .puzzleArea{
         display: none !important;
     }
@@ -39,20 +40,27 @@
         display: none;
     }
 
+    
+
     .toolkitContainer {
     display: none;
     }
-        .tablePrint{
+
+    .contenedorExtra{
+        display: flex;
+    }
+    .tablePrint{
         border-spacing: 10px;
+        padding: 10px;
         border:3px #93A603 dashed;
-        border-radius: 3px;
         margin :auto;
         text-align: center;
         display: table;
     }
     .tablePrint td{
-        padding: 15px;
-
+        margin: 15px;
+        padding: 5px;
+        border: 2px dashed green;
     }
 
     .pagebreak{

@@ -15,8 +15,9 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // Dimensiones del puzzle
   M:6, // numero de columnas del puzzle (requerido)
   N:5, // numero de filas del puzzle (requerido)
-  Mextra:1, // numero de columnas del area de piezas sobrantes (defecto 0)
-  Nextra:30, // número de filas del área de piezas sobrantes (defecto 0)
+  Mextra:0, // numero de columnas del area de piezas sobrantes (defecto 0)
+  Nextra:0, // número de filas del área de piezas sobrantes (defecto 0)
+  fake_pieces:30,
 
   // Reverse mode (defecto -> false)
   reverseMode:true,
