@@ -73,12 +73,12 @@ export class App extends React.Component {
       let puzzleId = GLOBAL_CONFIG.escapp.appPuzzleIds[0];
       if(er_state.puzzlesSolved.indexOf(puzzleId) !== -1){
         // Puzzle already solved
-        if((typeof er_state.puzzleData === "object")&&(typeof er_state.puzzleData[puzzleId] === "object")){
+        if((typeof er_state.puzzleData === "object") && (typeof er_state.puzzleData[puzzleId] === "object")){
           let puzzleData = er_state.puzzleData[puzzleId];
           let message = puzzleData.msg;
-          if((typeof message === "string")&&(message.trim()!="")){
+          if((typeof message === "string") && (message.trim() != "")){
             GLOBAL_CONFIG.endMessageSuccess = message;
-            //Finish app
+            // Finish app
             this.props.dispatch(comprobarCompletado(true));
             this.setState({"mostrarMsgInicial":false, "mostrarMsgFinal":true});
             this.mostrarMsgFinal();
@@ -100,7 +100,7 @@ export class App extends React.Component {
       return null;
     }
 
-    if((this.props.tracking.finished !== true)||(this.props.wait_for_user_profile !== true)){
+    if((this.props.tracking.finished !== true) || (this.props.wait_for_user_profile !== true)){
       appContent = (
         <React.Fragment>
           <Puzzle
@@ -132,7 +132,7 @@ export class App extends React.Component {
       }
     }
     let appInitialMsg;
-    if((GLOBAL_CONFIG.initialMessage !== "")&&(this.props.puzzleCompleto!==true)){
+    if((GLOBAL_CONFIG.initialMessage !== "") && (this.props.puzzleCompleto !== true)){
       appInitialMsg = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
     let opacity;
@@ -145,7 +145,7 @@ export class App extends React.Component {
     };
 
     let instrucciones = "";
-    if((this.state.mostrarMsgInicial)&&(this.props.puzzleCompleto!==true)){
+    if((this.state.mostrarMsgInicial) && (this.props.puzzleCompleto !== true)){
       instrucciones = (<InitialMessage temporizador={this.state.temporizador} ocultarInstrucciones={this.ocultarInstrucciones} onStartTime={this.onStartTime}/>);
     }
 
@@ -240,7 +240,7 @@ export class App extends React.Component {
       this.props.dispatch(comprobarCompletado(success));
       if(success){
         let message = res.msg;
-        if((typeof message === "string")&&(message.trim()!="")){
+        if((typeof message === "string") && (message.trim() != "")){
           GLOBAL_CONFIG.endMessageSuccess = message;
         }
       }

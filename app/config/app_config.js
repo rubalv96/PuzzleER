@@ -52,7 +52,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
       defaultLocale:"es",
     },
     appPuzzleIds:[5],
-    forceValidation: false,
+    forceValidation:false,
   },
 
   // No tocar

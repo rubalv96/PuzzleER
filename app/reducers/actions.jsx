@@ -82,6 +82,6 @@ export function darVueltaTodas(){
 export function comprobarCompletado(completado){
   return {
     type:'COMPROBAR_COMPLETADO',
-    completado: completado,
+    completado:completado,
   };
 }
