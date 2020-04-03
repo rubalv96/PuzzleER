@@ -1,5 +1,5 @@
 @media print {
-   
+
     html, body, #root, #root > div {
         height: auto;
         overflow: auto;
@@ -36,18 +36,20 @@
         display: none;
     }
 
+
+
     .intentos{
         display: none;
     }
 
-    
+
 
     .toolkitContainer {
     display: none;
     }
 
     .contenedorExtra{
-        display: flex;
+        display: flex !important;
     }
     .tablePrint{
         border-spacing: 10px;

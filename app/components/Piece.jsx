@@ -17,7 +17,7 @@ export default class Piece extends React.Component {
     this.handleClick = this.handleClick.bind(this);
     this.updateDimensions = this.updateDimensions.bind(this);
   }
-  
+
   handleClick(e){
     e.preventDefault();
     if(this.props.conf.reverseMode === true){
@@ -43,15 +43,10 @@ export default class Piece extends React.Component {
     let altoImg, anchoImg;
     const relacion = 430 / 700; // Relacion entre ancho y alto de la imagen
 
-    if(this.props.conf.heightFrame === undefined || this.props.conf.widthFrame === undefined
-        || this.props.conf.heightFrame === "" || this.props.conf.widthFrame === ""){
-      this.props.extraArea && !this.props.print? anchoImg= 0.35*(this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
-      altoImg = anchoImg * relacion;
-    }
-    else {
-      altoImg = this.props.conf.heightFrame;
-      anchoImg = this.props.conf.widthFrame;
-    }
+
+  this.props.extraArea && !this.props.print ? anchoImg = 0.35 * (this.state.anchoVentana): anchoImg = 0.6*(this.state.anchoVentana);
+  altoImg = anchoImg * relacion;
+
 
     // Tamaño del contenedor
     let anchoContenedor = anchoImg / (this.props.conf.M);
@@ -181,7 +176,7 @@ export default class Piece extends React.Component {
     );
   }
 
-  
+
   updateDimensions(){
     this.setState({anchoVentana:window.innerWidth});
   }

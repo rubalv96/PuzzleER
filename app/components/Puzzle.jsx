@@ -82,7 +82,7 @@ export default class Puzzle extends React.Component {
                 marginBottom:"300px",
                 marginRight: "auto",
                 marginLeft: "auto",
-                
+
               };
 
     (GLOBAL_CONFIG.fake_pieces>0) ? fakeArea=(
@@ -129,14 +129,14 @@ export default class Puzzle extends React.Component {
     };
 
     let fakeAreaPrint="";
-    GLOBAL_CONFIG.reverseMode? fakeAreaPrint = (
+      (GLOBAL_CONFIG.reverseMode === true)? fakeAreaPrint = (
 <div className="contenedorExtra"  style={printStyle}>
         {piezasAreaExtra.map((pieza,ind)=>{
 
             return(
 
               <>
-              <div style={{margin:"10px", width:"auto",margin: "15px", padding: "5px", border: "2px dashed green"}} className="extraPiece">
+              <div style={{margin:"10px", width:"auto", padding: "5px", border: "2px dashed green"}} className="extraPiece">
               <Piece key={ind}
                 row={pieza.row}
                 column={pieza.column}
@@ -159,17 +159,17 @@ export default class Puzzle extends React.Component {
       </div>
     ): fakeAreaPrint="";
 
-    
+
 
     let fakeReverseAreaPrint="";
     fakeReverseAreaPrint = (
-<div id="contenedorExtra"  style={printStyle}>
+<div className="contenedorExtra"  style={printStyle}>
         {piezasAreaExtra.map((pieza,ind)=>{
 
             return(
 
               <>
-              <div style={{margin:"10px", width:"auto",  margin: "15px", padding: "5px", border: "2px dashed green"}} className="extraPiece">
+              <div style={{margin:"10px", width:"auto", padding: "5px", border: "2px dashed green"}} className="extraPiece">
               <Piece key={ind}
                 row={pieza.row}
                 column={pieza.column}
@@ -231,7 +231,7 @@ export default class Puzzle extends React.Component {
     if(GLOBAL_CONFIG.fake_pieces > 0){
       areaPuzzleExtraPrint =
         (
-          
+
             <>
             <div className="pagebreak" />
 
@@ -281,7 +281,7 @@ export default class Puzzle extends React.Component {
     let areaPuzzleExtraPrintReverso = "";
     if(GLOBAL_CONFIG.fake_pieces>0){
       areaPuzzleExtraPrintReverso = (
-          
+
           <>
           <div className="pagebreak" />
 
@@ -309,7 +309,7 @@ export default class Puzzle extends React.Component {
       </>
     );
   }
-  
+
   componentDidMount(){
     let objectives = [];
     objectives.push(new Utils.Objective({id:(1), progress_measure:(1), score:(1)}));

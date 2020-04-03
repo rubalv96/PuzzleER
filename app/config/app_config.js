@@ -15,8 +15,6 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // Dimensiones del puzzle
   M:6, // numero de columnas del puzzle (requerido)
   N:5, // numero de filas del puzzle (requerido)
-  Mextra:0, // numero de columnas del area de piezas sobrantes (defecto 0)
-  Nextra:0, // número de filas del área de piezas sobrantes (defecto 0)
   fake_pieces:30,
 
   // Reverse mode (defecto -> false)
@@ -25,13 +23,9 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // Timer
   time:"210", // tiempo en segundos para resolver el puzzle
 
-  // Cuadro de puzzle
-  heightFrame:"", // tamaño altura cuadro de puzzles(tiene valor por defecto si se deja vacío)
-  widthFrame:"", // tamaño anchura de cuadro de puzzles(tiene valor por defecto si se deja vacío)
-
   // Zoom
   zoomMode:true, // activar modo zoom
-  zoomFactor:8, // factor de ampliación
+  zoomFactor:5, // factor de ampliación
 
   // Tiempo mínimo exigido para leer instrucciones (en segundos)
   timeToReadInstructions:1,

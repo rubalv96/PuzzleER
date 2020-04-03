@@ -149,9 +149,9 @@ generateData = function(){
   let data = {};
 
   //Filter fake pieces if necessary
-  if((typeof GLOBAL_CONFIG.Mextra === "number")&&(typeof GLOBAL_CONFIG.Nextra === "number")){
+  if((typeof GLOBAL_CONFIG.fake_pieces === "number")){
     let solutionPieces = GLOBAL_CONFIG.M * GLOBAL_CONFIG.N;
-    let maxFakePieces = GLOBAL_CONFIG.Mextra * GLOBAL_CONFIG.Nextra;
+    let maxFakePieces = GLOBAL_CONFIG.fake_pieces;
     let nPieces = generatedPieces.length;
     if(nPieces > (solutionPieces+maxFakePieces)){
       removeFakePieces(nPieces - (solutionPieces+maxFakePieces));
