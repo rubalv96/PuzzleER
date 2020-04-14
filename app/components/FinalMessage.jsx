@@ -57,7 +57,7 @@ export default class FinalMessage extends React.Component
     }
     return (
       <React.Fragment>
-        <Modal show={this.state.showModal} animation={false} size="lg">
+        <Modal show={this.state.showModal} animation={false} size="lg" onHide={() => false}>
           <Modal.Header>
             <Modal.Title style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{titulo}</Modal.Title>
           </Modal.Header>

@@ -76,7 +76,7 @@ export class App extends React.Component {
         if((typeof er_state.puzzleData === "object") && (typeof er_state.puzzleData[puzzleId] === "object")){
           let puzzleData = er_state.puzzleData[puzzleId];
           let message = puzzleData.msg;
-          if((typeof message === "string") && (message.trim() != "")){
+          if((typeof message === "string") && (message.trim() !== "")){
             GLOBAL_CONFIG.endMessageSuccess = message;
             // Finish app
             this.props.dispatch(comprobarCompletado(true));

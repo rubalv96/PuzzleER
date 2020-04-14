@@ -1,24 +1,23 @@
 let GLOBAL_CONFIG = require('../config/config.js');
 
 function piezasReducer(state = [], action){
-
   // Variables usadas en el switch-case
-
   // Action INICIAR_PUZZLE
-  let i, puzzle, piezasExtra, r, c;
+  let i, shufflePieces, puzzle, piezasExtra, r, c;
 
   // Action INTERCAMBIAR_PIEZAS
   let piezas, ind1, ind2, imgFaceId1, imgFaceId2, imgReverseId1, imgReverseId2, numPuzzle1, numPuzzle2, posCol1, posCol2, img1, img2, imgRev1, imgRev2;
   let numPiezasExtra;
+
   switch (action.type){
   case 'INICIAR_PUZZLE':
-
     puzzle = [];
-    piezas = GLOBAL_CONFIG.pieces.slice(0, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N);
-    piezasExtra = GLOBAL_CONFIG.pieces.slice(GLOBAL_CONFIG.M * GLOBAL_CONFIG.N, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.fake_pieces);
+    shufflePieces = shuffle(GLOBAL_CONFIG.pieces);
+    piezas = shufflePieces.slice(0, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N);
+    piezasExtra = shufflePieces.slice(GLOBAL_CONFIG.M * GLOBAL_CONFIG.N, GLOBAL_CONFIG.M * GLOBAL_CONFIG.N + GLOBAL_CONFIG.fake_pieces);
+
     r = 1;
     c = 1;
-
     for(let l in piezas){
       let pieza = piezas[l];
       if(c === GLOBAL_CONFIG.M + 1){
@@ -41,7 +40,6 @@ function piezasReducer(state = [], action){
     r = 1; c = 1;
     for(let p in piezasExtra){
       let pieza = piezasExtra[p];
-
       puzzle.push(
         {
           "row":"E" + c,
@@ -55,6 +53,19 @@ function piezasReducer(state = [], action){
       c++;
     }
 
+    if(typeof puzzle[0].reverseImgPath === "string"){
+      // Flip pieces randomly
+      for(let x = 0; x < puzzle.length; x++){
+        if(Math.random() > 0.5){
+          let oldPiece = Object.assign({}, puzzle[x]);
+          puzzle[x].faceImgPath = oldPiece.reverseImgPath;
+          puzzle[x].faceImgId = oldPiece.reverseImgId;
+          puzzle[x].reverseImgPath = oldPiece.faceImgPath;
+          puzzle[x].reverseImgId = oldPiece.faceImgId;
+        }
+      }
+    }
+
     return puzzle;
 
   case 'INTERCAMBIAR_PIEZAS':
@@ -64,14 +75,12 @@ function piezasReducer(state = [], action){
     piezas = Object.assign([], state);
 
     for(i = 0; i < piezas.length; i ++){
-
       if(piezas[i].row === action.payload.row1 && piezas[i].column === action.payload.col1){
         ind1 = i;
       }
       if(piezas[i].row === action.payload.row2 && piezas[i].column === action.payload.col2){
         ind2 = i;
       }
-
     }
 
     img1 = piezas[ind1].faceImgPath;
@@ -104,12 +113,11 @@ function piezasReducer(state = [], action){
     piezas = Object.assign([], state);
     for(i = 0; i < piezas.length; i ++){
       if(piezas[i].row === action.payload.row && piezas[i].column === action.payload.col){
-
-        let imgReverse = piezas[i].reverseImgPath;
-        let imgFace = piezas[i].faceImgPath;
-        piezas[i].faceImgPath = imgReverse;
-        piezas[i].reverseImgPath = imgFace;
-
+        let oldPiece = Object.assign({}, piezas[i]);
+        piezas[i].faceImgPath = oldPiece.reverseImgPath;
+        piezas[i].faceImgId = oldPiece.reverseImgId;
+        piezas[i].reverseImgPath = oldPiece.faceImgPath;
+        piezas[i].reverseImgId = oldPiece.faceImgId;
         return piezas;
       }
 
@@ -119,10 +127,11 @@ function piezasReducer(state = [], action){
   case 'DAR_VUELTA_TODAS':
     piezas = Object.assign([], state);
     for(i = 0; i < piezas.length; i ++){
-      let imgReverse = piezas[i].reverseImgPath;
-      let imgFace = piezas[i].faceImgPath;
-      piezas[i].faceImgPath = imgReverse;
-      piezas[i].reverseImgPath = imgFace;
+      let oldPiece = Object.assign({}, piezas[i]);
+      piezas[i].faceImgPath = oldPiece.reverseImgPath;
+      piezas[i].faceImgId = oldPiece.reverseImgId;
+      piezas[i].reverseImgPath = oldPiece.faceImgPath;
+      piezas[i].reverseImgId = oldPiece.faceImgId;
     }
     return piezas;
 
@@ -130,6 +139,14 @@ function piezasReducer(state = [], action){
     return state;
   }
 
+}
+
+function shuffle(a){
+  for(let i = a.length - 1; i > 0; i--){
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 export default piezasReducer;
