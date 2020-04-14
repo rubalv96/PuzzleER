@@ -6,16 +6,14 @@ export default function Timer(props){
   let timePannel;
   if(props.showMinutes){
     timePannel = (
-      <div style={{fontSize:"2.5vw", fontFamily:"'Megrim', cursive", margin:"auto",
-      }}>
+      <div className="timePannel">
         {min} : {segundos - min * 60}
       </div>
     );
   }
   else {
     timePannel = (
-      <div style={{fontSize:"20px", fontFamily:"'Megrim', cursive", margin:"auto",
-      }}>
+      <div className="timeInstructions">
         {segundos - min * 60}
       </div>
     );

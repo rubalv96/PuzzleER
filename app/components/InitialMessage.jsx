@@ -2,6 +2,8 @@ import React, {useState} from "react";
 let GLOBAL_CONFIG = require('../config/config.js');
 import {Modal, Button, CardGroup, Card, Tab, Tabs, Sonnet} from 'react-bootstrap';
 import Timer from "./Timer";
+import CardInstructions from "./CardInstructions";
+
 import './../assets/scss/main.scss';
 
 export default function InitialMessage(props){
@@ -14,16 +16,17 @@ export default function InitialMessage(props){
     timeToReadInstructions = "" : timeToReadInstructions = GLOBAL_CONFIG.timeToReadInstructions;
 
   let timer;
-  (props.temporizador && timeToReadInstructions !== "") ? timer = (
-    <div style={{display:!enable ? 'block' : 'none'}}>
-      <Timer time={timeToReadInstructions} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
-    </div>
-  ) : timer = "";
+  (props.temporizador && timeToReadInstructions !== "") ?
+    timer = (
+      <div style={{display:!enable ? 'block' : 'none'}}>
+        <Timer time={timeToReadInstructions} showMinutes={false} onStartTime onFinishTime={()=>{setEnable(true);}} />
+      </div>
+    ) : timer = "";
 
   let initialImage;
   (GLOBAL_CONFIG.initialImage === "" || GLOBAL_CONFIG.initialImage === undefined) ? initialImage = "" : initialImage =
       (
-        <img src={GLOBAL_CONFIG.initialImage} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje inicial."}/>
+        <img src={GLOBAL_CONFIG.initialImage} className="initialImage" alt={"Imagen de mensaje inicial."}/>
 
       );
 
@@ -32,165 +35,141 @@ export default function InitialMessage(props){
     titulo = GLOBAL_CONFIG.title;
   }
 
-  let styleCards = {maxWidth:"70px", margin:"auto", marginTop:"10px"};
-
-  let goalCard = "";
-  goalCard = (
-    <Card>
-      <Card.Img style={styleCards} src="./assets/icons/goal.svg"/>
-      <Card.Body>
-        <Card.Title><b>Objetivo</b></Card.Title>
-        <Card.Text >
-            Ordenar las piezas para dar con la solución.
-        </Card.Text>
-      </Card.Body>
-
-    </Card>
+  let cards = [];
+  // Fixed cards
+  cards.push(
+    {
+      pathImage:"./assets/icons/goal.svg",
+      title:"Objetivo",
+      text:"Ordenar las piezas para dar con la solución.",
+    },
+    {
+      pathImage:"./assets/icons/interchange.svg",
+      title:"Intercambio de piezas",
+      text:"Mediante un click se selecciona la pieza y se deposita con otro click en el lugar de destino.",
+    }
   );
 
-  let flipPieceCard = "";
+  // Optional card. Reverse.
+  if(GLOBAL_CONFIG.reverseMode){
+    cards.push(
+      {
+        pathImage:"./assets/icons/flip_piece.svg",
+        title:"Piezas reversibles",
+        text:"Para dar la vuelta a una pieza se debe hacer doble click sobre ella.",
+      }
+    );
+  }
 
-  GLOBAL_CONFIG.reverseMode ? flipPieceCard = (
-    <Card>
-      <Card.Img style={styleCards} src="./assets/icons/flip_piece.svg"/>
-      <Card.Body>
-        <Card.Title><b>Piezas reversibles</b></Card.Title>
-        <Card.Text>
-            Para dar la vuelta a una pieza se debe hacer doble click sobre ella.
-        </Card.Text>
-      </Card.Body>
+  // Optional card. Extra pieces.
+  if(GLOBAL_CONFIG.fake_pieces > 0){
+    cards.push({
+      pathImage:"./assets/icons/extra.svg",
+      title:"Piezas señuelo",
+      text:"Las piezas que no pertenezcan al puzzle se depositarán en la parte derecha.",
+    });
+  }
 
-    </Card>
-  ) : flipPieceCard = "";
+  let iconCards = [];
 
-  let interchangeCard = "";
-  interchangeCard = (
-    <Card>
-      <Card.Img style={styleCards} src="./assets/icons/interchange.svg"/>
-      <Card.Body>
-        <Card.Title><b>Intercambio de piezas</b></Card.Title>
-        <Card.Text>
-          Mediante un click se selecciona la pieza y se deposita con otro click en el lugar de destino.
-        </Card.Text>
-      </Card.Body>
-
-    </Card>
+  // Fixed icon cards (instructions and check solution)
+  iconCards.push({
+    pathImage:"./assets/icons/instructions.svg",
+    title:"¿Cómo jugar?",
+    text:"Volver a leer las instrucciones de juego",
+  },
+  {
+    pathImage:"./assets/icons/solution.svg",
+    title:"Comprobar solución",
+    text:"Comprobar la solución del puzzle.",
+  }
   );
 
-  let extraCard = "";
-  (GLOBAL_CONFIG.Nextra > 0) ? extraCard = (
-    <Card>
-      <Card.Img style={styleCards} src="./assets/icons/extra.svg"/>
-      <Card.Body>
-        <Card.Title><b>Piezas señuelo</b></Card.Title>
-        <Card.Text>
-       Las piezas que no pertenezcan al puzzle se depositarán en la parte derecha.
-        </Card.Text>
-      </Card.Body>
+  // Optional cards (flip pieces and zoom)
+  if(GLOBAL_CONFIG.reverseMode){
+    iconCards.push(
+      {
+        pathImage:"./assets/icons/flip.svg",
+        title:"Revertir piezas",
+        text:"Dar la vuelta a todas las piezas simultáneamente.",
+      }
+    );
+  }
 
-    </Card>
-  ) : extraCard = "";
+  if(GLOBAL_CONFIG.zoomMode){
+    iconCards.push(
+      {
+        pathImage:"./assets/icons/zoom-in.svg",
+        title:"Zoom",
+        text:"Activar o desactivar la opción de Zoom sobre las piezas.",
+      }
+    );
+  }
 
-  let flipCard = "";
-  GLOBAL_CONFIG.reverseMode ? flipCard = (
-    <Card>
-      <Card.Img style={styleCards} src="./assets/icons/flip.svg"/>
-      <Card.Body>
-        <Card.Title><b>Revertir piezas</b></Card.Title>
-        <Card.Text>
-            Dar la vuelta a todas las piezas simultáneamente.
-        </Card.Text>
-      </Card.Body>
-
-    </Card>
-  ) : flipCard = "";
-
-  let zoomCard = "";
-  GLOBAL_CONFIG.zoomMode ? zoomCard = (
-    <Card>
-      <Card.Img style={styleCards} src="./assets/icons/zoom-in.svg"/>
-      <Card.Body>
-        <Card.Title><b>Zoom</b></Card.Title>
-        <Card.Text>
-            Activar y desactivar la opción de Zoom sobre las piezas.
-        </Card.Text>
-      </Card.Body>
-
-    </Card>
-  ) : zoomCard = "";
-
-  let iconCards = "";
-  iconCards = (
-    <CardGroup>
-      <Card>
-        <Card.Img style={styleCards} src="./assets/icons/instructions.svg"/>
-        <Card.Body>
-          <Card.Title><b>¿Cómo jugar?</b></Card.Title>
-          <Card.Text>
-       Volver a leer las instrucciones de juego
-          </Card.Text>
-        </Card.Body>
-
-      </Card>
-      {flipCard}
-      {zoomCard}
-
-      <Card>
-        <Card.Img style={styleCards} src="./assets/icons/solution.svg"/>
-        <Card.Body>
-          <Card.Title><b>Comprobar solución</b></Card.Title>
-          <Card.Text>
-        Comprobar la solución actual del puzzle.
-          </Card.Text>
-        </Card.Body>
-
-      </Card>
-    </CardGroup>
-  );
   return (
     <>
       <Modal backdrop="static" keyboard={false} show={show} onHide={handleClose} animation={false} size="lg">
         <Modal.Header>
-          <Modal.Title style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{titulo}</Modal.Title>
+          <Modal.Title className="textEscapeInstructions">{titulo}</Modal.Title>
         </Modal.Header>
+
         <Modal.Body className="tab">
           <Tabs defaultActiveKey="instructions" id="uncontrolled-tab-example" >
-
+            
+            {/* Instructions tab */}
             <Tab eventKey="instructions" title="Cómo jugar" >
-              <p style={{fontSize:"25px", fontFamily:"'Delius', cursive", margin:"15px"}}><b>Instrucciones</b></p>
+              <p className="textTitleInstructions"><b>Instrucciones</b></p>
               <CardGroup>
-                {goalCard}
-                {interchangeCard}
-                {flipPieceCard}
-                {extraCard}
+
+                {cards.map((card, index)=>{
+                  return (
+                    <CardInstructions
+                      key={index}
+                      pathImage = {card.pathImage}
+                      title = {card.title}
+                      text = {card.text}
+                    />
+                  );
+                })}
 
               </CardGroup>
 
-              <p style={{fontSize:"25px", fontFamily:"'Delius', cursive", margin:"15px"}}><b>Iconos</b></p>
+              <p className="textTitleInstructions"><b>Iconos</b></p>
 
-              {iconCards}
+              <CardGroup>
+                {iconCards.map((card, index)=>{
+                  return (
+                    <CardInstructions
+                      key={index}
+                      pathImage = {card.pathImage}
+                      title = {card.title}
+                      text = {card.text}
+                    />
+                  );
+                })}
+              </CardGroup>
 
             </Tab>
+
+            {/* Story tab */}
             <Tab eventKey="story" title="Historia">
-              <p
-                style={{fontSize:"20px", fontFamily:"'Delius', cursive", marginTop:"15px"}}
-              >
+              <p className="textStory">
                 <b>{GLOBAL_CONFIG.initialMessage}</b>
                 {initialImage}
-
               </p>
 
             </Tab>
-
           </Tabs>
 
         </Modal.Body>
+
         <Modal.Footer>
-          <Button className={"btn btn-dark"}style={{width:"50%", margin:"auto"}} variant="primary" disabled={!enable && props.temporizador} onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime();}}>
-            <p style={{fontSize:"20px", fontFamily:"'Megrim', cursive"}}><b>¡Jugar!</b></p>
+          <Button className={"btn btn-dark playButton"} variant="primary" disabled={!enable && props.temporizador} onClick={()=>{handleClose(); props.ocultarInstrucciones(); props.onStartTime();}}>
+            <p className="textPlayButton"><b>¡Jugar!</b></p>
             {timer}
           </Button>
         </Modal.Footer>
+        
       </Modal>
     </>
   );

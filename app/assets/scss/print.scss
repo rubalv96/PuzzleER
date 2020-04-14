@@ -32,22 +32,7 @@
         padding: 10px;
         font-size: 2.5em;
     }
-    .btnComprobar{
-        display: none;
-    }
-
-
-
-    .intentos{
-        display: none;
-    }
-
-
-
-    .toolkitContainer {
-    display: none;
-    }
-
+    
     .contenedorExtra{
         display: flex !important;
     }
@@ -55,9 +40,11 @@
         border-spacing: 10px;
         padding: 10px;
         border:3px #93A603 dashed;
-        margin :auto;
+        margin :auto !important;
         text-align: center;
         display: table;
+        max-width: 100% !important;
+        height: auto !important;
     }
     .tablePrint td{
         margin: 15px;
@@ -66,12 +53,39 @@
     }
 
     .pagebreak{
-        page-break-before: always; /* page-break-after works, as well */
+        page-break-before: always !important; /* page-break-after works, as well */
     }
     .titlePrint {
         display: block;
     }
-    .attemptsOK, .attemptsNOK, .attemptsContainer{
+
+    .fakeAreaContainer{
         display: none;
     }
+
+    
+
+    .fakeAreaPrint{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+        align-content: center;
+        flex-wrap: wrap;
+        width: 80%;
+        height: 80%;
+        margin-right: auto;
+        margin-left: auto;
+        border: 5px dashed green;
+    }
+
+    
+    .piecePrint{
+        display:block;
+        margin: 10px;
+        width: auto;
+        padding: 5px;
+        border: 2px dashed green;
+    }
+    
 }

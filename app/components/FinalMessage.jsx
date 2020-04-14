@@ -13,16 +13,16 @@ export default class FinalMessage extends React.Component
       showModal:true,
     };
     this.close = this.close.bind(this);
-    this.ocultar = this.ocultar.bind(this);
+    this.hide = this.hide.bind(this);
   }
 
   close(){
     this.setState({showModal:false});
   }
 
-  ocultar(){
+  hide(){
     this.close();
-    this.props.ocultar();
+    this.props.hide();
   }
   render()
   {
@@ -31,52 +31,57 @@ export default class FinalMessage extends React.Component
     if(this.props.puzzleCompleto){
       (GLOBAL_CONFIG.endImageSuccess === "" || GLOBAL_CONFIG.endImageSuccess === undefined) ? endImage = "" : endImage =
           (
-            <img src={GLOBAL_CONFIG.endImageSuccess} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
+            <img
+              src={GLOBAL_CONFIG.endImageSuccess}
+              className="endImage"
+              alt={"Success Image"}/>
 
           );
     }
     else {
       (GLOBAL_CONFIG.endImageFail === "" || GLOBAL_CONFIG.endImageFail === undefined) ? endImage = "" : endImage =
           (
-            <img src={GLOBAL_CONFIG.endImageFail} style={{width:300, height:200, display:"block", margin:"auto", borderRadius:"10px"}} alt={"Imagen de mensaje final."}/>
-
+            <img
+              src={GLOBAL_CONFIG.endImageFail}
+              className="endImage"
+              alt={"Failed Image"}/>
           );
     }
 
-    let titulo;
-    this.props.puzzleCompleto ? titulo = "Puzzle completado" : titulo = "Puzzle incorrecto";
+    let title;
+    this.props.puzzleCompleto ? title = "Puzzle completado" : title = "Puzzle incorrecto";
 
     let msg;
     this.props.puzzleCompleto ? msg = GLOBAL_CONFIG.endMessageSuccess : msg = GLOBAL_CONFIG.endMessageFail;
 
-    let btnSeguir;
-    (!this.props.timeFinished && !this.props.puzzleCompleto) ? btnSeguir = <Button className={"btn btn-dark"} onClick={this.ocultar}>Seguir jugando</Button> : btnSeguir = "";
+    let continueButton;
+    (!this.props.timeFinished && !this.props.puzzleCompleto) ? continueButton = <Button className={"btn btn-dark"} onClick={this.hide}>Seguir jugando</Button> : continueButton = "";
 
     if(!this.props.puzzleCompleto){
       msg = GLOBAL_CONFIG.endMessageFail;
     }
     return (
       <React.Fragment>
-        <Modal show={this.state.showModal} animation={false} size="lg">
+        <Modal show={this.state.showModal} animation={false} size="lg" onHide={() => false}>
           <Modal.Header>
-            <Modal.Title style={{fontSize:"45px", fontFamily:"'Megrim', cursive"}}>{titulo}</Modal.Title>
+            <Modal.Title className="endTitle">{title}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <p style={{fontSize:"25px", fontFamily:"'Megrim', cursive"}}>{msg}</p>
+            <p className="endMessage">{msg}</p>
             {endImage}
           </Modal.Body>
           <Modal.Footer>
-            {btnSeguir}
+            {continueButton}
           </Modal.Footer>
         </Modal>
         <ReactPlayer
-          style={{display:"none"}}
+          className="player"
           url={GLOBAL_CONFIG.successMusic}
           volume = {GLOBAL_CONFIG.volume}
           playing={this.props.puzzleCompleto}
         />
         <ReactPlayer
-          style={{display:"none"}}
+          className="player"
           url={GLOBAL_CONFIG.failureMusic}
           volume = {GLOBAL_CONFIG.volume}
           playing={!this.props.puzzleCompleto}

@@ -2,13 +2,14 @@ import React from "react";
 let GLOBAL_CONFIG = require('../config/config.js');
 import './../assets/scss/main.scss';
 
-export default function Instructions(){
+export default function PrintInstructions(){
   let initialImage;
   GLOBAL_CONFIG.initialImage === "" ? initialImage = "" : initialImage =
       (<img src={GLOBAL_CONFIG.initialImage} style={{width:300, height:200, display:"block", margin:"auto"}} alt={"Imagen de mensaje inicial."}/>
       );
   return (
     <React.Fragment>
+
       <div className="printInstructions" >
         <p className={"title"}>{GLOBAL_CONFIG.title}</p>
         <p><b>Instrucciones</b></p>
@@ -20,7 +21,6 @@ export default function Instructions(){
         <p>{GLOBAL_CONFIG.initialMessagePrint}</p>
         {initialImage}
       </div>
-      <div className="pagebreak" />
     </React.Fragment>
   );
 }

@@ -4,6 +4,7 @@ let GLOBAL_CONFIG_CROP = {
   image_solution_reverse:"./assets/images/puzzle/egipto_ank.jpg", // imagen solución reverso
   image_fake1_face:"./assets/images/puzzle/egipto_altamira.jpg", // imagen señuelo cara
   image_fake1_reverse:"./assets/images/puzzle/egipto_fatima.jpg", // imagen señuelo reverso
+  solution: "364975031758053978296812543065",
 };
 
 module.exports = GLOBAL_CONFIG_CROP;

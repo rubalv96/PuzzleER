@@ -2,7 +2,6 @@ import React, {Fragment} from 'react';
 import '../assets/scss/main.scss';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ReactCardFlip from 'react-card-flip';
-import {Tooltip} from "react-bootstrap";
 
 export default class Piece extends React.Component {
 
@@ -26,9 +25,10 @@ export default class Piece extends React.Component {
         frontToBack:"1.5",
       });
       this.setState(prevState => ({isFlipped:!prevState.isFlipped}));
-      setTimeout(()=>{this.props.darVuelta(this.props.row, this.props.column);
+      setTimeout(()=>{
+        this.props.darVuelta(this.props.row, this.props.column);
         this.setState({
-          backToFront:"0",
+          backToFront:0,
         });
         this.setState(prevState => ({isFlipped:!prevState.isFlipped}));},
       1000);
@@ -38,7 +38,7 @@ export default class Piece extends React.Component {
 
   render(){
 
-    // Dimensiones del puzzle
+    // Board dimensions
 
     let altoImg, anchoImg;
     const relacion = 430 / 700; // Relacion entre ancho y alto de la imagen
@@ -46,11 +46,11 @@ export default class Piece extends React.Component {
     this.props.extraArea && !this.props.print ? anchoImg = 0.35 * (this.state.anchoVentana) : anchoImg = 0.6 * (this.state.anchoVentana);
     altoImg = anchoImg * relacion;
 
-    // Tamaño del contenedor
+    // Container size
     let anchoContenedor = anchoImg / (this.props.conf.M);
     let altoContenedor = altoImg / (this.props.conf.N);
 
-    // Color del borde de la pieza dependiendo de si está seleccionada o no
+    // Border piece color
     let rowPieza = this.props.row;
     let colPieza = this.props.column;
 
@@ -69,14 +69,14 @@ export default class Piece extends React.Component {
       borde = "1px black solid";
     }
 
-    // Cursor sobre la pieza
+    // Piece cursor
     let cursor = "";
     if(this.props.lupa){
       cursor = "zoom-in";
       console.log("Cursor: " + cursor);
     }
 
-    // Imagen de pieza en posición frontal
+    // Front position
     let imgPieza = (
       <img
         style={{

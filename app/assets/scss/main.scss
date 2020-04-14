@@ -11,25 +11,94 @@ html, body, #root, #root > div {
   height: 100%;
   overflow: hidden;
 }
-.icon:hover{
-  transform: scale(1.2);
-}
-.icon{
-  -webkit-transition:all 1s ease; /* Safari y Chrome */
-  -moz-transition:all .9s ease; /* Firefox */
-  -o-transition:all .9s ease; /* IE 9 */
-  -ms-transition:all .9s ease; /* Opera */
+
+//App component
+.container{
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
-.extraPiece:hover{
-  transform: scale(1.2);
-  z-index: 1;
+.player{
+  display: none
 }
-.extraPiece{
-  -webkit-transition:all 1s ease; /* Safari y Chrome */
-  -moz-transition:all .9s ease; /* Firefox */
-  -o-transition:all .9s ease; /* IE 9 */
-  -ms-transition:all .9s ease; /* Opera */
+
+.title{
+  letter-spacing: 4px;
+  text-align: center;
+  color: black;
+  font-family: 'Megrim', cursive;
+  padding-bottom: 45px;
+  font-size: 3.5em;
+  
+}
+
+.titlePrint{
+  display:none;
+}
+
+//Final Message component
+.endImage{
+  width: 300px;
+  height: 200px;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.endMessage{
+  font-size: 25px;
+  font-family: 'Megrim', cursive;
+}
+
+.endTitle{
+  font-size: 45px !important;
+  font-family: 'Megrim', cursive;
+}
+
+// Initial message component
+.initialImage{
+  width: 300px;
+  height: 200px;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+}
+
+.textTitleInstructions{
+  font-size: 25px;
+  font-family: 'Delius',cursive;
+  margin: 15px;
+}
+
+a{
+  color: black !important;
+}
+.textEscapeInstructions{
+  font-size: 45px !important;
+  font-family: 'Megrim', cursive;
+
+}
+
+.playButton{
+  width: 50%;
+  margin: auto !important;
+}
+.textPlayButton{
+  font-size: 20px;
+  font-family: 'Megrim', cursive;
+}
+.textStory{
+  font-size: 20px;
+  text-align: justify;
+  font-family: 'Delius',cursive;
+  margin: 15px;
+}
+.cards{
+  // let styleCards = {maxWidth:"70px", margin:"auto", marginTop:"10px"};
+  max-width: 70px;
+  margin: auto;
+  margin-top: 10px;
 }
 
 .tab{
@@ -40,105 +109,122 @@ html, body, #root, #root > div {
   text-align: center;
   margin: 10px;
 }
-.switch {
-  position: relative;
-  width: 60px;
-  height: 34px;
+
+//Timer component
+.timePannel{
+  font-size: 2.5vw;
+  font-family: 'Megrim', cursive;
+  margin:auto;
 }
 
-.switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
+.timeInstructions{
+  font-size: 20px;
+  font-family: 'Megrim', cursive;
+  margin: auto !important;
+}
+//NavBar component
+.titleEscapeNavBar{
+  // style={{fontFamily:"Megrim", textAlign:"center", width:"50%", fontSize:"3.5vw"}}
+  font-family: 'Megrim', cursive;
+  text-align: center;
+  width: 50%;
+  font-size: 3.5vw;
+}
+.icon:hover{
+  transform: scale(1.2);
+}
+.icon{
+  -webkit-transition:all 1s ease; /* Safari y Chrome */
+  -moz-transition:all .9s ease; /* Firefox */
+  -o-transition:all .9s ease; /* IE 9 */
+  -ms-transition:all .9s ease; /* Opera */
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+//Puzzle component
+.extraPiece:hover{
+  transform: scale(1.2);
+  z-index: 1;
 }
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+.extraPiece{
+  margin:0.15vw;
+  width:auto;
+  -webkit-transition:all 1s ease; /* Safari y Chrome */
+  -moz-transition:all .9s ease; /* Firefox */
+  -o-transition:all .9s ease; /* IE 9 */
+  -ms-transition:all .9s ease; /* Opera */
 }
-
-input:checked + .slider {
-  background-color: #F2EB8D;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #F2EB8D;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
 
 .imgPieza:hover{
   border-style: groove;
 }
 
-//.imgPiece{
-//  cursor: zoom-in; // http://www.rw-designer.com/cursor-detail/12633
-//}
 
-.title{
-  letter-spacing: 4px;
-  text-align: center;
-  color: black;
-  //color: #93A603;
-  font-family: 'Megrim', cursive;
-  padding-bottom: 45px;
-  font-size: 3.5em;
+.tablePuzzle{
+  padding: 1px;
+  border-spacing: 0;
+  border-collapse: separate;
+  border:3px black solid;
+  border-radius: 3px;
+  margin: auto;
+  margin-bottom: 300px;
 }
 
-.titlePrint{
+.tablePuzzle td{
+  padding: 0px;
+}
+
+.piecePrint{
   display:none;
 }
-.imagen11{
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 100%;
-  bottom: 0px;
-  margin: auto;
-  min-height: 100%;
-  min-width: 100%;
-  width: 700px;
-  height: 400px;
-}
-.imagenCompleta{
-  width: 700px;
-  height: 400px;
+
+.puzzleArea{
+  // style={{display:"flex", alignItems:"center", justifyContent:"center", maxWidth:"100%", marginTop:"2vw"}}
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-width: 100%;
+  margin-top: 2vw;
 }
 
 
+// Print (not displayed in web view)
+.tablePrint{
+  display: none;
+}
+.msgPrint{
+  display: none;
+}
+.print{
+  visibility:hidden;
+}
+
+.printInstructions{
+  display:none;
+}
+
+.extra td{
+  padding: 10px;
+
+}
+
+.fakeAreaContainer{
+  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  flex-wrap: wrap;
+  width: 35vw;
+  height: 28vw;
+  margin-bottom: 300px;
+  margin-right: auto;
+  margin-left: auto;
+
+}
+
+
+// RESCORM
 div.header_wrapper img {
   width: 71px;
   height: 50px;
@@ -166,77 +252,6 @@ div.header_wrapper img {
   color: gray;
   margin: 8px;
 }
-.contenedorExtra{
-  display:none !important;
-}
-.tablePuzzle{
-  padding: 1px;
-  border-spacing: 0;
-  border-collapse: separate;
-  border:3px black solid;
-  //border:3px #93A603 solid;
-  border-radius: 3px;
-  margin: auto;
-  margin-bottom: 300px;
-  //float: left;
-}
 
-.tablePuzzle td{
-  padding: 0px;
-}
-
-.msgPrint{
-  display: none;
-}
-
-.btnComprobar{
-  text-align: center;
-}
-
-.tablePrint{
-  display: none;
-}
-
-.print{
-  visibility:hidden;
-}
-
-.printInstructions{
-  display:none;
-}
-
-.attemptsContainer{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.attemptsOK{
-  max-width: 10%;
-  max-height: 10%;
-}
-
-.attemptsNOK {
-  filter: grayscale(100%);
-}
-
-.toolkitContainer{
-  text-align: center;
-  background-color: #bdffbd;
-  border-radius: 40px;
-  border: #93A603 4px solid;
-  //border: #93A603 4px solid;
-  width: 40%;
-  margin: 4% auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  //clear: both;
-}
-
-.extra td{
-  padding: 10px;
-
-}
 
 @import "print.scss";

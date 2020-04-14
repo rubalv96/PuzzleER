@@ -43,7 +43,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
 
   // Escapp configuraciones
   escapp:{
-    endpoint:"https://escapp.dit.upm.es/api/escapeRooms/2",
+    endpoint:"https://escapp.dit.upm.es/api/escapeRooms/6",
     localStorageKey:"ESCAPP_Puzzle",
     imagesPath:"assets/images/",
     I18n:{
@@ -51,8 +51,8 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
       locale:"es",
       defaultLocale:"es",
     },
-    appPuzzleIds:[5],
-    forceValidation:false,
+    appPuzzleIds:[1],
+    forceValidation:true,
   },
 
   // No tocar
