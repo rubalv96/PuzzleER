@@ -34,54 +34,23 @@ export function loaded(is_loaded = true){
   };
 }
 
-export function iniciarPuzzle(){
+export function updatePieces(newPieces){
   return {
-    type:'INICIAR_PUZZLE',
+    type:'UPDATE_PIECES',
+    newPieces: newPieces,
   };
 }
 
-export function seleccionarPieza(row, col){
+export function selectPiece(selectedPieces){
   return {
-    type:'SELECCIONAR_PIEZA',
-    payload:{
-      row:row,
-      col:col,
-    },
+    type:'SELECT_PIECE',
+    selectedPieces: selectedPieces,
   };
 }
 
-export function intercambiarPiezas(piezasSeleccionadas){
+export function checkSolution(isCompleted){
   return {
-    type:'INTERCAMBIAR_PIEZAS',
-    payload:{
-      row1:piezasSeleccionadas[0][0],
-      col1:piezasSeleccionadas[0][1],
-      row2:piezasSeleccionadas[1][0],
-      col2:piezasSeleccionadas[1][1],
-    },
-  };
-}
-
-export function darVuelta(row, col){
-  return {
-    type:'DAR_VUELTA',
-    payload:{
-      row:row,
-      col:col,
-    },
-  };
-}
-
-export function darVueltaTodas(){
-  return {
-    type:'DAR_VUELTA_TODAS',
-
-  };
-}
-
-export function comprobarCompletado(completado){
-  return {
-    type:'COMPROBAR_COMPLETADO',
-    completado:completado,
+    type:'CHECK_SOLUTION',
+    completed:isCompleted,
   };
 }

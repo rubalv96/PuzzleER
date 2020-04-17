@@ -65,56 +65,6 @@ export default class PrintablePuzzles extends React.Component {
           );
         })}
 
-        {/* <Puzzle
-          piezasSeleccionadas={this.props.piezasSeleccionadas}
-          piezas={this.props.piezas}
-          conf={this.props.conf}
-          seleccionarPieza={this.props.seleccionarPieza}
-          darVuelta = {this.props.darVuelta}
-          toggle = {this.props.toggle}
-          comprobarCompletado={this.props.comprobarCompletado}
-          dispatch={this.props.dispatch}
-          zoomImage={this.props.zoomImage}
-          puzzleType={"regular-print"}
-        />
-
-        <Puzzle
-          piezasSeleccionadas={this.props.piezasSeleccionadas}
-          piezas={this.props.piezas}
-          conf={this.props.conf}
-          seleccionarPieza={this.props.seleccionarPieza}
-          darVuelta = {this.props.darVuelta}
-          toggle = {this.props.toggle}
-          comprobarCompletado={this.props.comprobarCompletado}
-          dispatch={this.props.dispatch}
-          zoomImage={this.props.zoomImage}
-          puzzleType={"reverse-print"}
-        /> */}
-
-        {/* <PuzzleFake
-          piezasSeleccionadas={this.props.piezasSeleccionadas}
-          piezas={this.props.piezas}
-          conf={this.props.conf}
-          seleccionarPieza={this.props.seleccionarPieza}
-          darVuelta = {this.props.darVuelta}
-          toggle = {this.props.toggle}
-          comprobarCompletado={this.props.comprobarCompletado}
-          dispatch={this.props.dispatch}
-          zoomImage={this.props.zoomImage}
-          puzzleFakeType="regular-print"
-        />
-        <PuzzleFake
-          piezasSeleccionadas={this.props.piezasSeleccionadas}
-          piezas={this.props.piezas}
-          conf={this.props.conf}
-          seleccionarPieza={this.props.seleccionarPieza}
-          darVuelta = {this.props.darVuelta}
-          toggle = {this.props.toggle}
-          comprobarCompletado={this.props.comprobarCompletado}
-          dispatch={this.props.dispatch}
-          zoomImage={this.props.zoomImage}
-          puzzleFakeType="reverse-print"
-        /> */}
 
       </Fragment>
     );

@@ -1,6 +1,6 @@
 function loadingReducer(state = true, action){
   switch (action.type){
-  case 'INICIAR_PUZZLE':
+  case 'UPDATE_PIECES':
     return false;
   case 'LOADED':
     return !action.loaded;
