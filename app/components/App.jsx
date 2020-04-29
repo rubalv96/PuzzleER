@@ -255,7 +255,7 @@ export class App extends React.Component {
       c++;
     }
 
-    if(typeof puzzle[0].reverseImgPath === "string"){
+    if(typeof puzzle[0].reverseImgPath === "string" && GLOBAL_CONFIG.reverseMode.toString() === "true"){
       // Flip pieces randomly
       for(let x = 0; x < puzzle.length; x++){
         if(Math.random() > 0.5){

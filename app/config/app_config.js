@@ -15,20 +15,20 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // Dimensiones del puzzle
   M:3, // numero de columnas del puzzle (requerido)
   N:2, // numero de filas del puzzle (requerido)
-  fake_pieces:6,
+  fake_pieces:0,
 
   // Reverse mode (defecto -> false)
   reverseMode:true,
 
   // Timer
-  time:"210", // tiempo en segundos para resolver el puzzle
+  // time:"210", // tiempo en segundos para resolver el puzzle
 
   // Zoom
-  zoomMode:true, // activar modo zoom
+  zoomMode:false, // activar modo zoom
   zoomFactor:5, // factor de ampliación
 
   // Tiempo mínimo exigido para leer instrucciones (en segundos)
-  timeToReadInstructions:1,
+  timeToReadInstructions:10,
 
   // Mensaje inicial
   initialMessage:"El Antiguo Egipto está repleto de misterios. Las actividades cotidianas, las creencias, las leyendas y las vivencias son reflejados en el arte egipcio y esconde grandes incógnitas. Nos hemos adentrado en la residencia de Cleopatra y hemos encontrado un conjunto de piezas que pueden esconder un gran secreto. Los soldados han ido a buscar agua al Nilo para el baño diario de la faraona y tenemos 3 minutos y medio antes de que lleguen a los aposentos de Cleopatra. ¿Nos ayudas a resolverlo?", // mensaje inicial de bienvenida
@@ -43,7 +43,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
 
   // Escapp configuraciones
   escapp:{
-    endpoint:"https://escapp.dit.upm.es/api/escapeRooms/6",
+    endpoint:"https://escapp.dit.upm.es/api/escapeRooms/10",
     localStorageKey:"ESCAPP_Puzzle",
     imagesPath:"assets/images/",
     I18n:{
@@ -51,7 +51,7 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
       locale:"es",
       defaultLocale:"es",
     },
-    appPuzzleIds:[1],
+    appPuzzleIds:[5],
     forceValidation:false,
   },
 
