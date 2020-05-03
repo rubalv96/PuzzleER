@@ -2,124 +2,94 @@
   "pieces": [
     {
       "face": {
-        "id": "36497",
-        "path": "./assets/images/crop/36497.jpg"
+        "id": "20898",
+        "path": "./assets/images/crop/20898.jpg"
       },
       "reverse": {
-        "id": "72783",
-        "path": "./assets/images/crop/72783.jpg"
+        "id": "29729",
+        "path": "./assets/images/crop/29729.jpg"
       }
     },
     {
       "face": {
-        "id": "43065",
-        "path": "./assets/images/crop/43065.jpg"
+        "id": "56620",
+        "path": "./assets/images/crop/56620.jpg"
       },
       "reverse": {
-        "id": "38387",
-        "path": "./assets/images/crop/38387.jpg"
+        "id": "62106",
+        "path": "./assets/images/crop/62106.jpg"
       }
     },
     {
       "face": {
-        "id": "97829",
-        "path": "./assets/images/crop/97829.jpg"
+        "id": "29330",
+        "path": "./assets/images/crop/29330.jpg"
       },
       "reverse": {
-        "id": "81477",
-        "path": "./assets/images/crop/81477.jpg"
+        "id": "73946",
+        "path": "./assets/images/crop/73946.jpg"
       }
     },
     {
       "face": {
-        "id": "58053",
-        "path": "./assets/images/crop/58053.jpg"
+        "id": "73647",
+        "path": "./assets/images/crop/73647.jpg"
       },
       "reverse": {
-        "id": "21848",
-        "path": "./assets/images/crop/21848.jpg"
+        "id": "96209",
+        "path": "./assets/images/crop/96209.jpg"
       }
     },
     {
       "face": {
-        "id": "70322",
-        "path": "./assets/images/crop/70322.jpg"
+        "id": "89321",
+        "path": "./assets/images/crop/89321.jpg"
       },
       "reverse": {
-        "id": "74853",
-        "path": "./assets/images/crop/74853.jpg"
+        "id": "92340",
+        "path": "./assets/images/crop/92340.jpg"
       }
     },
     {
       "face": {
-        "id": "1193",
-        "path": "./assets/images/crop/1193.jpg"
+        "id": "59091",
+        "path": "./assets/images/crop/59091.jpg"
       },
       "reverse": {
-        "id": "49575",
-        "path": "./assets/images/crop/49575.jpg"
+        "id": "173",
+        "path": "./assets/images/crop/173.jpg"
       }
     },
     {
       "face": {
-        "id": "34265",
-        "path": "./assets/images/crop/34265.jpg"
+        "id": "62156",
+        "path": "./assets/images/crop/62156.jpg"
       },
       "reverse": {
-        "id": "62387",
-        "path": "./assets/images/crop/62387.jpg"
+        "id": "88045",
+        "path": "./assets/images/crop/88045.jpg"
       }
     },
     {
       "face": {
-        "id": "21750",
-        "path": "./assets/images/crop/21750.jpg"
+        "id": "16570",
+        "path": "./assets/images/crop/16570.jpg"
       },
       "reverse": {
-        "id": "86134",
-        "path": "./assets/images/crop/86134.jpg"
+        "id": "8468",
+        "path": "./assets/images/crop/8468.jpg"
       }
     },
     {
       "face": {
-        "id": "89922",
-        "path": "./assets/images/crop/89922.jpg"
+        "id": "72342",
+        "path": "./assets/images/crop/72342.jpg"
       },
       "reverse": {
-        "id": "14902",
-        "path": "./assets/images/crop/14902.jpg"
-      }
-    },
-    {
-      "face": {
-        "id": "18141",
-        "path": "./assets/images/crop/18141.jpg"
-      },
-      "reverse": {
-        "id": "68388",
-        "path": "./assets/images/crop/68388.jpg"
-      }
-    },
-    {
-      "face": {
-        "id": "50317",
-        "path": "./assets/images/crop/50317.jpg"
-      },
-      "reverse": {
-        "id": "14797",
-        "path": "./assets/images/crop/14797.jpg"
-      }
-    },
-    {
-      "face": {
-        "id": "68125",
-        "path": "./assets/images/crop/68125.jpg"
-      },
-      "reverse": {
-        "id": "11600",
-        "path": "./assets/images/crop/11600.jpg"
+        "id": "6798",
+        "path": "./assets/images/crop/6798.jpg"
       }
     }
   ],
-  "solution": "364975031758053978296812543065"
+  "solution": "736478932156620208982933059091723421657062156"
 }
