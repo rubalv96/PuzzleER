@@ -16,7 +16,7 @@ import {
 
 import ReactPlayer from "react-player";
 import SCORM from './SCORM.jsx';
-import NavBar from "./navBar";
+import NavBar from "./NavBar";
 import PuzzlesGroup from './PuzzlesGroup';
 import ZoomPiece from "./ZoomPiece";
 import InitialMessage from './InitialMessage';
@@ -430,6 +430,7 @@ export class App extends React.Component {
       }
     }
     escapp.submitPuzzle(GLOBAL_CONFIG.escapp.appPuzzleIds[0], solution, {}, function(success, res){
+      console.log("Solution "+ GLOBAL_CONFIG.solution);
       this.props.dispatch(checkSolution(success));
       if(success){
         let message = res.msg;
@@ -439,6 +440,10 @@ export class App extends React.Component {
       }
       this.mostrarMsgFinal();
     }.bind(this));
+    if(GLOBAL_CONFIG.solution === solution){
+      console.log("Solución sin escapp");
+      this.props.dispatch(checkSolution(true));
+    }
   }
 
   // Show instructions
