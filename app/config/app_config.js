@@ -13,22 +13,22 @@ let GLOBAL_CONFIG_DEVELOPMENT = {
   // volume:1, // Volumen de 0 a 1 (defecto 1)
 
   // Dimensiones del puzzle
-  M:3, // numero de columnas del puzzle (requerido)
+  M:6, // numero de columnas del puzzle (requerido)
   N:3, // numero de filas del puzzle (requerido)
   fake_pieces:0,
 
   // Reverse mode (defecto -> false)
-  reverseMode:true,
+  reverseMode:false,
 
   // Timer
-  time:"210", // tiempo en segundos para resolver el puzzle
+  // time:"210", // tiempo en segundos para resolver el puzzle
 
   // Zoom
-  zoomMode:true, // activar modo zoom
-  zoomFactor:5, // factor de ampliación
+  // zoomMode:true, // activar modo zoom
+  // zoomFactor:5, // factor de ampliación
 
   // Tiempo mínimo exigido para leer instrucciones (en segundos)
-  timeToReadInstructions:10,
+  // timeToReadInstructions:10,
 
   // Mensaje inicial
   initialMessage:"¿Serás capaz de resolver los misterios de la anatomía ocular?", // mensaje inicial de bienvenida
