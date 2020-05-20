@@ -430,7 +430,7 @@ export class App extends React.Component {
       }
     }
     escapp.submitPuzzle(GLOBAL_CONFIG.escapp.appPuzzleIds[0], solution, {}, function(success, res){
-      console.log("Solution "+ GLOBAL_CONFIG.solution);
+
       this.props.dispatch(checkSolution(success));
       if(success){
         let message = res.msg;
@@ -440,10 +440,7 @@ export class App extends React.Component {
       }
       this.mostrarMsgFinal();
     }.bind(this));
-    if(GLOBAL_CONFIG.solution === solution){
-      console.log("Solución sin escapp");
-      this.props.dispatch(checkSolution(true));
-    }
+
   }
 
   // Show instructions
