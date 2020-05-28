@@ -2,94 +2,184 @@
   "pieces": [
     {
       "face": {
-        "id": "20898",
-        "path": "./assets/images/crop/20898.jpg"
+        "id": "25008",
+        "path": "./assets/images/crop/25008.jpg"
       },
       "reverse": {
-        "id": "29729",
-        "path": "./assets/images/crop/29729.jpg"
+        "id": "75784",
+        "path": "./assets/images/crop/75784.jpg"
       }
     },
     {
       "face": {
-        "id": "56620",
-        "path": "./assets/images/crop/56620.jpg"
+        "id": "91887",
+        "path": "./assets/images/crop/91887.jpg"
       },
       "reverse": {
-        "id": "62106",
-        "path": "./assets/images/crop/62106.jpg"
+        "id": "95685",
+        "path": "./assets/images/crop/95685.jpg"
       }
     },
     {
       "face": {
-        "id": "29330",
-        "path": "./assets/images/crop/29330.jpg"
+        "id": "81022",
+        "path": "./assets/images/crop/81022.jpg"
       },
       "reverse": {
-        "id": "73946",
-        "path": "./assets/images/crop/73946.jpg"
+        "id": "64804",
+        "path": "./assets/images/crop/64804.jpg"
       }
     },
     {
       "face": {
-        "id": "73647",
-        "path": "./assets/images/crop/73647.jpg"
+        "id": "38915",
+        "path": "./assets/images/crop/38915.jpg"
       },
       "reverse": {
-        "id": "96209",
-        "path": "./assets/images/crop/96209.jpg"
+        "id": "57432",
+        "path": "./assets/images/crop/57432.jpg"
       }
     },
     {
       "face": {
-        "id": "89321",
-        "path": "./assets/images/crop/89321.jpg"
+        "id": "56036",
+        "path": "./assets/images/crop/56036.jpg"
       },
       "reverse": {
-        "id": "92340",
-        "path": "./assets/images/crop/92340.jpg"
+        "id": "40062",
+        "path": "./assets/images/crop/40062.jpg"
       }
     },
     {
       "face": {
-        "id": "59091",
-        "path": "./assets/images/crop/59091.jpg"
+        "id": "32663",
+        "path": "./assets/images/crop/32663.jpg"
       },
       "reverse": {
-        "id": "173",
-        "path": "./assets/images/crop/173.jpg"
+        "id": "10118",
+        "path": "./assets/images/crop/10118.jpg"
       }
     },
     {
       "face": {
-        "id": "62156",
-        "path": "./assets/images/crop/62156.jpg"
+        "id": "72092",
+        "path": "./assets/images/crop/72092.jpg"
       },
       "reverse": {
-        "id": "88045",
-        "path": "./assets/images/crop/88045.jpg"
+        "id": "348",
+        "path": "./assets/images/crop/348.jpg"
       }
     },
     {
       "face": {
-        "id": "16570",
-        "path": "./assets/images/crop/16570.jpg"
+        "id": "37447",
+        "path": "./assets/images/crop/37447.jpg"
       },
       "reverse": {
-        "id": "8468",
-        "path": "./assets/images/crop/8468.jpg"
+        "id": "88221",
+        "path": "./assets/images/crop/88221.jpg"
       }
     },
     {
       "face": {
-        "id": "72342",
-        "path": "./assets/images/crop/72342.jpg"
+        "id": "84304",
+        "path": "./assets/images/crop/84304.jpg"
       },
       "reverse": {
-        "id": "6798",
-        "path": "./assets/images/crop/6798.jpg"
+        "id": "28909",
+        "path": "./assets/images/crop/28909.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "92803",
+        "path": "./assets/images/crop/92803.jpg"
+      },
+      "reverse": {
+        "id": "38754",
+        "path": "./assets/images/crop/38754.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "10773",
+        "path": "./assets/images/crop/10773.jpg"
+      },
+      "reverse": {
+        "id": "85611",
+        "path": "./assets/images/crop/85611.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "94474",
+        "path": "./assets/images/crop/94474.jpg"
+      },
+      "reverse": {
+        "id": "13929",
+        "path": "./assets/images/crop/13929.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "75700",
+        "path": "./assets/images/crop/75700.jpg"
+      },
+      "reverse": {
+        "id": "26636",
+        "path": "./assets/images/crop/26636.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "11353",
+        "path": "./assets/images/crop/11353.jpg"
+      },
+      "reverse": {
+        "id": "79045",
+        "path": "./assets/images/crop/79045.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "22952",
+        "path": "./assets/images/crop/22952.jpg"
+      },
+      "reverse": {
+        "id": "32985",
+        "path": "./assets/images/crop/32985.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "58952",
+        "path": "./assets/images/crop/58952.jpg"
+      },
+      "reverse": {
+        "id": "90177",
+        "path": "./assets/images/crop/90177.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "22239",
+        "path": "./assets/images/crop/22239.jpg"
+      },
+      "reverse": {
+        "id": "90687",
+        "path": "./assets/images/crop/90687.jpg"
+      }
+    },
+    {
+      "face": {
+        "id": "5742",
+        "path": "./assets/images/crop/5742.jpg"
+      },
+      "reverse": {
+        "id": "20320",
+        "path": "./assets/images/crop/20320.jpg"
       }
     }
   ],
-  "solution": "736478932156620208982933059091723421657062156"
+  "solution": "10773113538430425008720929447422239757008102258952574238915374479188732663229529280356036"
 }
